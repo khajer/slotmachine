@@ -1,7 +1,7 @@
 const BLOCK_WIDTH = 100;
 const BLOCK_HEIGHT = 80;
 
-const VELOCITY = 1;
+const VELOCITY = 0.6;
 
 export class MainScene extends Phaser.Scene {    
     layer = null;
@@ -25,14 +25,14 @@ export class MainScene extends Phaser.Scene {
         
         const graphics = this.make.graphics();
         graphics.fillStyle(0xffffff);
-        graphics.fillRect(0, 80, 100, 80*3);
+        graphics.fillRect(0, BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT * 3);
         const mask = graphics.createGeometryMask();
         this.layer.setMask(mask);
 
         this.groupBlock =[
-            this.physics.add.sprite(50, 40+BLOCK_HEIGHT*1, "type4"),
-            this.physics.add.sprite(50, 40+BLOCK_HEIGHT*2, "type4"),
-            this.physics.add.sprite(50, 40+BLOCK_HEIGHT*3, "type4"),
+            this.physics.add.sprite(50, (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT * 1), "type4"),
+            this.physics.add.sprite(50, (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT * 2), "type4"),
+            this.physics.add.sprite(50, (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT * 3), "type4"),
         ];
         this.layer.add(this.groupBlock);
 
@@ -40,11 +40,11 @@ export class MainScene extends Phaser.Scene {
             .setInteractive()
             .on('pointerdown', ()=>{                                 
                 this.groupBlock.forEach(e=>{
-                    var dy = 240;
+                    var dy = BLOCK_HEIGHT * 3;
                     this.tweens.add({
                         targets: [e],
-                        y: "+="+dy,
-                        duration: dy/VELOCITY,
+                        y: "+=" + dy,
+                        duration: dy / VELOCITY,
                         ease: 'Linear',
                         repeat: 0,
                         onComplete:()=>{
@@ -57,21 +57,23 @@ export class MainScene extends Phaser.Scene {
                 this.addRandomBox(4);
                 
                 // var timeInterval = 400; // v = s/t , time = 80/0.2
-                var timeInterval = BLOCK_HEIGHT/VELOCITY;
-                var intervalId = setInterval(()=>{                      
+                var timeInterval = BLOCK_HEIGHT / VELOCITY;
+                var intervalId = setInterval(() => {                      
                     if(cnt === 0){
                         clearInterval(intervalId);
-                        this.addLast3Gen();
+                        this.addLast3Gen([4, 4, 4]);
                     }else{
                         this.addRandomBox(4);
                     }                    
-                    cnt -= 1;                 
-                    
+                    cnt -= 1;                                     
                 }, timeInterval); 
         });
     }    
     addRandomBox(typeId){
-        var box = this.physics.add.sprite(50, 40+BLOCK_HEIGHT*0, "type"+typeId)
+        var box = this.physics.add.sprite(
+            50, (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT * 0), 
+            "type" + typeId);
+            
         this.layer.add(box);
         var dy = BLOCK_HEIGHT*4;
         
@@ -86,45 +88,26 @@ export class MainScene extends Phaser.Scene {
             }                    
         })
     }
-    addLast3Gen(){
-        var typeId = 4;        
-        var box = this.physics.add.sprite(50, 40+BLOCK_HEIGHT*0, "type"+typeId)
-        this.layer.add(box);
-        var dy = 240;
-        this.tweens.add({
-            targets: [box],
-            y: "+="+dy,
-            duration: dy/VELOCITY,
-            ease: 'Linear',
-            repeat: 0,
-            onComplete:()=>{
-            }                    
-        });
-            
-        var box1 = this.physics.add.sprite(50, 40+BLOCK_HEIGHT*-1, "type"+typeId)
-        this.layer.add(box1);
-        this.tweens.add({
-            targets: [box1],
-            y: "+="+dy,
-            duration: dy/VELOCITY,
-            ease: 'Linear',
-            repeat: 0,
-            onComplete:()=>{
-            }                    
-        });    
-        var box2 = this.physics.add.sprite(50, 40+BLOCK_HEIGHT*-2, "type"+typeId)
-        this.layer.add(box2);
-        this.tweens.add({
-            targets: [box2],
-            y: "+="+dy,
-            duration: dy/VELOCITY,
-            ease: 'Linear',
-            repeat: 0,
-            onComplete:()=>{
-
-            }                    
-        });    
-        this.groupBlock = [box, box1, box2];
-            
+    addLast3Gen(dataCols){
+        var typeId = 4;                
+        var dy = BLOCK_HEIGHT * 3;
+        this.groupBlock = [];
+        for (var i = 0; i < 3; i++){            
+            var box = this.physics.add.sprite( 
+                50, 
+                (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT * -i), 
+                "type" + dataCols[i]);
+            this.layer.add(box);
+            this.groupBlock.push(box);
+            this.tweens.add({
+                targets: [box],
+                y: "+="+dy,
+                duration: dy/VELOCITY,
+                ease: 'Linear',
+                repeat: 0,
+                onComplete:()=>{
+                }                    
+            });
+        }            
     }
 }
