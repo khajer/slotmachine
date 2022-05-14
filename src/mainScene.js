@@ -1,7 +1,7 @@
 const BLOCK_WIDTH = 100;
 const BLOCK_HEIGHT = 80;
 
-const VELOCITY = 0.6;
+const VELOCITY = 1.0;
 
 export class MainScene extends Phaser.Scene {    
     layer = null;
@@ -53,7 +53,7 @@ export class MainScene extends Phaser.Scene {
                     })
                 });
                                 
-                var cnt = 3;
+                var cnt = 5;
                 this.addRandomBox(4);
                 
                 // var timeInterval = 400; // v = s/t , time = 80/0.2
@@ -61,7 +61,7 @@ export class MainScene extends Phaser.Scene {
                 var intervalId = setInterval(() => {                      
                     if(cnt === 0){
                         clearInterval(intervalId);
-                        this.addLast3Gen([4, 4, 4]);
+                        this.addLast3Gen([1, 2, 3]);
                     }else{
                         this.addRandomBox(4);
                     }                    
@@ -88,8 +88,7 @@ export class MainScene extends Phaser.Scene {
             }                    
         })
     }
-    addLast3Gen(dataCols){
-        var typeId = 4;                
+    addLast3Gen(dataCols){            
         var dy = BLOCK_HEIGHT * 3;
         this.groupBlock = [];
         for (var i = 0; i < 3; i++){            
@@ -97,6 +96,7 @@ export class MainScene extends Phaser.Scene {
                 50, 
                 (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT * -i), 
                 "type" + dataCols[i]);
+            box.name = "box_"+i;
             this.layer.add(box);
             this.groupBlock.push(box);
             this.tweens.add({
@@ -105,9 +105,23 @@ export class MainScene extends Phaser.Scene {
                 duration: dy/VELOCITY,
                 ease: 'Linear',
                 repeat: 0,
-                onComplete:()=>{
+                onComplete:(e)=>{
+                    // console.log("completed animation");
+                    // console.log(e.targets[0].name);
+                    // console.log(e.targets[0].y);
+                    e.targets[0].y += 5;
+                    this.tweens.add({
+                        targets:[e.targets[0]],
+                        y: "-=5",
+                        duration: 100,
+                        ease: 'Linear',
+                        repeat: 0,
+                        onComplete:()=>{
+                            console.log("complete");
+                        }
+                    });
                 }                    
             });
-        }            
+        }
     }
 }
