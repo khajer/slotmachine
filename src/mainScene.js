@@ -30,9 +30,10 @@ export class MainScene extends Phaser.Scene {
         this.layer.setMask(mask);
 
         this.groupBlock =[
-            this.physics.add.sprite(50, (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT * 1), "type4"),
-            this.physics.add.sprite(50, (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT * 2), "type4"),
-            this.physics.add.sprite(50, (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT * 3), "type4"),
+            this.physics.add.sprite(50, (BLOCK_HEIGHT / 2) + (BLOCK_HEIGHT * 0), "type3"),
+            this.physics.add.sprite(50, (BLOCK_HEIGHT / 2) + (BLOCK_HEIGHT * 1), "type3"),
+            this.physics.add.sprite(50, (BLOCK_HEIGHT / 2) + (BLOCK_HEIGHT * 2), "type3"),
+            this.physics.add.sprite(50, (BLOCK_HEIGHT / 2) + (BLOCK_HEIGHT * 3), "type3"),
         ];
         this.layer.add(this.groupBlock);
 
@@ -40,47 +41,46 @@ export class MainScene extends Phaser.Scene {
             .setInteractive()
             .on('pointerdown', ()=>{                                 
                 this.groupBlock.forEach(e=>{
-                    var dy = BLOCK_HEIGHT * 3;
+                    var dy = BLOCK_HEIGHT * 4;
                     this.tweens.add({
                         targets: [e],
                         y: "+=" + dy,
                         duration: dy / VELOCITY,
                         ease: 'Linear',
                         repeat: 0,
-                        onComplete:()=>{
+                        onComplete: () => {
                             e.destroy();
                         }                      
                     })
-                });
-                                
-                var cnt = 5;
-                this.addRandomBox(4);
-                
-                // var timeInterval = 400; // v = s/t , time = 80/0.2
+                });                                
+                var pinRollCnt = 20;
+                this.addRandomBox();                
                 var timeInterval = BLOCK_HEIGHT / VELOCITY;
                 var intervalId = setInterval(() => {                      
-                    if(cnt === 0){
+                    if(pinRollCnt === 0){
                         clearInterval(intervalId);
-                        this.addLast3Gen([1, 2, 3]);
+                        this.addLast3Gen([2, 2, 2]);
                     }else{
-                        this.addRandomBox(4);
+                        this.addRandomBox();
                     }                    
-                    cnt -= 1;                                     
+                    pinRollCnt -= 1;                                     
                 }, timeInterval); 
         });
     }    
-    addRandomBox(typeId){
+    addRandomBox(){
+        var maxType = 4;
+        var typeId = (Math.floor(Math.random() * 10) % maxType) + 1;
         var box = this.physics.add.sprite(
-            50, (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT * 0), 
+            50, (BLOCK_HEIGHT / 2) + (BLOCK_HEIGHT * -1), 
             "type" + typeId);
             
         this.layer.add(box);
-        var dy = BLOCK_HEIGHT*4;
+        var dy = BLOCK_HEIGHT * 5;
         
         this.tweens.add({
             targets: [box],
-            y: "+="+dy,
-            duration: dy/VELOCITY,
+            y: "+=" + dy,
+            duration: dy / VELOCITY,
             ease: 'Linear',
             repeat: 0,
             onComplete:()=>{
@@ -89,34 +89,36 @@ export class MainScene extends Phaser.Scene {
         })
     }
     addLast3Gen(dataCols){            
-        var dy = BLOCK_HEIGHT * 3;
+        var dy = BLOCK_HEIGHT * 4;
+        var difYLast = 10;
+        var lastDurationTime = 100;
+
         this.groupBlock = [];
-        for (var i = 0; i < 3; i++){            
+        for (var i = 0; i < 4; i++){            
+            var typebox = dataCols[i];
+            if (i === 3) typebox = 1;            
             var box = this.physics.add.sprite( 
                 50, 
-                (BLOCK_HEIGHT/2) + (BLOCK_HEIGHT * -i), 
-                "type" + dataCols[i]);
-            box.name = "box_"+i;
+                (BLOCK_HEIGHT / 2) - (BLOCK_HEIGHT * + (i + 1)), 
+                "type" + typebox);
+            box.name = "box_" + i;
             this.layer.add(box);
             this.groupBlock.push(box);
             this.tweens.add({
                 targets: [box],
-                y: "+="+dy,
-                duration: dy/VELOCITY,
+                y: "+=" + dy,
+                duration: dy / VELOCITY,
                 ease: 'Linear',
                 repeat: 0,
-                onComplete:(e)=>{
-                    // console.log("completed animation");
-                    // console.log(e.targets[0].name);
-                    // console.log(e.targets[0].y);
-                    e.targets[0].y += 5;
+                onComplete:(e)=>{                    
+                    e.targets[0].y += difYLast;
                     this.tweens.add({
                         targets:[e.targets[0]],
-                        y: "-=5",
-                        duration: 100,
+                        y: "-=" + difYLast,
+                        duration: lastDurationTime,
                         ease: 'Linear',
                         repeat: 0,
-                        onComplete:()=>{
+                        onComplete:() => {
                             console.log("complete");
                         }
                     });
