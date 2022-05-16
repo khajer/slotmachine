@@ -26,13 +26,11 @@ export class BoxSlot {
         scene.load.image('type3', 'assets/symbol_3.png');
         scene.load.image('type4', 'assets/symbol_4.png');
     }
-    create (){           
-        this.groupBlock =[
-            scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 0), "type3"),
-            scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 1), "type3"),
-            scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 2), "type3"),
-            scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 3), "type3"),
-        ];
+    create (){         
+        for(var i=0; i< 4; i++){
+            var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
+            this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * i), "type" + typeId));
+        }
 
         this.layer = scene.add.layer();          
         const graphics = scene.make.graphics();
@@ -44,7 +42,6 @@ export class BoxSlot {
         this.layer.add(this.groupBlock);
     }
     spin(data){
-        console.log("Spin : " + gVelocity);
         return new Promise((resolve, reject)=>{            
             this.groupBlock.forEach(e=>{
                 var dy = BLOCK_HEIGHT * 4;

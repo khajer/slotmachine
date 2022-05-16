@@ -2,6 +2,7 @@ const BLOCK_WIDTH = 100;
 const BLOCK_HEIGHT = 80;
 
 const VELOCITY = 1;
+const MAX_COL = 5;
 
 import {BoxSlot} from './BoxSlot.js';
 
@@ -42,13 +43,31 @@ export class MainScene extends Phaser.Scene {
         var btnSpin = this.physics.add.sprite(400, 400, "btnSpin01")
             .setInteractive()
             .on('pointerdown', ()=>{     
-                var data = [2, 2, 2];
-                this.boxSlots.forEach(boxSlot => {
-                    boxSlot.spin(data).then(e=>{
-                        console.log("spin completed");
+                var data = [];
+                var dataGen = this.genData();
+                for(var i=0; i< MAX_COL; i++){
+                    data[i] = [
+                        dataGen[(MAX_COL*2)+i], 
+                        dataGen[MAX_COL+i],
+                        dataGen[i]
+                    ];
+                }
+                this.boxSlots.forEach((boxSlot, idx) => {
+                    boxSlot.spin(data[idx]).then(e=>{
+                        if(idx===this.boxSlots.length -1 ){
+                            console.log("spin all completed");    
+                        }                        
                     });
                 });
         });
         
     }    
+    genData(){
+        return [
+            3, 1, 3, 2, 3,
+            1, 1, 2, 1, 1,
+            1, 2, 2, 4, 2, 
+        ];
+
+    }
 }
