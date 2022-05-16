@@ -92,8 +92,8 @@ export class BoxSlot {
     addLast3Gen(dataCols){     
         return new Promise((resolve, reject)=>{
             var dy = BLOCK_HEIGHT * 4;
-            var difYLast = 10;
-            var lastDurationTime = 100;
+            var difYLast = 5;
+            var lastDurationTime = 400;
 
             this.groupBlock = [];
             for (var i = 0; i < 4; i++){            
@@ -118,7 +118,7 @@ export class BoxSlot {
                             targets:[e.targets[0]],
                             y: "-=" + difYLast,
                             duration: lastDurationTime,
-                            ease: 'Linear',
+                            ease: 'Bounce',
                             repeat: 0,
                             onComplete:() => {
                                 resolve();

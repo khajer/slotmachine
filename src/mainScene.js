@@ -1,7 +1,7 @@
 const BLOCK_WIDTH = 100;
 const BLOCK_HEIGHT = 80;
 
-const VELOCITY = 0.8;
+const VELOCITY = 1.0;
 
 import {BoxSlot} from './BoxSlot.js';
 
