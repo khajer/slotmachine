@@ -1,17 +1,24 @@
 const BLOCK_WIDTH = 100;
 const BLOCK_HEIGHT = 80;
+const SHOW_MAX_BOX = 3;
+const MAX_TYPE = 4;
 
 let gVelocity = 0;
 let scene = null;
 
 export class BoxSlot {
     layer = null;
+    startX = 0;
+    startY = 0;
     maxSpinCnt = 0;
     groupBlock = [];
-    constructor (s, maxSpinCnt, velocity){  
+    constructor (s, maxSpinCnt, velocity, startX, startY){  
         gVelocity = velocity;      
         scene = s;
         this.maxSpinCnt = maxSpinCnt
+        this.startX = startX;
+        this.startY = startY;
+
     }
     preload(){
         scene.load.image('type1', 'assets/symbol_1.png');
@@ -21,23 +28,23 @@ export class BoxSlot {
     }
     create (){           
         this.groupBlock =[
-            scene.physics.add.sprite(50, (BLOCK_HEIGHT / 2) + (BLOCK_HEIGHT * 0), "type3"),
-            scene.physics.add.sprite(50, (BLOCK_HEIGHT / 2) + (BLOCK_HEIGHT * 1), "type3"),
-            scene.physics.add.sprite(50, (BLOCK_HEIGHT / 2) + (BLOCK_HEIGHT * 2), "type3"),
-            scene.physics.add.sprite(50, (BLOCK_HEIGHT / 2) + (BLOCK_HEIGHT * 3), "type3"),
+            scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 0), "type3"),
+            scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 1), "type3"),
+            scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 2), "type3"),
+            scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 3), "type3"),
         ];
 
         this.layer = scene.add.layer();          
         const graphics = scene.make.graphics();
         graphics.fillStyle(0xffffff);
-        graphics.fillRect(0, BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT * 3);
+        graphics.fillRect(this.startX - (BLOCK_WIDTH/2), BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT * SHOW_MAX_BOX);
         const mask = graphics.createGeometryMask();
         this.layer.setMask(mask);
 
         this.layer.add(this.groupBlock);
     }
-    spin(){
-        console.log("Spin");
+    spin(data){
+        console.log("Spin : " + gVelocity);
         return new Promise((resolve, reject)=>{            
             this.groupBlock.forEach(e=>{
                 var dy = BLOCK_HEIGHT * 4;
@@ -58,8 +65,7 @@ export class BoxSlot {
             var intervalId = setInterval(async () => {                      
                 if(pinRollCnt === 0){
                     clearInterval(intervalId);
-                    var dataGen = [2, 2, 2];
-                    await this.addLast3Gen(dataGen);
+                    await this.addLast3Gen(data);
                     resolve();
                 }else{
                     this.addRandomBox();
@@ -68,11 +74,10 @@ export class BoxSlot {
             }, timeInterval); 
         })
     }
-    addRandomBox(){
-        var maxType = 4;
-        var typeId = (Math.floor(Math.random() * 10) % maxType) + 1;
+    addRandomBox(){        
+        var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
         var box = scene.physics.add.sprite(
-            50, (BLOCK_HEIGHT / 2) + (BLOCK_HEIGHT * -1), 
+            this.startX, this.startY + (BLOCK_HEIGHT * -1), 
             "type" + typeId);
             
         this.layer.add(box);
@@ -91,17 +96,17 @@ export class BoxSlot {
     }
     addLast3Gen(dataCols){     
         return new Promise((resolve, reject)=>{
-            var dy = BLOCK_HEIGHT * 4;
+            var dy = BLOCK_HEIGHT * (SHOW_MAX_BOX + 1);
             var difYLast = 5;
             var lastDurationTime = 400;
 
             this.groupBlock = [];
-            for (var i = 0; i < 4; i++){            
+            for (var i = 0; i < (SHOW_MAX_BOX+1); i++){            
                 var typebox = dataCols[i];
                 if (i === 3) typebox = 1;            
                 var box = scene.physics.add.sprite( 
-                    50, 
-                    (BLOCK_HEIGHT / 2) - (BLOCK_HEIGHT * + (i + 1)), 
+                    this.startX, 
+                    this.startY - (BLOCK_HEIGHT * + (i + 1)), 
                     "type" + typebox);
                 box.name = "box_" + i;
                 this.layer.add(box);
@@ -112,7 +117,7 @@ export class BoxSlot {
                     duration: dy / gVelocity,
                     ease: 'Linear',
                     repeat: 0,
-                    onComplete:(e)=>{                    
+                    onComplete:(e) => {                    
                         e.targets[0].y += difYLast;
                         scene.tweens.add({
                             targets:[e.targets[0]],
