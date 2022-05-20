@@ -3,14 +3,15 @@ const BLOCK_HEIGHT = 80;
 
 const VELOCITY = 1;
 const MAX_COL = 5;
+const MAX_TYPE = 4;
 
 import {BoxSlot} from './BoxSlot.js';
 
 export class MainScene extends Phaser.Scene {    
-    layer = null;
-
+    layer = null;    
     boxSlots = [];
 
+    dataSlot = [];
     groupBlock = [];
     constructor (){
         super(); 
@@ -18,11 +19,11 @@ export class MainScene extends Phaser.Scene {
     }
     init(){
         this.boxSlots = [
-            new BoxSlot(this, 8, VELOCITY, BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2),
-            new BoxSlot(this, 10, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 1), BLOCK_HEIGHT / 2),
+            new BoxSlot(this, 4, VELOCITY, BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2),
+            new BoxSlot(this, 8, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 1), BLOCK_HEIGHT / 2),
             new BoxSlot(this, 12, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 2), BLOCK_HEIGHT / 2),
-            new BoxSlot(this, 14, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 3), BLOCK_HEIGHT / 2),
-            new BoxSlot(this, 16, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 4), BLOCK_HEIGHT / 2)
+            new BoxSlot(this, 16, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 3), BLOCK_HEIGHT / 2),
+            new BoxSlot(this, 20, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 4), BLOCK_HEIGHT / 2)
         ]
     }
         
@@ -42,32 +43,58 @@ export class MainScene extends Phaser.Scene {
         
         var btnSpin = this.physics.add.sprite(400, 400, "btnSpin01")
             .setInteractive()
-            .on('pointerdown', ()=>{     
-                var data = [];
-                var dataGen = this.genData();
-                for(var i=0; i< MAX_COL; i++){
-                    data[i] = [
-                        dataGen[(MAX_COL*2)+i], 
-                        dataGen[MAX_COL+i],
-                        dataGen[i]
-                    ];
-                }
+            .on('pointerdown', ()=>{  
+                this.dataSlot = this.genData();                   
+                var data = this.splitDataToSlot(this.dataSlot);
                 this.boxSlots.forEach((boxSlot, idx) => {
                     boxSlot.spin(data[idx]).then(e=>{
                         if(idx===this.boxSlots.length -1 ){
                             console.log("spin all completed");    
+                            this.checkRule();
                         }                        
                     });
                 });
         });
         
+    }
+    splitDataToSlot(dataSlot){        
+        var data = [];
+        for(var i=0; i< MAX_COL; i++){
+            data[i] = [
+                dataSlot[(MAX_COL*2)+i], 
+                dataSlot[MAX_COL+i],
+                dataSlot[i]
+            ];
+        }
+        return data;
     }    
     genData(){
-        return [
-            3, 1, 3, 2, 3,
-            1, 1, 2, 1, 1,
-            1, 2, 2, 4, 2, 
-        ];
+        // return [
+        //     3, 1, 3, 2, 3,
+        //     1, 1, 2, 1, 1,
+        //     1, 2, 2, 4, 2, 
+        // ];
+        var data = [];
+        for(var i = 0; i < (MAX_COL*3); i++){
+            var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
+            data.push(typeId);
+        }
+        return data;
+
+    }
+    checkRule(){
+        console.log("check rule");
+        
+            // [
+            //     3, 1, 3, 2, 3,
+            //     1, 1, 2, 1, 1,
+            //     1, 2, 2, 4, 2, 
+            // ];
+
+        
+        // - normal card, show > 5 item in monitor 
+        // - special > 3 
+
 
     }
 }

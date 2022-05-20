@@ -94,7 +94,7 @@ export class BoxSlot {
     addLast3Gen(dataCols){     
         return new Promise((resolve, reject)=>{
             var dy = BLOCK_HEIGHT * (SHOW_MAX_BOX + 1);
-            var difYLast = 5;
+            var difYLast = 20;
             var lastDurationTime = 400;
 
             this.groupBlock = [];
