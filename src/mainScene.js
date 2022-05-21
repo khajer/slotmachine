@@ -50,7 +50,12 @@ export class MainScene extends Phaser.Scene {
                     boxSlot.spin(data[idx]).then(e=>{
                         if(idx===this.boxSlots.length -1 ){
                             console.log("spin all completed");    
-                            this.checkRule();
+                            var dataRule = this.checkRule();
+                            if(dataRule.length > 0){
+                                this.animateAcceptRule(dataRule).then(()=>{
+                                    console.log("Already done");
+                                });
+                            }
                         }                        
                     });
                 });
@@ -92,9 +97,34 @@ export class MainScene extends Phaser.Scene {
             // ];
 
         
-        // - normal card, show > 5 item in monitor 
-        // - special > 3 
+        // >= 3
+        // line - - - - -
 
+        // line - - ^ - -
+        // line - - ^
+
+        // line - - v - -
+        var data = [];
+        data[0] = [0];
+        data[1] = [0];
+        data[2] = [0];
+
+        return data;
+
+    }
+    animateAcceptRule(dataRule){
+        var blinkTime = 4000;
+        dataRule.forEach((e, idx)=>{
+            this.boxSlots[idx].setRuleBoxAnimate(e, blinkTime);
+        });
+        return new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                console.log("!!!!!!!! COMPLETED !!!!!!!!")
+                resolve();   
+            },
+            blinkTime)
+        });
+    
 
     }
 }

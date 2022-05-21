@@ -131,4 +131,21 @@ export class BoxSlot {
             }
         } );            
     }
+    setRuleBoxAnimate(rows, blinkTime){   
+        var repeat = (blinkTime/1000) - 1;
+        var slots = [];
+        rows.forEach(v=>{
+            var box = this.groupBlock[v];
+            box.alpha = 0.5;
+            slots.push(box);
+        });
+        scene.tweens.add({
+            targets: slots, 
+            duration: 1000,
+            ease: 'Sine.easeInOut',
+            alpha: 1,
+            repeat: repeat,
+        });
+        
+    }
 }
