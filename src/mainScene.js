@@ -6,6 +6,7 @@ const MAX_COL = 5;
 const MAX_TYPE = 4;
 
 import {BoxSlot} from './BoxSlot.js';
+import {Logic} from './Logic.js';
 
 export class MainScene extends Phaser.Scene {    
     layer = null;    
@@ -27,7 +28,7 @@ export class MainScene extends Phaser.Scene {
         ]
     }
         
-    preload (){  
+    preload(){  
         this.init();          
         this.boxSlots.forEach(boxSlot => {
             boxSlot.preload();
@@ -36,21 +37,21 @@ export class MainScene extends Phaser.Scene {
         this.load.image("btnSpin01", 'assets/spin_0.png');
         this.load.image("btnSpin02", 'assets/spin_1.png');
     }
-    create (){   
-        this.boxSlots.forEach(boxSlot => {
-            boxSlot.create();
+    create(){   
+        var dataSlot = Logic.splitDataToSlot(Logic.genData());
+        this.boxSlots.forEach( (boxSlot, idx) => {
+            boxSlot.create(dataSlot[idx]);            
         });
         
         var btnSpin = this.physics.add.sprite(400, 400, "btnSpin01")
             .setInteractive()
-            .on('pointerdown', ()=>{  
-                this.dataSlot = this.genData();                   
-                var data = this.splitDataToSlot(this.dataSlot);
+            .on('pointerdown', ()=>{                   
+                var data = Logic.splitDataToSlot(Logic.genData());
                 this.boxSlots.forEach((boxSlot, idx) => {
                     boxSlot.spin(data[idx]).then(e=>{
                         if(idx===this.boxSlots.length -1 ){
                             console.log("spin all completed");    
-                            var dataRule = this.checkRule();
+                            var dataRule = Logic.checkDataRule();
                             if(dataRule.length > 0){
                                 this.animateAcceptRule(dataRule).then(()=>{
                                     console.log("Already done");
@@ -59,59 +60,9 @@ export class MainScene extends Phaser.Scene {
                         }                        
                     });
                 });
-        });
-        
+        });        
     }
-    splitDataToSlot(dataSlot){        
-        var data = [];
-        for(var i=0; i< MAX_COL; i++){
-            data[i] = [
-                dataSlot[(MAX_COL*2)+i], 
-                dataSlot[MAX_COL+i],
-                dataSlot[i]
-            ];
-        }
-        return data;
-    }    
-    genData(){
-        // return [
-        //     3, 1, 3, 2, 3,
-        //     1, 1, 2, 1, 1,
-        //     1, 2, 2, 4, 2, 
-        // ];
-        var data = [];
-        for(var i = 0; i < (MAX_COL*3); i++){
-            var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
-            data.push(typeId);
-        }
-        return data;
 
-    }
-    checkRule(){
-        console.log("check rule");
-        
-            // [
-            //     3, 1, 3, 2, 3,
-            //     1, 1, 2, 1, 1,
-            //     1, 2, 2, 4, 2, 
-            // ];
-
-        
-        // >= 3
-        // line - - - - -
-
-        // line - - ^ - -
-        // line - - ^
-
-        // line - - v - -
-        var data = [];
-        data[0] = [0];
-        data[1] = [0];
-        data[2] = [0];
-
-        return data;
-
-    }
     animateAcceptRule(dataRule){
         var blinkTime = 4000;
         dataRule.forEach((e, idx)=>{
@@ -124,7 +75,5 @@ export class MainScene extends Phaser.Scene {
             },
             blinkTime)
         });
-    
-
     }
 }

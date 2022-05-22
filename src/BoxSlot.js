@@ -26,12 +26,12 @@ export class BoxSlot {
         scene.load.image('type3', 'assets/symbol_3.png');
         scene.load.image('type4', 'assets/symbol_4.png');
     }
-    create (){         
-        for(var i=0; i< 4; i++){
-            var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
-            this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * i), "type" + typeId));
-        }
-
+    create (data){         
+        this.setStart(data);
+        this.addMask();
+        
+    }
+    addMask(){
         this.layer = scene.add.layer();          
         const graphics = scene.make.graphics();
         graphics.fillStyle(0xffffff);
@@ -40,6 +40,17 @@ export class BoxSlot {
         this.layer.setMask(mask);
 
         this.layer.add(this.groupBlock);
+    }
+    setStart(data){
+        this.groupBlock = [];
+        
+        var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
+        this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 0), "type" + typeId));
+        
+        data.reverse().forEach((v, idx)=>{
+            this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * (idx+1)), "type" + v));
+        });       
+        
     }
     spin(data){
         return new Promise((resolve, reject)=>{            
@@ -129,7 +140,7 @@ export class BoxSlot {
                     }                    
                 });
             }
-        } );            
+        });            
     }
     setRuleBoxAnimate(rows, blinkTime){   
         var repeat = (blinkTime/1000) - 1;
