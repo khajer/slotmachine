@@ -1,6 +1,5 @@
 import {MainScene} from '../src/MainScene.js';
 
-
 const WIDTH = 800;
 const HEIGHT = 600;
 

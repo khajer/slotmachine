@@ -51,7 +51,7 @@ export class MainScene extends Phaser.Scene {
                     boxSlot.spin(data[idx]).then(e=>{
                         if(idx===this.boxSlots.length -1 ){
                             console.log("spin all completed");    
-                            var dataRule = Logic.checkDataRule();
+                            var dataRule = Logic.checkDataRule(dataSlot);
                             if(dataRule.length > 0){
                                 this.animateAcceptRule(dataRule).then(()=>{
                                     console.log("Already done");
