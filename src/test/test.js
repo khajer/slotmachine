@@ -16,7 +16,7 @@ describe('Logic.splitDataToSlot(): check first array == 5 column', ()=>{
     assert.equal(5, sp.length);
 });
 
-describe('Logic.checkDataRule()', ()=>{
+describe('Logic.checkDataRule() 5', ()=>{
     var data = [1, 1, 1, 1, 1, 
                 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0]
@@ -25,6 +25,72 @@ describe('Logic.checkDataRule()', ()=>{
     dataExpectSlot = [0, 1, 2, 3, 4];
     
     var dataRule = Logic.checkDataRule(data);
+    console.log()
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('Logic.checkDataRule() 4', ()=>{
+    var data = [0, 1, 1, 1, 1, 
+                0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0]
+    
+    var dataExpectSlot = [];
+    dataExpectSlot = [1, 2, 3, 4];
+    
+    var dataRule = Logic.checkDataRule(data);
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('Logic.checkDataRule() 3.0', ()=>{
+    var data = [0, 1, 1, 1, 0, 
+                0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0]
+    
+    var dataExpectSlot = [];
+    dataExpectSlot = [1, 2, 3];
+    
+    var dataRule = Logic.checkDataRule(data);
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('Logic.checkDataRule() 3.1', ()=>{
+    var data = [1, 1, 1, 0, 0, 
+                0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0]
+    
+    var dataExpectSlot = [];
+    dataExpectSlot = [0, 1, 2];
+    
+    var dataRule = Logic.checkDataRule(data);
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('Logic.checkDataRule() 4.2', ()=>{
+    var data = [0, 1, 1, 1, 1, 
+                0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0]
+    
+    var dataExpectSlot = [];
+    dataExpectSlot = [1, 2, 3, 4];
+    
+    var dataRule = Logic.checkDataRule(data);
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('Logic.checkDataRule() 3.1', ()=>{
+    var data = [1, 1, 0, 1, 0, 
+                0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0]
+    
+    var dataExpectSlot = [];
+    dataExpectSlot = [];
+    
+    var dataRule = Logic.checkDataRule(data);
+    
     assert.equal(dataRule, dataExpectSlot);
     
 });

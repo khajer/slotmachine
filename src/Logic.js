@@ -4,36 +4,26 @@ const MAX_ROW = 3;
 
 var Logic = {
     checkDataRule(dataSlot){
-
-        var dataResult = [];
-        var cnt = 0;
-        if(dataSlot[0] === dataSlot[1] && dataSlot[0] === dataSlot[2] && dataSlot[0] === dataSlot[3] && dataSlot[0] === dataSlot[4]){
-            cnt = 5;
-            dataResult = [0, 1, 2, 3, 4];
-            // console.log(dataResult)
+        var tmp = [];
+        var i=0;
+        while(tmp.length === 0){
+           var dChk = dataSlot[i];
+           for(var j=i+1; j< 5; j++){
+               if(dChk === dataSlot[j]){                  
+                   if(tmp.length === 0){
+                    tmp.push(i);
+                   }
+                   tmp.push(j);
+               }else{
+                   break;
+               }
+           }
+           i++;
         }
-        else if(dataSlot[0] === dataSlot[1] && dataSlot[0] === dataSlot[2] && dataSlot[0] === dataSlot[3]){
-            cnt = 4;
-            dataResult = [0, 1, 2, 3];
+        if(tmp.length < 3){
+            tmp = [];
         }
-        else if(dataSlot[0] === dataSlot[1] && dataSlot[0] === dataSlot[2]){
-            cnt = 3;
-            dataResult = [0, 1, 2];
-        }
-        else if(dataSlot[1] === dataSlot[2] && dataSlot[1] === dataSlot[3] && dataSlot[1] === dataSlot[4]){
-            cnt = 4;
-            dataResult = [1, 2, 3, 4];
-        }
-        else if(dataSlot[1] === dataSlot[2] && dataSlot[1] === dataSlot[3]){
-            cnt = 3;
-            dataResult = [1, 2, 3];
-        }
-        else if(dataSlot[2] === dataSlot[3] && dataSlot[2] === dataSlot[4]){
-            cnt = 3;
-            dataResult = [2, 3, 4];
-        }
-        dataResult = [1];
-        return dataResult;
+        return tmp;
     },
     genData(){
         var data = [
