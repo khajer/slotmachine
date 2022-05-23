@@ -22,8 +22,9 @@ describe('Logic.checkDataRule()', ()=>{
                 0, 0, 0, 0, 0]
     
     var dataExpectSlot = [];
-    dataExpectSlot[0] = [0];
-    dataExpectSlot[1] = [0];
-    dataExpectSlot[2] = [0];
-    assert.equal(Logic.checkDataRule(data)[0], dataExpectSlot[0]);
+    dataExpectSlot = [0, 1, 2, 3, 4];
+    
+    var dataRule = Logic.checkDataRule(data);
+    assert.equal(dataRule, dataExpectSlot);
+    
 });

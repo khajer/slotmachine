@@ -9,7 +9,8 @@ var Logic = {
         var cnt = 0;
         if(dataSlot[0] === dataSlot[1] && dataSlot[0] === dataSlot[2] && dataSlot[0] === dataSlot[3] && dataSlot[0] === dataSlot[4]){
             cnt = 5;
-            dataResult = [0, 1, 2, 3, 4]
+            dataResult = [0, 1, 2, 3, 4];
+            // console.log(dataResult)
         }
         else if(dataSlot[0] === dataSlot[1] && dataSlot[0] === dataSlot[2] && dataSlot[0] === dataSlot[3]){
             cnt = 4;
@@ -19,8 +20,7 @@ var Logic = {
             cnt = 3;
             dataResult = [0, 1, 2];
         }
-
-        if(dataSlot[1] === dataSlot[2] && dataSlot[1] === dataSlot[3] && dataSlot[1] === dataSlot[4]){
+        else if(dataSlot[1] === dataSlot[2] && dataSlot[1] === dataSlot[3] && dataSlot[1] === dataSlot[4]){
             cnt = 4;
             dataResult = [1, 2, 3, 4];
         }
@@ -28,18 +28,12 @@ var Logic = {
             cnt = 3;
             dataResult = [1, 2, 3];
         }
-
-        if(dataSlot[2] === dataSlot[3] && dataSlot[2] === dataSlot[4]){
+        else if(dataSlot[2] === dataSlot[3] && dataSlot[2] === dataSlot[4]){
             cnt = 3;
             dataResult = [2, 3, 4];
         }
-    
-        var data = [];
-        data[0] = [0];
-        data[1] = [0];
-        data[2] = [0];
-
-        return data;
+        dataResult = [1];
+        return dataResult;
     },
     genData(){
         var data = [

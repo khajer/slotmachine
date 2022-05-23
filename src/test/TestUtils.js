@@ -34,39 +34,28 @@ var describe = function(str, fn){
 var assert = {
     equal(val1, val2){
         var txt = txtLabel + "\n [";
-        if(typeof (val1) == "object" 
-            && Array.isArray(val1)){
-            if(val1.equals(val2)){
-                txt += "✓] success"
-            }else{
-                txt += "x] fails"
-            }
-        }else{            
-            if(val1 === val2) {
-                txt += "✓] success"
-            }else{
-                txt += "x] fails"
-            }           
+        if((typeof (val1) == "object" 
+                && Array.isArray(val1) 
+                && val1.equals(val2))
+            || (val1 === val2)){
+            txt += "✓] success";
+        }else{
+            txt += "x] fails"
+            txt += "\n val1: " + val1 +", val2: " +val2;
         }
         console.log(txt);
     },
     notEqual(val1, val2){
         var txt = txtLabel + "\n [";
-        if(typeof (val1) == "object" 
-            && Array.isArray(val1)){
-            if(val1.equals(val2)){
-                txt += "x] fails"
-            }else{                
-                txt += "✓] success"
-            }
-        }else{            
-            if(val1===val2){
-                txt += "✓] success"
-            }else{
-                txt += "x] fails"
-            }
-            
-        } 
+        if((typeof (val1) == "object" 
+                && Array.isArray(val1) 
+                && val1.equals(val2))
+            || val1!==val2){
+            txt += "x] fails"
+            txt += "\n val1: " + val1 +", val2: " +val2;
+        }else{
+            txt += "✓] success"
+        }
         console.log(txt);       
     }
 }
