@@ -11,9 +11,23 @@ describe('Logic.genData(): test length != 0', ()=>{
 });
 
 describe('Logic.splitDataToSlot(): check first array == 5 column', ()=>{    
-    var data = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+    var data = [ 
+                1,1,1,1,1,
+                1,1,1,1,1,
+                1,1,1,1,1
+            ];
     var sp = Logic.splitDataToSlot(data);
     assert.equal(5, sp.length);
+});
+
+describe('Logic.splitDataToSlot(): check first slot machine data', ()=>{    
+    var data = [ 
+                1,1,1,1,1,
+                1,1,1,1,1,
+                3,1,1,1,1
+            ];
+    var sp = Logic.splitDataToSlot(data);
+    assert.equal([1, 1, 3], sp[0]);
 });
 
 describe('Logic.checkDataRule() 5', ()=>{
@@ -120,7 +134,7 @@ describe('Logic.checkDataRule() line1 normal', ()=>{
     
 });
 
-describe('Logic.checkDataRule() line1', ()=>{
+describe('Logic.checkDataRule() line1, line2 ', ()=>{
     var data = [0, 1, 0, 1, 0, 
                 1, 1, 1, 1, 1,
                 0, 0, 0, 0, 0]
@@ -132,3 +146,35 @@ describe('Logic.checkDataRule() line1', ()=>{
     assert.equal(dataRule, dataExpectSlot);
     
 });
+describe('Logic.checkDataRule() line1, line2, line3  ', ()=>{
+    var data = [
+        1, 1, 1, 1, 1,
+        2, 2, 2, 2, 2,
+        1, 3, 3, 3, 1
+    ]
+    
+    var dataExpectSlot = [
+        0, 1, 2, 3, 4, 
+        5, 6, 7, 8, 9, 
+        11, 12, 13];
+    
+    var dataRule = Logic.checkDataRule(data);
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+
+
+// describe('checkDataRule() & split to slot ', ()=>{
+//     var data = [0, 1, 1, 1, 0, 
+//                 1, 2, 1, 5, 1,
+//                 0, 1, 0, 3, 0]
+        
+//     var dataRule = Logic.checkDataRule(data);
+//     var slots = Logic.splitDataToSlot(dataRule);
+//     var slot = [
+//         []
+//     ]
+//     assert.equal(dataRule, dataExpectSlot);
+    
+// });

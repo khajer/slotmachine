@@ -43,20 +43,28 @@ export class MainScene extends Phaser.Scene {
             boxSlot.create(dataSlot[idx]);            
         });
         
+        var pressed = false;
         var btnSpin = this.physics.add.sprite(400, 400, "btnSpin01")
             .setInteractive()
-            .on('pointerdown', ()=>{                   
-                var data = Logic.splitDataToSlot(Logic.genData());
+            .on('pointerdown', ()=>{       
+                if(pressed){
+                    return;
+                }
+                pressed = true;
+
+                var dataGen = Logic.genData();
+                var data = Logic.splitDataToSlot(dataGen);
                 this.boxSlots.forEach((boxSlot, idx) => {
                     boxSlot.spin(data[idx]).then(e=>{
                         if(idx===this.boxSlots.length -1 ){
                             console.log("spin all completed");    
-                            var dataRule = Logic.checkDataRule(dataSlot);
+                            var dataRule = Logic.checkDataRule(dataGen);
                             if(dataRule.length > 0){
                                 this.animateAcceptRule(dataRule).then(()=>{
-                                    console.log("Already done");
+                                    console.log("Already done");                                    
                                 });
                             }
+                            pressed = false;
                         }                        
                     });
                 });
@@ -64,8 +72,23 @@ export class MainScene extends Phaser.Scene {
     }
 
     animateAcceptRule(dataRule){
+        // console.log(dataRule);
+        var dataRuleSlot = [];
+        dataRuleSlot[0] = [0];
+        dataRuleSlot[1] = [0];
+        dataRuleSlot[2] = [0];
+        dataRuleSlot[3] = [0];
+        dataRuleSlot[4] = [0];
+
+        
+        // for(var i=0; i< 5; i++){
+        //     dataRuleSlot.push([1]);
+        // }
+
         var blinkTime = 4000;
-        dataRule.forEach((e, idx)=>{
+        
+
+        dataRuleSlot.forEach((e, idx)=>{
             this.boxSlots[idx].setRuleBoxAnimate(e, blinkTime);
         });
         return new Promise((resolve, reject)=>{

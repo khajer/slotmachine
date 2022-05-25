@@ -18,7 +18,6 @@ export class BoxSlot {
         this.maxSpinCnt = maxSpinCnt
         this.startX = startX;
         this.startY = startY;
-
     }
     preload(){
         scene.load.image('type1', 'assets/symbol_1.png');
@@ -42,15 +41,13 @@ export class BoxSlot {
         this.layer.add(this.groupBlock);
     }
     setStart(data){
-        this.groupBlock = [];
-        
+        this.groupBlock = [];        
         var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
         this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 0), "type" + typeId));
         
-        data.reverse().forEach((v, idx)=>{
+        data.forEach((v, idx)=>{
             this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * (idx+1)), "type" + v));
-        });       
-        
+        });               
     }
     spin(data){
         return new Promise((resolve, reject)=>{            
@@ -111,10 +108,16 @@ export class BoxSlot {
             this.groupBlock = [];
             for (var i = 0; i < (SHOW_MAX_BOX+1); i++){            
                 var typebox = dataCols[i];
-                if (i === 3) typebox = 1;            
+                var startY = this.startY - (BLOCK_HEIGHT*(3-i));
+
+                if (i === SHOW_MAX_BOX){
+                    typebox = 2;
+                    startY = this.startY - (BLOCK_HEIGHT*4);
+                }            
+                
                 var box = scene.physics.add.sprite( 
                     this.startX, 
-                    this.startY - (BLOCK_HEIGHT * + (i + 1)), 
+                    startY,                    
                     "type" + typebox);
                 box.name = "box_" + i;
                 this.layer.add(box);
@@ -142,7 +145,7 @@ export class BoxSlot {
             }
         });            
     }
-    setRuleBoxAnimate(rows, blinkTime){   
+    setRuleBoxAnimate(rows, blinkTime){
         var repeat = (blinkTime/1000) - 1;
         var slots = [];
         rows.forEach(v=>{
