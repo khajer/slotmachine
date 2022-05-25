@@ -5,24 +5,33 @@ const MAX_ROW = 3;
 var Logic = {
     checkDataRule(dataSlot){
         var tmp = [];
-        var i=0;
-        while(tmp.length === 0){
-           var dChk = dataSlot[i];
-           for(var j=i+1; j< 5; j++){
-               if(dChk === dataSlot[j]){                  
-                   if(tmp.length === 0){
-                    tmp.push(i);
-                   }
-                   tmp.push(j);
-               }else{
-                   break;
-               }
-           }
-           i++;
+        var seq=0;
+        
+
+        for(var row = 0; row < 3; row++){
+            tmp = [];
+            seq = 0;
+            while(tmp.length === 0 && seq < 5){
+                var dChk = dataSlot[seq];
+                for(var j=seq+1; j< 5; j++){
+                    if(dChk === dataSlot[j]){                  
+                        if(tmp.length === 0){
+                            tmp.push(seq);
+                        }
+                        tmp.push(j);
+                    }else{
+                        break;
+                    }
+                }
+                seq++;
+            }
         }
+        
+
         if(tmp.length < 3){
             tmp = [];
         }
+
         return tmp;
     },
     genData(){

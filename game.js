@@ -1,4 +1,4 @@
-import {MainScene} from '../src/MainScene.js';
+import {MainScene} from './src/MainScene.js';
 
 
 const WIDTH = 800;

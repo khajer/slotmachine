@@ -25,7 +25,6 @@ describe('Logic.checkDataRule() 5', ()=>{
     dataExpectSlot = [0, 1, 2, 3, 4];
     
     var dataRule = Logic.checkDataRule(data);
-    console.log()
     assert.equal(dataRule, dataExpectSlot);
     
 });
@@ -88,6 +87,58 @@ describe('Logic.checkDataRule() 3.1', ()=>{
     
     var dataExpectSlot = [];
     dataExpectSlot = [];
+    
+    var dataRule = Logic.checkDataRule(data);
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('Logic.checkDataRule() 3.1.1', ()=>{
+    var data = [1, 0, 1, 1, 0, 
+                0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0]
+    
+    var dataExpectSlot = [];
+    // dataExpectSlot = [0,1,2,3,4];
+    
+    var dataRule = Logic.checkDataRule(data);
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+
+describe('Logic.checkDataRule() random', ()=>{
+    var data = [1, 2, 0, 3, 4, 
+                0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0]
+    
+    var dataExpectSlot = [];
+    
+    var dataRule = Logic.checkDataRule(data);
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+
+describe('Logic.checkDataRule() line1', ()=>{
+    var data = [0, 1, 0, 1, 0, 
+                1, 1, 1, 1, 1,
+                0, 0, 1, 0, 0]
+    
+    var dataExpectSlot = [5, 6, 7, 8, 9];
+    
+    var dataRule = Logic.checkDataRule(data);
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+
+describe('Logic.checkDataRule() line1', ()=>{
+    var data = [0, 1, 0, 1, 0, 
+                1, 1, 1, 1, 1,
+                0, 0, 0, 0, 0]
+    
+    var dataExpectSlot = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
     
     var dataRule = Logic.checkDataRule(data);
     
