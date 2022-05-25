@@ -165,16 +165,54 @@ describe('Logic.checkDataRule() line1, line2, line3  ', ()=>{
 });
 
 
-// describe('checkDataRule() & split to slot ', ()=>{
-//     var data = [0, 1, 1, 1, 0, 
-//                 1, 2, 1, 5, 1,
-//                 0, 1, 0, 3, 0]
-        
-//     var dataRule = Logic.checkDataRule(data);
-//     var slots = Logic.splitDataToSlot(dataRule);
-//     var slot = [
-//         []
-//     ]
-//     assert.equal(dataRule, dataExpectSlot);
+describe('dataAcceptToSlotMachines() & split to slot ', ()=>{
+    // data test 
+    // [
+    //     1, 1, 1, 1, 1, 
+    //     3, 2, 5, 1, 2,   
+    //     3, 2, 1, 1, 3,   
+    // ]
+    var data = [0, 1, 2, 3, 4];
+    var slots = Logic.dataAcceptToSlotMachines(data);    
+    console.log(slots);
+    assert.equal(slots[0], [0]);
+    assert.equal(slots[1], [0]);
+    assert.equal(slots[2], [0]);
+    assert.equal(slots[3], [0]);
+    assert.equal(slots[4], [0]);
     
-// });
+});
+describe('dataAcceptToSlotMachines() & split to slot 1', ()=>{
+    // data test 
+    // [
+    //     3, 2, 5, 1, 2,           
+    //     1, 1, 1, 1, 1, 
+    //     3, 2, 1, 1, 3,   
+    // ]
+    var data = [5, 6, 7, 8, 9];
+    var slots = Logic.dataAcceptToSlotMachines(data);    
+    console.log(slots);
+    assert.equal(slots[0], [1]);
+    assert.equal(slots[1], [1]);
+    assert.equal(slots[2], [1]);
+    assert.equal(slots[3], [1]);
+    assert.equal(slots[4], [1]);
+    
+});
+describe('dataAcceptToSlotMachines() & split to slot 2', ()=>{
+    // data test 
+    // [
+    //     3, 2, 5, 1, 2,           
+    //     3, 2, 1, 1, 3,   
+    //     1, 1, 1, 1, 1, 
+    // ]
+    var data = [10, 11, 12, 13, 14];
+    var slots = Logic.dataAcceptToSlotMachines(data);    
+    console.log(slots);
+    assert.equal(slots[0], [2]);
+    assert.equal(slots[1], [2]);
+    assert.equal(slots[2], [2]);
+    assert.equal(slots[3], [2]);
+    assert.equal(slots[4], [2]);
+    
+});

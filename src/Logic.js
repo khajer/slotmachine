@@ -59,7 +59,24 @@ var Logic = {
             ];
         }
         return data;
+    },
+    dataAcceptToSlotMachines(data){
+        var dataRuleSlot = [];
+    
+        dataRuleSlot[0] = [];
+        dataRuleSlot[1] = [];
+        dataRuleSlot[2] = [];
+        dataRuleSlot[3] = [];
+        dataRuleSlot[4] = [];
+
+        data.forEach(e => {
+            var slotNumber = e%5;
+            var numberPush = Math.floor(e/5);
+
+            dataRuleSlot[slotNumber].push(numberPush);
+
+        });
+        return dataRuleSlot
     }  
 }
-
 export {Logic}

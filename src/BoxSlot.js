@@ -145,8 +145,7 @@ export class BoxSlot {
             }
         });            
     }
-    setRuleBoxAnimate(rows, blinkTime){
-        var repeat = (blinkTime/1000) - 1;
+    setRuleBoxAnimate(rows, blinkTime, repeat){
         var slots = [];
         rows.forEach(v=>{
             var box = this.groupBlock[v];
@@ -155,8 +154,8 @@ export class BoxSlot {
         });
         scene.tweens.add({
             targets: slots, 
-            duration: 1000,
-            ease: 'Sine.easeInOut',
+            duration: 500/repeat,
+            ease: 'Linear',
             alpha: 1,
             repeat: repeat,
         });

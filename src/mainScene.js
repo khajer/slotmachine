@@ -62,9 +62,10 @@ export class MainScene extends Phaser.Scene {
                             if(dataRule.length > 0){
                                 this.animateAcceptRule(dataRule).then(()=>{
                                     console.log("Already done");                                    
+                                    pressed = false;
                                 });
                             }
-                            pressed = false;
+                            
                         }                        
                     });
                 });
@@ -72,24 +73,12 @@ export class MainScene extends Phaser.Scene {
     }
 
     animateAcceptRule(dataRule){
-        // console.log(dataRule);
-        var dataRuleSlot = [];
-        dataRuleSlot[0] = [0];
-        dataRuleSlot[1] = [0];
-        dataRuleSlot[2] = [0];
-        dataRuleSlot[3] = [0];
-        dataRuleSlot[4] = [0];
-
+        var dataRuleSlot = Logic.dataAcceptToSlotMachines(dataRule);
+        var blinkTime = 2000;
+        var repeat = 1;
         
-        // for(var i=0; i< 5; i++){
-        //     dataRuleSlot.push([1]);
-        // }
-
-        var blinkTime = 4000;
-        
-
         dataRuleSlot.forEach((e, idx)=>{
-            this.boxSlots[idx].setRuleBoxAnimate(e, blinkTime);
+            this.boxSlots[idx].setRuleBoxAnimate(e, blinkTime, repeat);
         });
         return new Promise((resolve, reject)=>{
             setTimeout(()=>{
