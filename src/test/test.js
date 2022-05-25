@@ -18,8 +18,8 @@ describe('Logic.splitDataToSlot(): check first array == 5 column', ()=>{
 
 describe('Logic.checkDataRule() 5', ()=>{
     var data = [1, 1, 1, 1, 1, 
-                0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0]
+                0, 4, 0, 4, 0,
+                2, 0, 1, 4, 0]
     
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2, 3, 4];
@@ -30,8 +30,8 @@ describe('Logic.checkDataRule() 5', ()=>{
 });
 describe('Logic.checkDataRule() 4', ()=>{
     var data = [0, 1, 1, 1, 1, 
-                0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0]
+                0, 3, 0, 1, 0,
+                0, 1, 0, 2, 0]
     
     var dataExpectSlot = [];
     dataExpectSlot = [1, 2, 3, 4];
@@ -43,8 +43,8 @@ describe('Logic.checkDataRule() 4', ()=>{
 });
 describe('Logic.checkDataRule() 3.0', ()=>{
     var data = [0, 1, 1, 1, 0, 
-                0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0]
+                0, 4, 0, 2, 0,
+                0, 2, 1, 0, 1]
     
     var dataExpectSlot = [];
     dataExpectSlot = [1, 2, 3];
@@ -56,8 +56,8 @@ describe('Logic.checkDataRule() 3.0', ()=>{
 });
 describe('Logic.checkDataRule() 3.1', ()=>{
     var data = [1, 1, 1, 0, 0, 
-                0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0]
+                0, 3, 0, 1, 4,
+                0, 1, 0, 0, 1]
     
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2];
@@ -69,8 +69,8 @@ describe('Logic.checkDataRule() 3.1', ()=>{
 });
 describe('Logic.checkDataRule() 4.2', ()=>{
     var data = [0, 1, 1, 1, 1, 
-                0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0]
+                0, 3, 0, 5, 0,
+                0, 0, 2, 3, 0]
     
     var dataExpectSlot = [];
     dataExpectSlot = [1, 2, 3, 4];
@@ -80,26 +80,13 @@ describe('Logic.checkDataRule() 4.2', ()=>{
     assert.equal(dataRule, dataExpectSlot);
     
 });
-describe('Logic.checkDataRule() 3.1', ()=>{
-    var data = [1, 1, 0, 1, 0, 
-                0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0]
-    
-    var dataExpectSlot = [];
-    dataExpectSlot = [];
-    
-    var dataRule = Logic.checkDataRule(data);
-    
-    assert.equal(dataRule, dataExpectSlot);
-    
-});
+
 describe('Logic.checkDataRule() 3.1.1', ()=>{
     var data = [1, 0, 1, 1, 0, 
-                0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0]
+                0, 1, 3, 4, 0,
+                0, 1, 0, 3, 0]
     
     var dataExpectSlot = [];
-    // dataExpectSlot = [0,1,2,3,4];
     
     var dataRule = Logic.checkDataRule(data);
     
@@ -109,8 +96,8 @@ describe('Logic.checkDataRule() 3.1.1', ()=>{
 
 describe('Logic.checkDataRule() random', ()=>{
     var data = [1, 2, 0, 3, 4, 
-                0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0]
+                0, 4, 0, 2, 0,
+                0, 0, 1, 0, 3]
     
     var dataExpectSlot = [];
     
@@ -120,10 +107,10 @@ describe('Logic.checkDataRule() random', ()=>{
     
 });
 
-describe('Logic.checkDataRule() line1', ()=>{
-    var data = [0, 1, 0, 1, 0, 
+describe('Logic.checkDataRule() line1 normal', ()=>{
+    var data = [0, 0, 1, 0, 0, 
                 1, 1, 1, 1, 1,
-                0, 0, 1, 0, 0]
+                0, 4, 0, 1, 0]
     
     var dataExpectSlot = [5, 6, 7, 8, 9];
     

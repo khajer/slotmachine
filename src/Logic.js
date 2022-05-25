@@ -6,14 +6,14 @@ var Logic = {
     checkDataRule(dataSlot){
         var tmp = [];
         var seq=0;
-        
-
-        for(var row = 0; row < 3; row++){
-            tmp = [];
-            seq = 0;
-            while(tmp.length === 0 && seq < 5){
+        var stackPos = [];
+        for(var row = 0; row < 3; row++){     
+            tmp = [];       
+            seq = MAX_COL * row;
+            var maxCheck = MAX_COL * (row+1);
+            while(tmp.length === 0 && seq < maxCheck){
                 var dChk = dataSlot[seq];
-                for(var j=seq+1; j< 5; j++){
+                for(var j=seq+1; j< maxCheck; j++){
                     if(dChk === dataSlot[j]){                  
                         if(tmp.length === 0){
                             tmp.push(seq);
@@ -24,15 +24,13 @@ var Logic = {
                     }
                 }
                 seq++;
-            }
+            }            
+            if(tmp.length >= 3){     
+                stackPos = stackPos.concat(tmp);
+            }            
         }
-        
-
-        if(tmp.length < 3){
-            tmp = [];
-        }
-
-        return tmp;
+        // console.log("return ", stackPos);
+        return stackPos;
     },
     genData(){
         var data = [
