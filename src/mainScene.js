@@ -64,6 +64,8 @@ export class MainScene extends Phaser.Scene {
                                     console.log("Already done");                                    
                                     pressed = false;
                                 });
+                            }else{
+                                pressed = false;
                             }
                             
                         }                        
@@ -74,7 +76,7 @@ export class MainScene extends Phaser.Scene {
 
     animateAcceptRule(dataRule){
         var dataRuleSlot = Logic.dataAcceptToSlotMachines(dataRule);
-        var blinkTime = 2000;
+        var blinkTime = 1000;
         var repeat = 1;
         
         dataRuleSlot.forEach((e, idx)=>{

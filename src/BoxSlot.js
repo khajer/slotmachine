@@ -149,7 +149,7 @@ export class BoxSlot {
         var slots = [];
         rows.forEach(v=>{
             var box = this.groupBlock[v];
-            box.alpha = 0.5;
+            box.alpha = 0.2;
             slots.push(box);
         });
         scene.tweens.add({

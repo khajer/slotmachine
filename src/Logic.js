@@ -37,16 +37,16 @@ var Logic = {
         return stackPos;
     },
     genData(){
-        var data = [
-            1, 1, 3, 1, 1,
-            1, 4, 4, 2, 2,
-            4, 3, 3, 3, 1,
-        ]
-        // var data = [];
-        // for(var i = 0; i < (MAX_COL * MAX_ROW); i++){
-        //     var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
-        //     data.push(typeId);
-        // }
+        // var data = [
+        //     1, 1, 3, 1, 1,
+        //     1, 4, 4, 2, 2,
+        //     4, 3, 3, 3, 1,
+        // ]
+        var data = [];
+        for(var i = 0; i < (MAX_COL * MAX_ROW); i++){
+            var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
+            data.push(typeId);
+        }
         return data;
     },
     splitDataToSlot(dataSlot){        
