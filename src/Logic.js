@@ -4,30 +4,31 @@ const MAX_ROW = 3;
 
 var checkDirectLine = (dataSlot)=>{
     var tmp = [];
-    var seq=0;
+    var seq = 0;
     var stackPos = [];
-    for(var row = 0; row < 3; row++){     
-        tmp = [];       
+    for(var row = 0; row < 3; row++){
+        tmp = [];
         seq = MAX_COL * row;
         var maxCheck = MAX_COL * (row+1);
-        while(tmp.length === 0 && seq < maxCheck){
-            var dChk = dataSlot[seq];
-            for(var j=seq+1; j< maxCheck; j++){
-                if(dChk === dataSlot[j]){                  
-                    if(tmp.length === 0){
-                        tmp.push(seq);
-                    }
-                    tmp.push(j);
-                }else{
-                    break;
+        for(var i = seq; i < maxCheck-1; i++){            
+            var dChk = dataSlot[i];
+            if(dChk === dataSlot[i + 1]){
+                if(tmp.length === 0){
+                    tmp.push(i);
                 }
+                tmp.push(i+1);                ;
+            }else{
+                if(tmp.length >= 3){
+                    stackPos = stackPos.concat(tmp);
+                }
+                tmp = [];
             }
-            seq++;
-        }            
+        }
         if(tmp.length >= 3){     
             stackPos = stackPos.concat(tmp);
-        }            
+        }  
     }
+
     return stackPos;
 }
 var Logic = {
