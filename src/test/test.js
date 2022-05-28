@@ -274,7 +274,7 @@ describe('Logic.checkDataRule() line2,  line3 and another type', ()=>{
     ];
     
     var dataExpectSlot = [
-        2, 3, 4, 12, 13, 14];
+        2, 3, 4, 11, 12, 13, 14];
     
     var dataRule = Logic.checkDataRule(data);
     
@@ -307,7 +307,7 @@ describe('Logic.checkDataRule() line2-4,  line3 and another type', ()=>{
     ];
     
     var dataExpectSlot = [
-        0, 1, 2, 13, 14, 15
+        0, 1, 2, 12, 13, 14
     ];
     
     var dataRule = Logic.checkDataRule(data);
