@@ -31,12 +31,23 @@ var checkDirectLine = (dataSlot)=>{
 
     return stackPos;
 }
+var checkVertical = (dataSlot) => {
+    var tmp = [];
+    for(var i = 0; i < MAX_COL; i++){
+        if(dataSlot[0+i] === dataSlot[5+i] && dataSlot[5+i] === dataSlot[10+i]){
+            tmp.push(0+i, 5+i, 10+i);   
+
+        }
+    }
+    return tmp;
+}
 var Logic = {
-    checkDataRule(dataSlot){
-        var stackPos = [];
-        stackPos = checkDirectLine(dataSlot);
-        return stackPos;
+    checkDirectLine:checkDirectLine,
+
+    checkDataRule(){
+
     },
+    checkVertical:checkVertical,
     genData(){
         // var data = [
         //     1, 1, 3, 1, 1,
