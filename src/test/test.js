@@ -367,3 +367,39 @@ describe('checkVertical()', ()=>{
 });
 
 
+describe('slopeFive ()', ()=>{
+    var data = [
+        1, 1, 0, 3, 2,
+        1, 5, 1, 6, 3,
+        1, 3, 2, 1, 1,
+    ];
+    
+    var dataExpectSlot = [
+        0, 1, 7, 13, 14
+    ];
+    
+    var dataRule = Logic.slopeFive(data);
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('slopeFive (2)', ()=>{
+    var data = [
+        1, 2, 0, 3, 3,
+        1, 5, 3, 6, 3,
+        3, 3, 2, 2, 1,
+    ];
+    
+    var dataExpectSlot = [
+        10, 11, 7, 3, 4
+    ];
+    
+    var dataRule = Logic.slopeFive(data);
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+
+
+
+

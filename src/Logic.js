@@ -83,12 +83,37 @@ var splitDataToSlot = (dataSlot) => {
     }
     return data;
 }
+var slopeFive = (data) => {
+    var dataResp = [];
+
+    if(data[0] === data[1] 
+        && data[0] === data[7]
+        && data[0] === data[13]
+        && data[0] === data[14]){
+            return [0, 1, 7, 13, 14];
+
+    }
+
+    if(data[10] === data[11] 
+        && data[10] === data[7]
+        && data[10] === data[3]
+        && data[10] === data[4]){
+            return [10, 11, 7, 3, 4];
+
+    }
+    
+
+    return [];
+
+}
+
 var Logic = {
     checkDirectLine,
     checkVertical,
     dataAcceptToSlotMachines, 
     genData,
     splitDataToSlot,
+    slopeFive,
     checkDataRule(){
 
     }
