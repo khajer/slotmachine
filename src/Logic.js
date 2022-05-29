@@ -41,54 +41,57 @@ var checkVertical = (dataSlot) => {
     }
     return tmp;
 }
-var Logic = {
-    checkDirectLine:checkDirectLine,
+var dataAcceptToSlotMachines = (data) => {
+    var dataRuleSlot = [];
 
+    dataRuleSlot[0] = [];
+    dataRuleSlot[1] = [];
+    dataRuleSlot[2] = [];
+    dataRuleSlot[3] = [];
+    dataRuleSlot[4] = [];
+
+    data.forEach(e => {
+        var slotNumber = e%5;
+        var numberPush = Math.floor(e/5);
+
+        dataRuleSlot[slotNumber].push(numberPush);
+
+    });
+    return dataRuleSlot
+}  
+var genData = ()=>{
+    // var data = [
+    //     1, 1, 3, 1, 1,
+    //     1, 4, 4, 2, 2,
+    //     4, 3, 3, 3, 1,
+    // ]
+    var data = [];
+    for(var i = 0; i < (MAX_COL * MAX_ROW); i++){
+        var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
+        data.push(typeId);
+    }
+    return data;
+}
+var splitDataToSlot = (dataSlot) => {        
+    var data = [];
+    for(var i=0; i< MAX_COL; i++){
+        data[i] = [
+            dataSlot[i],
+            dataSlot[MAX_COL+i],
+            dataSlot[(MAX_COL*2)+i]
+        ];
+    }
+    return data;
+}
+var Logic = {
+    checkDirectLine,
+    checkVertical,
+    dataAcceptToSlotMachines, 
+    genData,
+    splitDataToSlot,
     checkDataRule(){
 
-    },
-    checkVertical:checkVertical,
-    genData(){
-        // var data = [
-        //     1, 1, 3, 1, 1,
-        //     1, 4, 4, 2, 2,
-        //     4, 3, 3, 3, 1,
-        // ]
-        var data = [];
-        for(var i = 0; i < (MAX_COL * MAX_ROW); i++){
-            var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
-            data.push(typeId);
-        }
-        return data;
-    },
-    splitDataToSlot(dataSlot){        
-        var data = [];
-        for(var i=0; i< MAX_COL; i++){
-            data[i] = [
-                dataSlot[i],
-                dataSlot[MAX_COL+i],
-                dataSlot[(MAX_COL*2)+i]
-            ];
-        }
-        return data;
-    },
-    dataAcceptToSlotMachines(data){
-        var dataRuleSlot = [];
-    
-        dataRuleSlot[0] = [];
-        dataRuleSlot[1] = [];
-        dataRuleSlot[2] = [];
-        dataRuleSlot[3] = [];
-        dataRuleSlot[4] = [];
-
-        data.forEach(e => {
-            var slotNumber = e%5;
-            var numberPush = Math.floor(e/5);
-
-            dataRuleSlot[slotNumber].push(numberPush);
-
-        });
-        return dataRuleSlot
-    }  
+    }
+     
 }
 export {Logic}

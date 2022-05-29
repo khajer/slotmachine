@@ -315,6 +315,23 @@ describe('Logic.checkDirectLine() line2-4,  line3 and another type', ()=>{
     assert.equal(dataRule, dataExpectSlot);
     
 });
+describe('checkDirectLine() L shape', ()=>{
+    var data = [
+        1, 2, 3, 3, 2,
+        1, 1, 2, 6, 3,
+        1, 1, 1, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        10, 11, 12
+    ];
+    
+    var dataRule = Logic.checkDirectLine(data);
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+
 
 describe('checkVertical()', ()=>{
     var data = [
@@ -348,4 +365,5 @@ describe('checkVertical()', ()=>{
     assert.equal(dataRule, dataExpectSlot);
     
 });
+
 
