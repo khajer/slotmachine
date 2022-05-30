@@ -2,6 +2,8 @@ const MAX_COL = 5;
 const MAX_TYPE = 4;
 const MAX_ROW = 3;
 
+const SPECIAL_TYPE = -10;
+
 var checkDirectLine = (dataSlot)=>{
     var tmp = [];
     var seq = 0;
@@ -12,21 +14,20 @@ var checkDirectLine = (dataSlot)=>{
         var maxCheck = MAX_COL * (row+1);
         for(var i = seq; i < maxCheck-1; i++){            
             var dChk = dataSlot[i];
-            if(dChk === dataSlot[i + 1] || dChk === -10 || dataSlot[i + 1] === -10){                
-                if( (tmp.length !== 0 && (dataSlot[i + 1] === tmp[0].val || dataSlot[i + 1] === -10 || tmp[0].val === -10 ))){
-                    tmp.push({
-                        pos: i+1,
-                        val: dataSlot[i + 1]
-                    });                                                  
-                }else{
+            if(dChk === dataSlot[i + 1] || dChk === SPECIAL_TYPE || dataSlot[i + 1] === SPECIAL_TYPE){                                
+                if( (tmp.length === 0 || (dataSlot[i + 1] !== tmp[0].val 
+                                            && dataSlot[i + 1] !== SPECIAL_TYPE 
+                                            && tmp[0].val !== SPECIAL_TYPE )
+                    )){
                     tmp = [{
                         pos: i, 
                         val: dChk
-                    },{
-                        pos: i+1,
-                        val: dataSlot[i + 1]
                     }];
-                }                    
+                }  
+                tmp.push({
+                    pos: i+1,
+                    val: dataSlot[i + 1]
+                });                              
             }else{
                 if(tmp.length >= 3){                    
                     stackPos = stackPos.concat(tmp);
@@ -81,7 +82,7 @@ var genData = ()=>{
     for(var i = 0; i < (MAX_COL * MAX_ROW); i++){
         var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
         if(Math.floor(Math.random() * 10)%10 === 1 && cntSp < 3){
-            data.push(-10);  
+            data.push(SPECIAL_TYPE);  
             cntSp++;
         }else{
             data.push(typeId);    
