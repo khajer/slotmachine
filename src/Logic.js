@@ -13,34 +13,28 @@ var checkDirectLine = (dataSlot)=>{
         for(var i = seq; i < maxCheck-1; i++){            
             var dChk = dataSlot[i];
             if(dChk === dataSlot[i + 1] || dChk === -10 || dataSlot[i + 1] === -10){                
-                    if(tmp.length === 0){
-                        tmp.push({
-                            pos: i, 
-                            val: dChk
-                        })
-                        tmp.push({
-                            pos: i+1,
-                            val: dataSlot[i + 1]
-                        });
-                    }else{
-                        if(dataSlot[i + 1] === tmp[0].val || dataSlot[i + 1] === -10 || tmp[0].val === -10 ){
-                            tmp.push({
-                                pos: i+1,
-                                val: dataSlot[i + 1]
-                            });                                                  
-                        }else{
-                            tmp = [];
-                            tmp.push({
-                                pos: i, 
-                                val: dChk
-                            })
-                            tmp.push({
-                                pos: i+1,
-                                val: dataSlot[i + 1]
-                            });
-                        }                   
-                    }
-                    
+                if(tmp.length === 0){          
+                    tmp = [{
+                        pos: i, 
+                        val: dChk
+                    },{
+                        pos: i+1,
+                        val: dataSlot[i + 1]
+                    }];                    
+                }else if(dataSlot[i + 1] === tmp[0].val || dataSlot[i + 1] === -10 || tmp[0].val === -10 ){
+                    tmp.push({
+                        pos: i+1,
+                        val: dataSlot[i + 1]
+                    });                                                  
+                }else{
+                    tmp = [{
+                        pos: i, 
+                        val: dChk
+                    },{
+                        pos: i+1,
+                        val: dataSlot[i + 1]
+                    }];
+                }                    
             }else{
                 if(tmp.length >= 3){                    
                     stackPos = stackPos.concat(tmp);
