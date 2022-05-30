@@ -61,10 +61,11 @@ export class MainScene extends Phaser.Scene {
                             var dataRule = Logic.checkDataRule(dataGen);
                             if(dataRule.length > 0){
                                 this.animateAcceptRule(dataRule).then(()=>{
-                                    console.log("Already done");                                    
+                                    console.log("animateAcceptRule Already done");                                    
                                     pressed = false;
                                 });
                             }else{
+                                console.log("No animateAcceptRule Already done");                                    
                                 pressed = false;
                             }
                             
@@ -84,7 +85,6 @@ export class MainScene extends Phaser.Scene {
         });
         return new Promise((resolve, reject)=>{
             setTimeout(()=>{
-                console.log("!!!!!!!! COMPLETED !!!!!!!!")
                 resolve();   
             },
             blinkTime)

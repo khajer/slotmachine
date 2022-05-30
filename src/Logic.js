@@ -12,17 +12,35 @@ var checkDirectLine = (dataSlot)=>{
         var maxCheck = MAX_COL * (row+1);
         for(var i = seq; i < maxCheck-1; i++){            
             var dChk = dataSlot[i];
-            if(dChk === dataSlot[i + 1]){                
-                if(tmp.length === 0){
-                    tmp.push({
-                        pos: i, 
-                        val: dChk
-                    })
-                }            ;
-                tmp.push({
-                    pos: i+1,
-                    val: dataSlot[i + 1]
-                });
+            if(dChk === dataSlot[i + 1] || dChk === -10 || dataSlot[i + 1] === -10){                
+                    if(tmp.length === 0){
+                        tmp.push({
+                            pos: i, 
+                            val: dChk
+                        })
+                        tmp.push({
+                            pos: i+1,
+                            val: dataSlot[i + 1]
+                        });
+                    }else{
+                        if(dataSlot[i + 1] === tmp[0].val || dataSlot[i + 1] === -10 || tmp[0].val === -10 ){
+                            tmp.push({
+                                pos: i+1,
+                                val: dataSlot[i + 1]
+                            });                                                  
+                        }else{
+                            tmp = [];
+                            tmp.push({
+                                pos: i, 
+                                val: dChk
+                            })
+                            tmp.push({
+                                pos: i+1,
+                                val: dataSlot[i + 1]
+                            });
+                        }                   
+                    }
+                    
             }else{
                 if(tmp.length >= 3){                    
                     stackPos = stackPos.concat(tmp);
@@ -59,9 +77,8 @@ var dataAcceptToSlotMachines = (data) => {
     dataRuleSlot[4] = [];
 
     data.forEach(e => {
-        var slotNumber = e%5;
-        var numberPush = Math.floor(e/5);
-
+        var slotNumber = e % 5;
+        var numberPush = Math.floor(e/5);        
         dataRuleSlot[slotNumber].push(numberPush);
 
     });
@@ -74,9 +91,16 @@ var genData = ()=>{
     //     4, 3, 3, 3, 1,
     // ]
     var data = [];
+    var cntSp = 0;
     for(var i = 0; i < (MAX_COL * MAX_ROW); i++){
         var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
-        data.push(typeId);
+        if(Math.floor(Math.random() * 10)%10 === 1 && cntSp < 3){
+            data.push(-10);  
+            cntSp++;
+        }else{
+            data.push(typeId);    
+        }
+        
     }
     return data;
 }

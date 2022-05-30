@@ -24,6 +24,7 @@ export class BoxSlot {
         scene.load.image('type2', 'assets/symbol_2.png');
         scene.load.image('type3', 'assets/symbol_3.png');
         scene.load.image('type4', 'assets/symbol_4.png');
+        scene.load.image('typeSp1', 'assets/symbol_sp1.png');
     }
     create (data){         
         this.setStart(data);
@@ -41,12 +42,17 @@ export class BoxSlot {
         this.layer.add(this.groupBlock);
     }
     setStart(data){
-        this.groupBlock = [];        
+        this.groupBlock = [];                
         var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
         this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 0), "type" + typeId));
         
+
         data.forEach((v, idx)=>{
-            this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * (idx+1)), "type" + v));
+            var typeId = "type" + v;
+            if(v === -10){
+                typeId = "typeSp1"
+            }
+            this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * (idx+1)), typeId));
         });               
     }
     spin(data){
@@ -80,10 +86,16 @@ export class BoxSlot {
         })
     }
     addRandomBox(){        
-        var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
+        var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;    
+        var typeName = "type" + typeId;
+        if (Math.floor(Math.random() * 10) % 10 === 1 ){
+            typeName = "typeSp1";
+        }
+
         var box = scene.physics.add.sprite(
-            this.startX, this.startY + (BLOCK_HEIGHT * -1), 
-            "type" + typeId);
+            this.startX, 
+            this.startY + (BLOCK_HEIGHT * -1), 
+            typeName);
             
         this.layer.add(box);
         var dy = BLOCK_HEIGHT * 5;
@@ -114,11 +126,14 @@ export class BoxSlot {
                     typebox = 2;
                     startY = this.startY - (BLOCK_HEIGHT*4);
                 }            
-                
+                var typeName = "type" + typebox;
+                if (typebox === -10){
+                    typeName = "typeSp1";
+                }
                 var box = scene.physics.add.sprite( 
                     this.startX, 
                     startY,                    
-                    "type" + typebox);
+                    typeName);
                 box.name = "box_" + i;
                 this.layer.add(box);
                 this.groupBlock.push(box);
