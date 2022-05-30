@@ -38,7 +38,7 @@ describe('Logic.checkDirectLine() 5', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     assert.equal(dataRule, dataExpectSlot);
     
 });
@@ -50,7 +50,7 @@ describe('Logic.checkDirectLine() 4', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -63,7 +63,7 @@ describe('Logic.checkDirectLine() 3.0', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [1, 2, 3];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -76,7 +76,7 @@ describe('Logic.checkDirectLine() 3.1', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -89,7 +89,7 @@ describe('Logic.checkDirectLine() 3.2 - 011110', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [1, 2, 3];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -102,7 +102,7 @@ describe('Logic.checkDirectLine() 3.2xcx - 011110', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [2, 3, 4, 12, 13, 14];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -115,7 +115,7 @@ describe('Logic.checkDirectLine() 4.2', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -128,7 +128,7 @@ describe('Logic.checkDirectLine() 3.1.1', ()=>{
     
     var dataExpectSlot = [];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -141,7 +141,7 @@ describe('Logic.checkDirectLine() random', ()=>{
     
     var dataExpectSlot = [];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -154,7 +154,7 @@ describe('Logic.checkDirectLine() line1 normal', ()=>{
     
     var dataExpectSlot = [5, 6, 7, 8, 9];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -167,7 +167,7 @@ describe('Logic.checkDirectLine() line1, line2 ', ()=>{
     
     var dataExpectSlot = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -184,7 +184,7 @@ describe('Logic.checkDirectLine() line1, line2, line3  ', ()=>{
         5, 6, 7, 8, 9, 
         11, 12, 13];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -232,7 +232,7 @@ describe('Logic.checkDirectLine() line1,  line3  and another type', ()=>{
     var dataExpectSlot = [
         0, 1, 2, 12, 13, 14];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -245,7 +245,7 @@ describe('Logic.checkDirectLine()  test 33222 line', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -261,7 +261,7 @@ describe('Logic.checkDirectLine() 11222 >> -line1,  line3  and another type', ()
     var dataExpectSlot = [
         2, 3, 4, 12, 13, 14];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -276,7 +276,7 @@ describe('Logic.checkDirectLine() line2,  line3 and another type', ()=>{
     var dataExpectSlot = [
         2, 3, 4, 11, 12, 13, 14];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -292,7 +292,7 @@ describe('Logic.checkDirectLine() line2-4,  line3 and another type', ()=>{
         6, 7, 8, 9, 12, 13, 14
     ];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -310,7 +310,7 @@ describe('Logic.checkDirectLine() line2-4,  line3 and another type', ()=>{
         0, 1, 2, 12, 13, 14
     ];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -326,14 +326,14 @@ describe('checkDirectLine() L shape', ()=>{
         10, 11, 12
     ];
     
-    var dataRule = Logic.checkDirectLine(data);
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
 });
 
 
-describe('checkVertical()', ()=>{
+describe('checkVertical(1)', ()=>{
     var data = [
         1, 2, 1, 3, 2,
         1, 5, 3, 6, 3,
@@ -344,12 +344,12 @@ describe('checkVertical()', ()=>{
         0, 5, 10
     ];
     
-    var dataRule = Logic.checkVertical(data);
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
 });
-describe('checkVertical()', ()=>{
+describe('checkVertical(1, 2)', ()=>{
     var data = [
         1, 2, 1, 3, 2,
         1, 5, 1, 6, 3,
@@ -360,14 +360,14 @@ describe('checkVertical()', ()=>{
         0, 5, 10, 2, 7, 12
     ];
     
-    var dataRule = Logic.checkVertical(data);
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
 });
 
 
-describe('slopeFive ()', ()=>{
+describe('slopeFive (1)', ()=>{
     var data = [
         1, 1, 0, 3, 2,
         1, 5, 1, 6, 3,
@@ -378,7 +378,7 @@ describe('slopeFive ()', ()=>{
         0, 1, 7, 13, 14
     ];
     
-    var dataRule = Logic.slopeFive(data);
+    var dataRule = Logic.checkSlopeFive(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     
@@ -394,7 +394,7 @@ describe('slopeFive (2)', ()=>{
         10, 11, 7, 3, 4
     ];
     
-    var dataRule = Logic.slopeFive(data);
+    var dataRule = Logic.checkSlopeFive(data).map((data)=>{return data.pos});
     
     assert.equal(dataRule, dataExpectSlot);
     

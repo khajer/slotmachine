@@ -12,13 +12,19 @@ var checkDirectLine = (dataSlot)=>{
         var maxCheck = MAX_COL * (row+1);
         for(var i = seq; i < maxCheck-1; i++){            
             var dChk = dataSlot[i];
-            if(dChk === dataSlot[i + 1]){
+            if(dChk === dataSlot[i + 1]){                
                 if(tmp.length === 0){
-                    tmp.push(i);
-                }
-                tmp.push(i+1);                ;
+                    tmp.push({
+                        pos: i, 
+                        val: dChk
+                    })
+                }            ;
+                tmp.push({
+                    pos: i+1,
+                    val: dataSlot[i + 1]
+                });
             }else{
-                if(tmp.length >= 3){
+                if(tmp.length >= 3){                    
                     stackPos = stackPos.concat(tmp);
                 }
                 tmp = [];
@@ -28,15 +34,17 @@ var checkDirectLine = (dataSlot)=>{
             stackPos = stackPos.concat(tmp);
         }  
     }
-
     return stackPos;
 }
 var checkVertical = (dataSlot) => {
     var tmp = [];
     for(var i = 0; i < MAX_COL; i++){
         if(dataSlot[0+i] === dataSlot[5+i] && dataSlot[5+i] === dataSlot[10+i]){
-            tmp.push(0+i, 5+i, 10+i);   
-
+            tmp.push(
+                { pos:0+i, val:dataSlot[0+i] }, 
+                { pos:5+i, val:dataSlot[0+i] }, 
+                { pos:10+i, val:dataSlot[0+i] }
+            );   
         }
     }
     return tmp;
@@ -83,14 +91,19 @@ var splitDataToSlot = (dataSlot) => {
     }
     return data;
 }
-var slopeFive = (data) => {
+var checkSlopeFive = (data) => {
     var dataResp = [];
-
     if(data[0] === data[1] 
         && data[0] === data[7]
         && data[0] === data[13]
         && data[0] === data[14]){
-            return [0, 1, 7, 13, 14];
+            return [
+                { pos:0, val: data[0] }, 
+                { pos:1, val: data[0] }, 
+                { pos:7, val: data[0] }, 
+                { pos:13, val: data[0] }, 
+                { pos:14, val: data[0] }
+            ];
 
     }
 
@@ -98,25 +111,28 @@ var slopeFive = (data) => {
         && data[10] === data[7]
         && data[10] === data[3]
         && data[10] === data[4]){
-            return [10, 11, 7, 3, 4];
+            return [
+                { pos:10, val: data[0] }, 
+                { pos:11, val: data[0] }, 
+                { pos:7, val: data[0] }, 
+                { pos:3, val: data[0] }, 
+                { pos:4, val: data[0] }
+            ];
 
     }
-    
-
     return [];
-
 }
 
 var Logic = {
     checkDirectLine,
     checkVertical,
+    checkSlopeFive,
     dataAcceptToSlotMachines, 
     genData,
-    splitDataToSlot,
-    slopeFive,
-    checkDataRule(){
-
-    }
-     
+    splitDataToSlot,    
+    checkDataRule(data){
+        var dataCheck = checkDirectLine(data);
+        return dataCheck;
+    }     
 }
 export {Logic}
