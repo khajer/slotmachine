@@ -14,11 +14,14 @@ var checkDirectLine = (dataSlot)=>{
         var maxCheck = MAX_COL * (row+1);
         for(var i = seq; i < maxCheck-1; i++){            
             var dChk = dataSlot[i];
-            if(dChk === dataSlot[i + 1] || dChk === SPECIAL_TYPE || dataSlot[i + 1] === SPECIAL_TYPE){                                
-                if( (tmp.length === 0 || (dataSlot[i + 1] !== tmp[0].val 
-                                            && dataSlot[i + 1] !== SPECIAL_TYPE 
-                                            && tmp[0].val !== SPECIAL_TYPE )
-                    )){
+            if(dChk === dataSlot[i + 1] || 
+                dChk === SPECIAL_TYPE || 
+                dataSlot[i + 1] === SPECIAL_TYPE){                                
+                
+                if( tmp.length === 0 || (dataSlot[i + 1] !== tmp[0].val &&
+                                            dataSlot[i + 1] !== SPECIAL_TYPE && 
+                                            tmp[0].val !== SPECIAL_TYPE )
+                    ){
                     tmp = [{
                         pos: i, 
                         val: dChk
@@ -44,12 +47,13 @@ var checkDirectLine = (dataSlot)=>{
 var checkVertical = (dataSlot) => {
     var tmp = [];
     for(var i = 0; i < MAX_COL; i++){
-        if(dataSlot[0+i] === dataSlot[5+i] && dataSlot[5+i] === dataSlot[10+i]){
-            tmp.push(
-                { pos:0+i, val:dataSlot[0+i] }, 
-                { pos:5+i, val:dataSlot[0+i] }, 
-                { pos:10+i, val:dataSlot[0+i] }
-            );   
+        if(dataSlot[0+i] === dataSlot[5+i] && 
+            dataSlot[5+i] === dataSlot[10+i]){
+                tmp.push(
+                    { pos:0+i, val:dataSlot[0+i] }, 
+                    { pos:5+i, val:dataSlot[0+i] }, 
+                    { pos:10+i, val:dataSlot[0+i] }
+                );   
         }
     }
     return tmp;
