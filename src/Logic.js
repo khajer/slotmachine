@@ -16,21 +16,118 @@ var checkDirectLine = (dataSlot)=>{
             var dChk = dataSlot[i];
             if(dChk === dataSlot[i + 1] || 
                 dChk === SPECIAL_TYPE || 
-                dataSlot[i + 1] === SPECIAL_TYPE){                                
-                
-                if( tmp.length === 0 || (dataSlot[i + 1] !== tmp[0].val &&
-                                            dataSlot[i + 1] !== SPECIAL_TYPE && 
-                                            tmp[0].val !== SPECIAL_TYPE )
-                    ){
-                    tmp = [{
-                        pos: i, 
-                        val: dChk
-                    }];
-                }  
-                tmp.push({
-                    pos: i+1,
-                    val: dataSlot[i + 1]
-                });                              
+                dataSlot[i + 1] === SPECIAL_TYPE){
+                    if(tmp.length === 0){
+                        tmp = [{
+                            pos: i, 
+                            val: dChk
+                        },{
+                            pos: i+1,
+                            val: dataSlot[i + 1]
+                        }];
+                    }else{
+                        if(dChk === dataSlot[i + 1]){
+                            tmp.push({
+                                pos: i+1,
+                                val: dataSlot[i + 1]
+                            });                                                        
+                        }else{
+                            if(dChk === SPECIAL_TYPE){
+                                if(tmp[0].val === dataSlot[i + 1]){
+                                    tmp.push({
+                                        pos: i+1,
+                                        val: dataSlot[i + 1]
+                                    });
+                                }else{
+                                    if(tmp.length < 3){
+                                        tmp = [{
+                                            pos: i, 
+                                            val: dChk
+                                        },{
+                                            pos: i+1,
+                                            val: dataSlot[i + 1]
+                                        }];
+                                    }else{
+                                        break;
+                                    }
+                                    
+                                }
+                            }else{
+                                if(tmp[0].val === dChk){
+                                    tmp.push({
+                                        pos: i+1,
+                                        val: dataSlot[i + 1]
+                                    });
+                                }else{
+                                    tmp = [{
+                                        pos: i, 
+                                        val: dChk
+                                    },{
+                                        pos: i+1,
+                                        val: dataSlot[i + 1]
+                                    }];
+                                }
+                            }
+
+                        }
+                    }
+                    // if(dChk === dataSlot[i+1]){
+                    //     if(tmp.length === 0){
+                    //         tmp = [{
+                    //             pos: i, 
+                    //             val: dChk
+                    //         }];
+                    //     }
+                    //     tmp.push({
+                    //         pos: i+1,
+                    //         val: dataSlot[i + 1]
+                    //     });
+                    // }else{
+                    //     if(tmp.length === 0){
+                    //         tmp = [{
+                    //             pos: i, 
+                    //             val: dChk
+                    //         }];
+                    //         tmp.push({
+                    //             pos: i+1,
+                    //             val: dataSlot[i + 1]
+                    //         });
+                    //     }else{
+                    //         if(dChk === SPECIAL_TYPE){
+                    //             if(dataSlot[i + 1] === tmp[0].val){
+                    //                 tmp.push({
+                    //                     pos: i+1,
+                    //                     val: dataSlot[i + 1]
+                    //                 });
+                    //             }else{
+                    //                 tmp = [{
+                    //                     pos: i, 
+                    //                     val: dChk
+                    //                 }];
+                    //                 tmp.push({
+                    //                     pos: i+1,
+                    //                     val: dataSlot[i + 1]
+                    //                 });
+                    //             }
+                    //         }else{
+                    //             if(dChk === tmp[0].val){
+                    //                 tmp.push({
+                    //                     pos: i+1,
+                    //                     val: dataSlot[i + 1]
+                    //                 });
+                    //             }else{
+                    //                 tmp = [{
+                    //                     pos: i, 
+                    //                     val: dChk
+                    //                 }];
+                    //                 tmp.push({
+                    //                     pos: i+1,
+                    //                     val: dataSlot[i + 1]
+                    //                 });
+                    //             }
+                    //         }
+                    //     }
+                    // } 
             }else{
                 if(tmp.length >= 3){                    
                     stackPos = stackPos.concat(tmp);
@@ -47,13 +144,12 @@ var checkDirectLine = (dataSlot)=>{
 var checkVertical = (dataSlot) => {
     var tmp = [];
     for(var i = 0; i < MAX_COL; i++){
-        if(dataSlot[0+i] === dataSlot[5+i] && 
-            dataSlot[5+i] === dataSlot[10+i]){
-                tmp.push(
-                    { pos:0+i, val:dataSlot[0+i] }, 
-                    { pos:5+i, val:dataSlot[0+i] }, 
-                    { pos:10+i, val:dataSlot[0+i] }
-                );   
+        if(dataSlot[0+i] === dataSlot[5+i] && dataSlot[5+i] === dataSlot[10+i]){
+            tmp.push(
+                { pos:0+i, val:dataSlot[0+i] }, 
+                { pos:5+i, val:dataSlot[0+i] }, 
+                { pos:10+i, val:dataSlot[0+i] }
+            );   
         }
     }
     return tmp;

@@ -172,6 +172,20 @@ describe('Logic.checkDirectLine() 4 , 0 x 1 1 1', ()=>{
     
 });
 
+describe('Logic.checkDirectLine() 4 , 1 1 x 2 2', ()=>{
+    var data = [1, 1, -10, 2, 2, 
+                0, 3, 0, 1, 0,
+                0, 1, 0, 2, 0]
+    
+    var dataExpectSlot = [];
+    dataExpectSlot = [0, 1, 2];
+    
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+
 
 describe('Logic.checkDirectLine() 3.0', ()=>{
     var data = [0, 1, 1, 1, 0, 
