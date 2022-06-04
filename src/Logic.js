@@ -70,64 +70,7 @@ var checkDirectLine = (dataSlot)=>{
                             }
 
                         }
-                    }
-                    // if(dChk === dataSlot[i+1]){
-                    //     if(tmp.length === 0){
-                    //         tmp = [{
-                    //             pos: i, 
-                    //             val: dChk
-                    //         }];
-                    //     }
-                    //     tmp.push({
-                    //         pos: i+1,
-                    //         val: dataSlot[i + 1]
-                    //     });
-                    // }else{
-                    //     if(tmp.length === 0){
-                    //         tmp = [{
-                    //             pos: i, 
-                    //             val: dChk
-                    //         }];
-                    //         tmp.push({
-                    //             pos: i+1,
-                    //             val: dataSlot[i + 1]
-                    //         });
-                    //     }else{
-                    //         if(dChk === SPECIAL_TYPE){
-                    //             if(dataSlot[i + 1] === tmp[0].val){
-                    //                 tmp.push({
-                    //                     pos: i+1,
-                    //                     val: dataSlot[i + 1]
-                    //                 });
-                    //             }else{
-                    //                 tmp = [{
-                    //                     pos: i, 
-                    //                     val: dChk
-                    //                 }];
-                    //                 tmp.push({
-                    //                     pos: i+1,
-                    //                     val: dataSlot[i + 1]
-                    //                 });
-                    //             }
-                    //         }else{
-                    //             if(dChk === tmp[0].val){
-                    //                 tmp.push({
-                    //                     pos: i+1,
-                    //                     val: dataSlot[i + 1]
-                    //                 });
-                    //             }else{
-                    //                 tmp = [{
-                    //                     pos: i, 
-                    //                     val: dChk
-                    //                 }];
-                    //                 tmp.push({
-                    //                     pos: i+1,
-                    //                     val: dataSlot[i + 1]
-                    //                 });
-                    //             }
-                    //         }
-                    //     }
-                    // } 
+                    } 
             }else{
                 if(tmp.length >= 3){                    
                     stackPos = stackPos.concat(tmp);
