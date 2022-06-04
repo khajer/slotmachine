@@ -58,7 +58,17 @@ var checkDirectLine = (dataSlot) => {
 var checkVertical = (dataSlot) => {
     var tmp = [];
     for (var i = 0; i < MAX_COL; i++){
-        if (dataSlot[0+i] === dataSlot[5+i] && dataSlot[5+i] === dataSlot[10+i]){
+        if ((dataSlot[0+i] === dataSlot[5+i] && dataSlot[5+i] === dataSlot[10+i] )|| 
+            (dataSlot[0+i] === SPECIAL_TYPE && dataSlot[5+i] === dataSlot[10+i] ) || 
+            (dataSlot[0+i] === SPECIAL_TYPE && dataSlot[10+i] === SPECIAL_TYPE ) || 
+            (dataSlot[0+i] === SPECIAL_TYPE && dataSlot[5+i] === SPECIAL_TYPE ) || 
+            (dataSlot[5+i] === SPECIAL_TYPE && dataSlot[0+i] === dataSlot[10+i] ) ||
+            (dataSlot[5+i] === SPECIAL_TYPE && dataSlot[0+i] === SPECIAL_TYPE ) ||
+            (dataSlot[5+i] === SPECIAL_TYPE && dataSlot[0+i] === SPECIAL_TYPE ) ||            
+            (dataSlot[10+i] === SPECIAL_TYPE && dataSlot[0+i] === dataSlot[5+i] ) ||
+            (dataSlot[10+i] === SPECIAL_TYPE && dataSlot[0+i] === SPECIAL_TYPE ) ||
+            (dataSlot[10+i] === SPECIAL_TYPE && dataSlot[5+i] === SPECIAL_TYPE ) )
+            {
             tmp.push(
                 { pos:0+i, val:dataSlot[0+i] }, 
                 { pos:5+i, val:dataSlot[0+i] }, 

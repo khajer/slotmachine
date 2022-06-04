@@ -198,6 +198,32 @@ describe('Logic.checkDirectLine() 3 , 1 3 x 2 2', ()=>{
     assert.equal(dataRule, dataExpectSlot);
     
 });
+describe('Logic.checkDirectLine() 3 , 1 3 2 x 2', ()=>{
+    var data = [1, 3, 2, -10, 2, 
+                0, 3, 0, 1, 0,
+                0, 1, 0, 2, 0]
+    
+    var dataExpectSlot = [];
+    dataExpectSlot = [2, 3, 4];
+    
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('Logic.checkDirectLine() 4 , 1 x 2 2 2', ()=>{
+    var data = [1, -10, 2, 2, 2, 
+                0, 3, 0, 1, 0,
+                0, 1, 0, 2, 0]
+    
+    var dataExpectSlot = [];
+    dataExpectSlot = [1, 2, 3, 4];
+    
+    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
 
 
 describe('Logic.checkDirectLine() 3.0', ()=>{
@@ -494,10 +520,237 @@ describe('checkVertical(1)', ()=>{
     assert.equal(dataRule, dataExpectSlot);
     
 });
+describe('checkVertical(1) special X 1', ()=>{
+    var data = [
+        -10, 2, 1, 3, 2,
+        1, 5, 3, 6, 3,
+        1, 3, 2, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        0, 5, 10
+    ];
+    
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('checkVertical(1) special X 1 1', ()=>{
+    var data = [
+        -10, 2, 1, 3, 2,
+        -10, 5, 3, 6, 3,
+        1, 3, 2, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        0, 5, 10
+    ];
+    
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('checkVertical(1) special X 1 11', ()=>{
+    var data = [
+        -10, 2, 1, 3, 2,
+        1, 5, 3, 6, 3,
+        -10, 3, 2, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        0, 5, 10
+    ];
+    
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('checkVertical(1) special X 1 2', ()=>{
+    var data = [
+        -10, 2, 1, 3, 2,
+        -10, 5, 3, 6, 3,
+        1, 3, 2, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        0, 5, 10
+    ];
+    
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('checkVertical(1) special X 2', ()=>{
+    var data = [
+        1, 2, 1, 3, 2,
+        -10, 5, 3, 6, 3,
+        1, 3, 2, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        0, 5, 10
+    ];
+    
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('checkVertical(1) special X 2 1', ()=>{
+    var data = [
+        -10, 2, 1, 3, 2,
+        -10, 5, 3, 6, 3,
+        1, 3, 2, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        0, 5, 10
+    ];
+    
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('checkVertical(1) special X 2 2', ()=>{
+    var data = [
+        -10, 2, 1, 3, 2,
+        -10, 5, 3, 6, 3,
+        1, 3, 2, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        0, 5, 10
+    ];
+    
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('checkVertical(1) special X 2 3', ()=>{
+    var data = [
+        -10, 2, 1, 3, 2,
+        -10, 5, 3, 6, 3,
+        -10, 3, 2, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        0, 5, 10
+    ];
+    
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('checkVertical(1) special X 3', ()=>{
+    var data = [
+        1, 2, 1, 3, 2,
+        1, 5, 3, 6, 3,
+        -10, 3, 2, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        0, 5, 10
+    ];
+    
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+
+describe('checkVertical(1) special X 3 1', ()=>{
+    var data = [
+        -10, 2, 1, 3, 2,
+        -10, 5, 3, 6, 3,
+        1, 3, 2, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        0, 5, 10
+    ];
+    
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+
+describe('checkVertical(1) special X 3 1.1', ()=>{
+    var data = [
+        -10, 2, 1, 3, 2,
+        -10, 5, 3, 6, 3,
+        -10, 3, 2, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        0, 5, 10
+    ];
+    
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('checkVertical(1) special X 3 1.2', ()=>{
+    var data = [
+        -10, 2, 1, 3, 2,
+        1, 5, 3, 6, 3,
+        -10, 3, 2, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        0, 5, 10
+    ];
+    
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+describe('checkVertical(1) special X 3 1.3', ()=>{
+    var data = [
+        1, 2, 1, 3, 2,
+        -10, 5, 3, 6, 3,
+        -10, 3, 2, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        0, 5, 10
+    ];
+    
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
 describe('checkVertical(1, 2)', ()=>{
     var data = [
         1, 2, 1, 3, 2,
         1, 5, 1, 6, 3,
+        1, 3, 1, 4, 2,
+    ];
+    
+    var dataExpectSlot = [
+        0, 5, 10, 2, 7, 12
+    ];
+    
+    var dataRule = Logic.checkVertical(data).map((data)=>{return data.pos});
+    
+    assert.equal(dataRule, dataExpectSlot);
+    
+});
+
+describe('checkVertical(1, 2) with special ', ()=>{
+    var data = [
+        1, 2, 1, 3, 2,
+        1, 5, -10, 6, 3,
         1, 3, 1, 4, 2,
     ];
     
