@@ -4,20 +4,20 @@ const MAX_ROW = 3;
 
 const SPECIAL_TYPE = -10;
 
-var checkDirectLine = (dataSlot)=>{
+var checkDirectLine = (dataSlot) => {
     var tmp = [];
     var seq = 0;
     var stackPos = [];
-    for(var row = 0; row < 3; row++){
+    for (var row = 0; row < 3; row++) {
         tmp = [];
         seq = MAX_COL * row;
         var maxCheck = MAX_COL * (row+1);
-        for(var i = seq; i < maxCheck-1; i++){            
+        for (var i = seq; i < maxCheck-1; i++) {            
             var dChk = dataSlot[i];
-            if(dChk === dataSlot[i + 1] || 
+            if (dChk === dataSlot[i + 1] || 
                 dChk === SPECIAL_TYPE || 
                 dataSlot[i + 1] === SPECIAL_TYPE){
-                    if(tmp.length === 0){
+                    if (tmp.length === 0){
                         tmp = [{
                             pos: i, 
                             val: dChk
@@ -25,60 +25,40 @@ var checkDirectLine = (dataSlot)=>{
                             pos: i+1,
                             val: dataSlot[i + 1]
                         }];
-                    }else{
-                        if(dChk === dataSlot[i + 1]){
+                    } else {                        
+                        if ( (dChk === dataSlot[i + 1]) || 
+                            (dChk === SPECIAL_TYPE && 
+                            tmp[0].val === dataSlot[i + 1]) || 
+                            tmp[0].val === dChk){
                             tmp.push({
                                 pos: i+1,
                                 val: dataSlot[i + 1]
-                            });                                                        
-                        }else{
-                            if(dChk === SPECIAL_TYPE){
-                                if(tmp[0].val === dataSlot[i + 1]){
-                                    tmp.push({
-                                        pos: i+1,
-                                        val: dataSlot[i + 1]
-                                    });
-                                }else{
-                                    if(tmp.length < 3){
-                                        tmp = [{
-                                            pos: i, 
-                                            val: dChk
-                                        },{
-                                            pos: i+1,
-                                            val: dataSlot[i + 1]
-                                        }];
-                                    }else{
-                                        break;
-                                    }
-                                    
-                                }
-                            }else{
-                                if(tmp[0].val === dChk){
-                                    tmp.push({
-                                        pos: i+1,
-                                        val: dataSlot[i + 1]
-                                    });
-                                }else{
-                                    tmp = [{
-                                        pos: i, 
-                                        val: dChk
-                                    },{
-                                        pos: i+1,
-                                        val: dataSlot[i + 1]
-                                    }];
-                                }
-                            }
-
+                            });
+                        } else if ((dChk === SPECIAL_TYPE &&
+                            tmp[0].val !== dataSlot[i + 1] && 
+                            tmp.length < 3) || 
+                            dChk !== SPECIAL_TYPE && 
+                            tmp[0].val !== dChk){
+                            tmp = [{
+                                pos: i, 
+                                val: dChk
+                            },{
+                                pos: i+1,
+                                val: dataSlot[i + 1]
+                            }];
+                        } else {
+                            break;
                         }
+                    
                     } 
-            }else{
-                if(tmp.length >= 3){                    
+            } else {
+                if (tmp.length >= 3){                    
                     stackPos = stackPos.concat(tmp);
                 }
                 tmp = [];
             }
         }
-        if(tmp.length >= 3){     
+        if (tmp.length >= 3){     
             stackPos = stackPos.concat(tmp);
         }  
     }
@@ -86,8 +66,8 @@ var checkDirectLine = (dataSlot)=>{
 }
 var checkVertical = (dataSlot) => {
     var tmp = [];
-    for(var i = 0; i < MAX_COL; i++){
-        if(dataSlot[0+i] === dataSlot[5+i] && dataSlot[5+i] === dataSlot[10+i]){
+    for (var i = 0; i < MAX_COL; i++){
+        if (dataSlot[0+i] === dataSlot[5+i] && dataSlot[5+i] === dataSlot[10+i]){
             tmp.push(
                 { pos:0+i, val:dataSlot[0+i] }, 
                 { pos:5+i, val:dataSlot[0+i] }, 
@@ -122,12 +102,12 @@ var genData = ()=>{
     // ]
     var data = [];
     var cntSp = 0;
-    for(var i = 0; i < (MAX_COL * MAX_ROW); i++){
+    for (var i = 0; i < (MAX_COL * MAX_ROW); i++) {
         var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
-        if(Math.floor(Math.random() * 10)%10 === 1 && cntSp < 3){
+        if (Math.floor(Math.random() * 10)%10 === 1 && cntSp < 3) {
             data.push(SPECIAL_TYPE);  
             cntSp++;
-        }else{
+        } else {
             data.push(typeId);    
         }
         
@@ -136,7 +116,7 @@ var genData = ()=>{
 }
 var splitDataToSlot = (dataSlot) => {        
     var data = [];
-    for(var i=0; i< MAX_COL; i++){
+    for (var i=0; i< MAX_COL; i++){
         data[i] = [
             dataSlot[i],
             dataSlot[MAX_COL+i],
@@ -147,7 +127,7 @@ var splitDataToSlot = (dataSlot) => {
 }
 var checkSlopeFive = (data) => {
     var dataResp = [];
-    if(data[0] === data[1] 
+    if (data[0] === data[1] 
         && data[0] === data[7]
         && data[0] === data[13]
         && data[0] === data[14]){
@@ -161,7 +141,7 @@ var checkSlopeFive = (data) => {
 
     }
 
-    if(data[10] === data[11] 
+    if (data[10] === data[11] 
         && data[10] === data[7]
         && data[10] === data[3]
         && data[10] === data[4]){
