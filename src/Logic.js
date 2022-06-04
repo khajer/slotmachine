@@ -16,41 +16,32 @@ var checkDirectLine = (dataSlot) => {
             var dChk = dataSlot[i];
             if (dChk === dataSlot[i + 1] || 
                 dChk === SPECIAL_TYPE || 
-                dataSlot[i + 1] === SPECIAL_TYPE){
-                    if (tmp.length === 0){
-                        tmp = [{
-                            pos: i, 
-                            val: dChk
-                        },{
-                            pos: i+1,
-                            val: dataSlot[i + 1]
-                        }];
-                    } else {                        
-                        if ( (dChk === dataSlot[i + 1]) || 
-                            (dChk === SPECIAL_TYPE && 
-                            tmp[0].val === dataSlot[i + 1]) || 
-                            tmp[0].val === dChk){
-                            tmp.push({
-                                pos: i+1,
-                                val: dataSlot[i + 1]
-                            });
-                        } else if ((dChk === SPECIAL_TYPE &&
-                            tmp[0].val !== dataSlot[i + 1] && 
-                            tmp.length < 3) || 
-                            dChk !== SPECIAL_TYPE && 
-                            tmp[0].val !== dChk){
-                            tmp = [{
-                                pos: i, 
-                                val: dChk
-                            },{
-                                pos: i+1,
-                                val: dataSlot[i + 1]
-                            }];
-                        } else {
-                            break;
-                        }
-                    
-                    } 
+                dataSlot[i + 1] === SPECIAL_TYPE){                                     
+                if ( tmp.length > 0 &&
+                    ((dChk === dataSlot[i + 1]) || 
+                    (dChk === SPECIAL_TYPE && 
+                    tmp[0].val === dataSlot[i + 1]) || 
+                    tmp[0].val === dChk)){
+                    tmp.push({
+                        pos: i+1,
+                        val: dataSlot[i + 1]
+                    });
+                } else if (tmp.length === 0 || 
+                    (dChk === SPECIAL_TYPE &&
+                    tmp[0].val !== dataSlot[i + 1] && 
+                    tmp.length < 3) || 
+                    dChk !== SPECIAL_TYPE && 
+                    tmp[0].val !== dChk){
+                    tmp = [{
+                        pos: i, 
+                        val: dChk
+                    },{
+                        pos: i+1,
+                        val: dataSlot[i + 1]
+                    }];
+                } else {
+                    break;
+                }
             } else {
                 if (tmp.length >= 3){                    
                     stackPos = stackPos.concat(tmp);
