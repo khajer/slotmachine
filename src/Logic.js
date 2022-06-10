@@ -19,22 +19,20 @@ var checkDirectLine = (dataSlot) => {
             if (dChk === dNextChk || 
                 dChk === SPECIAL_TYPE || 
                 dNextChk === SPECIAL_TYPE){     
-                    if (tmp.length === 0){ // [ ] | x x , [ ] | 1 x , [ ] | x 1
+                    if (tmp.length === 0 && (dChk === dNextChk || dChk === SPECIAL_TYPE || dNextChk === SPECIAL_TYPE)){ // [ ] | x x , [ ] | 1 x , [ ] | x 1
                         // console.log(tmp.length, tmp, dChk, dNextChk);
-                        if (dChk === dNextChk || dChk === SPECIAL_TYPE || dNextChk === SPECIAL_TYPE){
-                            tmp = [{
-                                pos: i, 
-                                val: dChk
-                            },{
-                                pos: i+1,
-                                val: dNextChk
-                            }];
-                                // console.log("add 2");
-                        }
+                        tmp = [{
+                            pos: i, 
+                            val: dChk
+                        },{
+                            pos: i+1,
+                            val: dNextChk
+                        }];
+                        console.log("add 2");
                     }else{  
                         // console.log(tmp.length, tmp, dChk, dNextChk);
                         var tmpNum = tmp.filter((dt)=>{return dt.val !== SPECIAL_TYPE});                       
-                        
+
                         if (tmpNum.length <= 0){ // [ x x] | 1 1 
                             // console.log("tmpNum.length <= 0", tmpNum)    
                             tmp.push({
@@ -79,25 +77,19 @@ var checkDirectLine = (dataSlot) => {
                                     }else{
                                         // console.log("break // [0 0 x] x 1")
                                         break;
-                                    }
-                                    
+                                    }                                    
                                 }
-
                             }
-                            else if (dNextChk === SPECIAL_TYPE ){ // [1 x] 1 x
-                                if (tmpNumber === dChk){
-                                    tmp.push({
-                                        pos: i+1,
-                                        val: dNextChk
-                                    });
-                                    // console.log("add 1 // [1 x] 1 x");
-                                }                                
-                            }
-                            
-                            
+                            else if (dNextChk === SPECIAL_TYPE && tmpNumber === dChk){ // [1 x] 1 x                            
+                                tmp.push({
+                                    pos: i+1,
+                                    val: dNextChk
+                                });
+                                // console.log("add 1 // [1 x] 1 x");
+                                                                
+                            }   
                             // console.log("end")
-                        }
-                        
+                        }                        
                     }
 
             } else {
@@ -184,6 +176,8 @@ var splitDataToSlot = (dataSlot) => {
     }
     return data;
 }
+
+
 var checkSlopDown = (data) => {
     
     var tmp = [];
@@ -205,40 +199,86 @@ var checkSlopDown = (data) => {
             nextCheckPos += 10;
         }
         
-        var valChk = data[curCheckPos];
-        var nexValChk = data[nextCheckPos];
-        // console.log(data)
-        // console.log(i, "| ", curCheckPos, ":", valChk, ",", nextCheckPos, ":", nexValChk);
-
-        if (valChk === nexValChk || 
-            valChk === SPECIAL_TYPE || 
-            nexValChk === SPECIAL_TYPE){
-                if ( tmp.length > 0 &&
-                    ((valChk === nexValChk) || 
-                    (valChk === SPECIAL_TYPE && 
-                    tmp[0].val === nexValChk) || 
-                    tmp[0].val === valChk)){                        
-                    tmp.push({
-                        pos: nextCheckPos,
-                        val: nexValChk
-                    });
-                } else if (tmp.length === 0 || 
-                    (valChk === SPECIAL_TYPE &&
-                    tmp[0].val !== nexValChk && 
-                    tmp.length < 3) || 
-                    valChk !== SPECIAL_TYPE && 
-                    tmp[0].val !== valChk){
+        var dChk = data[curCheckPos];
+        var dNextChk = data[nextCheckPos];
+        // var dChk = dataSlot[i];  
+        // var dNextChk = dataSlot[i + 1];    
+        if (dChk === dNextChk || 
+            dChk === SPECIAL_TYPE || 
+            dNextChk === SPECIAL_TYPE){     
+                if (tmp.length === 0 && (dChk === dNextChk || dChk === SPECIAL_TYPE || dNextChk === SPECIAL_TYPE)){ // [ ] | x x , [ ] | 1 x , [ ] | x 1
+                    // console.log(tmp.length, tmp, dChk, dNextChk);
                     tmp = [{
                         pos: curCheckPos, 
-                        val: valChk
+                        val: dChk
                     },{
                         pos: nextCheckPos,
-                        val: nexValChk
+                        val: dNextChk
                     }];
-                } else {
-                    break;
-                }            
-        }
+                    console.log("add 2");
+                }else{  
+                    // console.log(tmp.length, tmp, dChk, dNextChk);
+                    var tmpNum = tmp.filter((dt)=>{return dt.val !== SPECIAL_TYPE});                       
+
+                    if (tmpNum.length <= 0){ // [ x x] | 1 1 
+                        // console.log("tmpNum.length <= 0", tmpNum)    
+                        tmp.push({
+                            pos: nextCheckPos,
+                            val: dNextChk
+                        }); 
+                        // console.log("add 1");
+                    }else{   // [1 x ] x x true, [x 1 ] 1 1                             
+                        var tmpNumber = tmpNum[0].val;
+                        // console.log("tmpNum.length > 0");
+                        if (dChk === SPECIAL_TYPE && dNextChk === SPECIAL_TYPE){ // [1 x] x x 
+                            tmp.push({
+                                pos: nextCheckPos,
+                                val: dNextChk
+                            });
+                            // console.log("add 1 // [1 x] x x ");
+                        }
+                        else if (dChk === dNextChk && tmpNumber === dChk){ // [x 1] 1 1, 
+                            tmp.push({
+                                pos: nextCheckPos,
+                                val: dNextChk
+                            });
+                            // console.log("add 1 // [x 1] 1 1");
+                        }
+                        else if (dChk === SPECIAL_TYPE){ // [1 x] x                                                                
+                            if (tmpNumber === dNextChk){ // [1 x] x 1
+                                tmp.push({
+                                    pos: nextCheckPos,
+                                    val: dNextChk
+                                });  
+                                // console.log("add 1 // [1 x] x 1");
+                            }else{ // [0 x] x 1 
+                                if(tmp.length < 3){
+                                    tmp = [{
+                                        pos: i, 
+                                        val: dChk
+                                    },{
+                                        pos: nextCheckPos,
+                                        val: dNextChk
+                                    }];
+                                    // console.log("add 2 // [0 x] x 1")
+                                }else{
+                                    // console.log("break // [0 0 x] x 1")
+                                    break;
+                                }                                    
+                            }
+                        }
+                        else if (dNextChk === SPECIAL_TYPE && tmpNumber === dChk){ // [1 x] 1 x                            
+                            tmp.push({
+                                pos: nextCheckPos,
+                                val: dNextChk
+                            });
+                            // console.log("add 1 // [1 x] 1 x");
+                                                            
+                        }   
+                        // console.log("end")
+                    }                        
+                }
+        }         
     }
 
     if (tmp.length >= 3){                    
@@ -248,8 +288,8 @@ var checkSlopDown = (data) => {
 }
 
 var checkSlopUp = (data) => {
-    console.log("Slop UP;")
-    var dataResp = [];
+    console.log("Slop UP")
+    console.log(data[10], data[11], data[7], data[3], data[4]);
     var tmp = [];
 
     for (var i = 0; i < MAX_COL - 1; i++){
@@ -257,7 +297,7 @@ var checkSlopUp = (data) => {
         var curCheckPos = i;
         if (curCheckPos === 2) {
             curCheckPos += 5;
-        } else if(curCheckPos > 2) {
+        } else if(curCheckPos < 2) {
             curCheckPos += 10;
         }
         
@@ -265,42 +305,90 @@ var checkSlopUp = (data) => {
         
         if (i === 1) {
             nextCheckPos += 5;            
-        } else if (i > 1) {
+        } else if (i < 1) {
             nextCheckPos += 10;
         }
         
-        var valChk = data[curCheckPos];
-        var nexValChk = data[nextCheckPos];
-
-        if (valChk === nexValChk || 
-            valChk === SPECIAL_TYPE || 
-            nexValChk === SPECIAL_TYPE){
-                if ( tmp.length > 0 &&
-                    ((valChk === nexValChk) || 
-                    (valChk === SPECIAL_TYPE && 
-                    tmp[0].val === nexValChk) || 
-                    tmp[0].val === valChk)){                        
-                    tmp.push({
-                        pos: nextCheckPos,
-                        val: nexValChk
-                    });
-                } else if (tmp.length === 0 || 
-                    (valChk === SPECIAL_TYPE &&
-                    tmp[0].val !== nexValChk && 
-                    tmp.length < 3) || 
-                    valChk !== SPECIAL_TYPE && 
-                    tmp[0].val !== valChk){
+        var dChk = data[curCheckPos];
+        var dNextChk = data[nextCheckPos];
+        
+        if (dChk === dNextChk || 
+            dChk === SPECIAL_TYPE || 
+            dNextChk === SPECIAL_TYPE){     
+                if (tmp.length === 0 && (dChk === dNextChk || dChk === SPECIAL_TYPE || dNextChk === SPECIAL_TYPE)){ // [ ] | x x , [ ] | 1 x , [ ] | x 1
+                    // console.log(tmp.length, tmp, dChk, dNextChk);
                     tmp = [{
                         pos: curCheckPos, 
-                        val: valChk
+                        val: dChk
                     },{
                         pos: nextCheckPos,
-                        val: nexValChk
+                        val: dNextChk
                     }];
-                } else {
-                    break;
-                }            
-        }
+                    console.log("add 2");
+                }else{  
+                    // console.log(tmp.length, tmp, dChk, dNextChk);
+                    var tmpNum = tmp.filter((dt)=>{return dt.val !== SPECIAL_TYPE});                       
+
+                    if (tmpNum.length <= 0){ // [ x x] | 1 1 
+                        // console.log("tmpNum.length <= 0", tmpNum)    
+                        tmp.push({
+                            pos: nextCheckPos,
+                            val: dNextChk
+                        }); 
+                        // console.log("add 1");
+                    }else{   // [1 x ] x x true, [x 1 ] 1 1                             
+                        var tmpNumber = tmpNum[0].val;
+                        // console.log("tmpNum.length > 0");
+                        if (dChk === SPECIAL_TYPE && dNextChk === SPECIAL_TYPE){ // [1 x] x x 
+                            tmp.push({
+                                pos: nextCheckPos,
+                                val: dNextChk
+                            });
+                            // console.log("add 1 // [1 x] x x ");
+                        }
+                        else if (dChk === dNextChk && tmpNumber === dChk){ // [x 1] 1 1, 
+                            tmp.push({
+                                pos: nextCheckPos,
+                                val: dNextChk
+                            });
+                            // console.log("add 1 // [x 1] 1 1");
+                        }
+                        else if (dChk === SPECIAL_TYPE){ // [1 x] x                                                                
+                            if (tmpNumber === dNextChk){ // [1 x] x 1
+                                tmp.push({
+                                    pos: nextCheckPos,
+                                    val: dNextChk
+                                });  
+                                // console.log("add 1 // [1 x] x 1");
+                            }else{ // [0 x] x 1 
+                                if(tmp.length < 3){
+                                    tmp = [{
+                                        pos: i, 
+                                        val: dChk
+                                    },{
+                                        pos: nextCheckPos,
+                                        val: dNextChk
+                                    }];
+                                    // console.log("add 2 // [0 x] x 1")
+                                }else{
+                                    // console.log("break // [0 0 x] x 1")
+                                    break;
+                                }                                    
+                            }
+                        }
+                        else if (dNextChk === SPECIAL_TYPE && tmpNumber === dChk){ // [1 x] 1 x                            
+                            tmp.push({
+                                pos: nextCheckPos,
+                                val: dNextChk
+                            });
+                            // console.log("add 1 // [1 x] 1 x");
+                                                            
+                        }   
+                        // console.log("end")
+                    }                        
+                }
+        }         
+    
     }
 
     if (tmp.length >= 3){                    
@@ -314,10 +402,10 @@ var checkSlopeFive = (data) => {
     if (respDown.length > 0){
         return respDown;
     }
-    // var respUp = checkSlopUp(data);
-    // if (respUp.length > 0){
-    //     return respUp;
-    // }
+    var respUp = checkSlopUp(data);
+    if (respUp.length > 0){
+        return respUp;
+    }
     return [];
 }
 
