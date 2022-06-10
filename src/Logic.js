@@ -178,135 +178,40 @@ var splitDataToSlot = (dataSlot) => {
 }
 
 
-var checkSlopDown = (data) => {
+var checkSlop = (data, direction) => {
     
     var tmp = [];
 
     for (var i = 0; i < MAX_COL - 1; i++){
-
         var curCheckPos = i;
-        if (curCheckPos === 2) {
-            curCheckPos += 5;
-        } else if(curCheckPos > 2) {
-            curCheckPos += 10;
-        }
-        
         var nextCheckPos = i + 1;
-        
-        if (i === 1) {
-            nextCheckPos += 5;            
-        } else if (i > 1) {
-            nextCheckPos += 10;
+        if (direction ==="up"){
+            if (curCheckPos === 2) {
+                curCheckPos += 5;
+            } else if(curCheckPos < 2) {
+                curCheckPos += 10;
+            }
+            
+            if (i === 1) {
+                nextCheckPos += 5;            
+            } else if (i < 1) {
+                nextCheckPos += 10;
+            }
+        }else{
+            if (curCheckPos === 2) {
+                curCheckPos += 5;
+            } else if(curCheckPos > 2) {
+                curCheckPos += 10;
+            }
+            
+            // var nextCheckPos = i + 1;            
+            if (i === 1) {
+                nextCheckPos += 5;            
+            } else if (i > 1) {
+                nextCheckPos += 10;
+            }
         }
         
-        var dChk = data[curCheckPos];
-        var dNextChk = data[nextCheckPos];
-        // var dChk = dataSlot[i];  
-        // var dNextChk = dataSlot[i + 1];    
-        if (dChk === dNextChk || 
-            dChk === SPECIAL_TYPE || 
-            dNextChk === SPECIAL_TYPE){     
-                if (tmp.length === 0 && (dChk === dNextChk || dChk === SPECIAL_TYPE || dNextChk === SPECIAL_TYPE)){ // [ ] | x x , [ ] | 1 x , [ ] | x 1
-                    // console.log(tmp.length, tmp, dChk, dNextChk);
-                    tmp = [{
-                        pos: curCheckPos, 
-                        val: dChk
-                    },{
-                        pos: nextCheckPos,
-                        val: dNextChk
-                    }];
-                    // console.log("add 2");
-                }else{  
-                    // console.log(tmp.length, tmp, dChk, dNextChk);
-                    var tmpNum = tmp.filter((dt)=>{return dt.val !== SPECIAL_TYPE});                       
-
-                    if (tmpNum.length <= 0){ // [ x x] | 1 1 
-                        // console.log("tmpNum.length <= 0", tmpNum)    
-                        tmp.push({
-                            pos: nextCheckPos,
-                            val: dNextChk
-                        }); 
-                        // console.log("add 1");
-                    }else{   // [1 x ] x x true, [x 1 ] 1 1                             
-                        var tmpNumber = tmpNum[0].val;
-                        // console.log("tmpNum.length > 0");
-                        if (dChk === SPECIAL_TYPE && dNextChk === SPECIAL_TYPE){ // [1 x] x x 
-                            tmp.push({
-                                pos: nextCheckPos,
-                                val: dNextChk
-                            });
-                            // console.log("add 1 // [1 x] x x ");
-                        }
-                        else if (dChk === dNextChk && tmpNumber === dChk){ // [x 1] 1 1, 
-                            tmp.push({
-                                pos: nextCheckPos,
-                                val: dNextChk
-                            });
-                            // console.log("add 1 // [x 1] 1 1");
-                        }
-                        else if (dChk === SPECIAL_TYPE){ // [1 x] x                                                                
-                            if (tmpNumber === dNextChk){ // [1 x] x 1
-                                tmp.push({
-                                    pos: nextCheckPos,
-                                    val: dNextChk
-                                });  
-                                // console.log("add 1 // [1 x] x 1");
-                            }else{ // [0 x] x 1 
-                                if(tmp.length < 3){
-                                    tmp = [{
-                                        pos: i, 
-                                        val: dChk
-                                    },{
-                                        pos: nextCheckPos,
-                                        val: dNextChk
-                                    }];
-                                    // console.log("add 2 // [0 x] x 1")
-                                }else{
-                                    // console.log("break // [0 0 x] x 1")
-                                    break;
-                                }                                    
-                            }
-                        }
-                        else if (dNextChk === SPECIAL_TYPE && tmpNumber === dChk){ // [1 x] 1 x                            
-                            tmp.push({
-                                pos: nextCheckPos,
-                                val: dNextChk
-                            });
-                            // console.log("add 1 // [1 x] 1 x");
-                                                            
-                        }   
-                        // console.log("end")
-                    }                        
-                }
-        }         
-    }
-
-    if (tmp.length >= 3){                    
-        return tmp;
-    }
-    return [];
-}
-
-var checkSlopUp = (data) => {
-    // console.log("Slop UP")
-    var tmp = [];
-
-    for (var i = 0; i < MAX_COL - 1; i++){
-
-        var curCheckPos = i;
-        if (curCheckPos === 2) {
-            curCheckPos += 5;
-        } else if(curCheckPos < 2) {
-            curCheckPos += 10;
-        }
-        
-        var nextCheckPos = i + 1;
-        
-        if (i === 1) {
-            nextCheckPos += 5;            
-        } else if (i < 1) {
-            nextCheckPos += 10;
-        }
         
         var dChk = data[curCheckPos];
         var dNextChk = data[nextCheckPos];
@@ -314,78 +219,78 @@ var checkSlopUp = (data) => {
         if (dChk === dNextChk || 
             dChk === SPECIAL_TYPE || 
             dNextChk === SPECIAL_TYPE){     
-                if (tmp.length === 0 && (dChk === dNextChk || dChk === SPECIAL_TYPE || dNextChk === SPECIAL_TYPE)){ // [ ] | x x , [ ] | 1 x , [ ] | x 1
-                    // console.log(tmp.length, tmp, dChk, dNextChk);
-                    tmp = [{
-                        pos: curCheckPos, 
-                        val: dChk
-                    },{
+            if (tmp.length === 0 && (dChk === dNextChk || dChk === SPECIAL_TYPE || dNextChk === SPECIAL_TYPE)){ // [ ] | x x , [ ] | 1 x , [ ] | x 1
+                // console.log(tmp.length, tmp, dChk, dNextChk);
+                tmp = [{
+                    pos: curCheckPos, 
+                    val: dChk
+                },{
+                    pos: nextCheckPos,
+                    val: dNextChk
+                }];
+                // console.log("add 2");
+            }else{  
+                // console.log(tmp.length, tmp, dChk, dNextChk);
+                var tmpNum = tmp.filter((dt)=>{return dt.val !== SPECIAL_TYPE});                       
+
+                if (tmpNum.length <= 0){ // [ x x] | 1 1 
+                    // console.log("tmpNum.length <= 0", tmpNum)    
+                    tmp.push({
                         pos: nextCheckPos,
                         val: dNextChk
-                    }];
-                    // console.log("add 2");
-                }else{  
-                    // console.log(tmp.length, tmp, dChk, dNextChk);
-                    var tmpNum = tmp.filter((dt)=>{return dt.val !== SPECIAL_TYPE});                       
-
-                    if (tmpNum.length <= 0){ // [ x x] | 1 1 
-                        // console.log("tmpNum.length <= 0", tmpNum)    
+                    }); 
+                    // console.log("add 1");
+                }else{   // [1 x ] x x true, [x 1 ] 1 1                             
+                    var tmpNumber = tmpNum[0].val;
+                    // console.log("tmpNum.length > 0");
+                    if (dChk === SPECIAL_TYPE && dNextChk === SPECIAL_TYPE){ // [1 x] x x 
                         tmp.push({
                             pos: nextCheckPos,
                             val: dNextChk
-                        }); 
-                        // console.log("add 1");
-                    }else{   // [1 x ] x x true, [x 1 ] 1 1                             
-                        var tmpNumber = tmpNum[0].val;
-                        // console.log("tmpNum.length > 0");
-                        if (dChk === SPECIAL_TYPE && dNextChk === SPECIAL_TYPE){ // [1 x] x x 
+                        });
+                        // console.log("add 1 // [1 x] x x ");
+                    }
+                    else if (dChk === dNextChk && tmpNumber === dChk){ // [x 1] 1 1, 
+                        tmp.push({
+                            pos: nextCheckPos,
+                            val: dNextChk
+                        });
+                        // console.log("add 1 // [x 1] 1 1");
+                    }
+                    else if (dChk === SPECIAL_TYPE){ // [1 x] x                                                                
+                        if (tmpNumber === dNextChk){ // [1 x] x 1
                             tmp.push({
                                 pos: nextCheckPos,
                                 val: dNextChk
-                            });
-                            // console.log("add 1 // [1 x] x x ");
-                        }
-                        else if (dChk === dNextChk && tmpNumber === dChk){ // [x 1] 1 1, 
-                            tmp.push({
-                                pos: nextCheckPos,
-                                val: dNextChk
-                            });
-                            // console.log("add 1 // [x 1] 1 1");
-                        }
-                        else if (dChk === SPECIAL_TYPE){ // [1 x] x                                                                
-                            if (tmpNumber === dNextChk){ // [1 x] x 1
-                                tmp.push({
+                            });  
+                            // console.log("add 1 // [1 x] x 1");
+                        }else{ // [0 x] x 1 
+                            if(tmp.length < 3){
+                                tmp = [{
+                                    pos: i, 
+                                    val: dChk
+                                },{
                                     pos: nextCheckPos,
                                     val: dNextChk
-                                });  
-                                // console.log("add 1 // [1 x] x 1");
-                            }else{ // [0 x] x 1 
-                                if(tmp.length < 3){
-                                    tmp = [{
-                                        pos: i, 
-                                        val: dChk
-                                    },{
-                                        pos: nextCheckPos,
-                                        val: dNextChk
-                                    }];
-                                    // console.log("add 2 // [0 x] x 1")
-                                }else{
-                                    // console.log("break // [0 0 x] x 1")
-                                    break;
-                                }                                    
-                            }
+                                }];
+                                // console.log("add 2 // [0 x] x 1")
+                            }else{
+                                // console.log("break // [0 0 x] x 1")
+                                break;
+                            }                                    
                         }
-                        else if (dNextChk === SPECIAL_TYPE && tmpNumber === dChk){ // [1 x] 1 x                            
-                            tmp.push({
-                                pos: nextCheckPos,
-                                val: dNextChk
-                            });
-                            // console.log("add 1 // [1 x] 1 x");
-                                                            
-                        }   
-                        // console.log("end")
-                    }                        
-                }
+                    }
+                    else if (dNextChk === SPECIAL_TYPE && tmpNumber === dChk){ // [1 x] 1 x                            
+                        tmp.push({
+                            pos: nextCheckPos,
+                            val: dNextChk
+                        });
+                        // console.log("add 1 // [1 x] 1 x");
+                                                        
+                    }   
+                    // console.log("end")
+                }                        
+            }
         }         
     
     }
@@ -397,8 +302,8 @@ var checkSlopUp = (data) => {
 }
 var checkSlopeFive = (data) => {
     
-    var respDown = checkSlopDown(data);
-    var respUp = checkSlopUp(data);
+    var respDown = checkSlop(data, "down");
+    var respUp = checkSlop(data, "up");
     if (respDown.length > 0 && respDown.length > respUp.length){
         return respDown;
     }else{
