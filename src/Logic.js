@@ -12,36 +12,94 @@ var checkDirectLine = (dataSlot) => {
         tmp = [];
         seq = MAX_COL * row;
         var maxCheck = MAX_COL * (row+1);
-        for (var i = seq; i < maxCheck-1; i++) {            
-            var dChk = dataSlot[i];
-            if (dChk === dataSlot[i + 1] || 
+        for (var i = seq; i < maxCheck-1; i++) {                        
+            
+            var dChk = dataSlot[i];  
+            var dNextChk = dataSlot[i + 1];    
+            if (dChk === dNextChk || 
                 dChk === SPECIAL_TYPE || 
-                dataSlot[i + 1] === SPECIAL_TYPE){                                     
-                if ( tmp.length > 0 &&
-                    ((dChk === dataSlot[i + 1]) || 
-                    (dChk === SPECIAL_TYPE && 
-                    tmp[0].val === dataSlot[i + 1]) || 
-                    tmp[0].val === dChk)){
-                    tmp.push({
-                        pos: i+1,
-                        val: dataSlot[i + 1]
-                    });
-                } else if (tmp.length === 0 || 
-                    (dChk === SPECIAL_TYPE &&
-                    tmp[0].val !== dataSlot[i + 1] && 
-                    tmp.length < 3) || 
-                    dChk !== SPECIAL_TYPE && 
-                    tmp[0].val !== dChk){
-                    tmp = [{
-                        pos: i, 
-                        val: dChk
-                    },{
-                        pos: i+1,
-                        val: dataSlot[i + 1]
-                    }];
-                } else {
-                    break;
-                }
+                dNextChk === SPECIAL_TYPE){     
+                    if (tmp.length === 0){ // [ ] | x x , [ ] | 1 x , [ ] | x 1
+                        // console.log(tmp.length, tmp, dChk, dNextChk);
+                        if (dChk === dNextChk || dChk === SPECIAL_TYPE || dNextChk === SPECIAL_TYPE){
+                            tmp = [{
+                                pos: i, 
+                                val: dChk
+                            },{
+                                pos: i+1,
+                                val: dNextChk
+                            }];
+                                // console.log("add 2");
+                        }
+                    }else{  
+                        // console.log(tmp.length, tmp, dChk, dNextChk);
+                        var tmpNum = tmp.filter((dt)=>{return dt.val !== SPECIAL_TYPE});                       
+                        
+                        if (tmpNum.length <= 0){ // [ x x] | 1 1 
+                            // console.log("tmpNum.length <= 0", tmpNum)    
+                            tmp.push({
+                                pos: i+1,
+                                val: dNextChk
+                            }); 
+                            // console.log("add 1");
+                        }else{   // [1 x ] x x true, [x 1 ] 1 1                             
+                            var tmpNumber = tmpNum[0].val;
+                            // console.log("tmpNum.length > 0");
+                            if (dChk === SPECIAL_TYPE && dNextChk === SPECIAL_TYPE){ // [1 x] x x 
+                                tmp.push({
+                                    pos: i+1,
+                                    val: dNextChk
+                                });
+                                // console.log("add 1 // [1 x] x x ");
+                            }
+                            else if (dChk === dNextChk && tmpNumber === dChk){ // [x 1] 1 1, 
+                                tmp.push({
+                                    pos: i+1,
+                                    val: dNextChk
+                                });
+                                // console.log("add 1 // [x 1] 1 1");
+                            }
+                            else if (dChk === SPECIAL_TYPE){ // [1 x] x                                                                
+                                if (tmpNumber === dNextChk){ // [1 x] x 1
+                                    tmp.push({
+                                        pos: i+1,
+                                        val: dNextChk
+                                    });  
+                                    // console.log("add 1 // [1 x] x 1");
+                                }else{ // [0 x] x 1 
+                                    if(tmp.length < 3){
+                                        tmp = [{
+                                            pos: i, 
+                                            val: dChk
+                                        },{
+                                            pos: i+1,
+                                            val: dNextChk
+                                        }];
+                                        // console.log("add 2 // [0 x] x 1")
+                                    }else{
+                                        // console.log("break // [0 0 x] x 1")
+                                        break;
+                                    }
+                                    
+                                }
+
+                            }
+                            else if (dNextChk === SPECIAL_TYPE ){ // [1 x] 1 x
+                                if (tmpNumber === dChk){
+                                    tmp.push({
+                                        pos: i+1,
+                                        val: dNextChk
+                                    });
+                                    // console.log("add 1 // [1 x] 1 x");
+                                }                                
+                            }
+                            
+                            
+                            // console.log("end")
+                        }
+                        
+                    }
+
             } else {
                 if (tmp.length >= 3){                    
                     stackPos = stackPos.concat(tmp);
@@ -126,35 +184,140 @@ var splitDataToSlot = (dataSlot) => {
     }
     return data;
 }
-var checkSlopeFive = (data) => {
+var checkSlopDown = (data) => {
+    
+    var tmp = [];
+
+    for (var i = 0; i < MAX_COL - 1; i++){
+
+        var curCheckPos = i;
+        if (curCheckPos === 2) {
+            curCheckPos += 5;
+        } else if(curCheckPos > 2) {
+            curCheckPos += 10;
+        }
+        
+        var nextCheckPos = i + 1;
+        
+        if (i === 1) {
+            nextCheckPos += 5;            
+        } else if (i > 1) {
+            nextCheckPos += 10;
+        }
+        
+        var valChk = data[curCheckPos];
+        var nexValChk = data[nextCheckPos];
+        // console.log(data)
+        // console.log(i, "| ", curCheckPos, ":", valChk, ",", nextCheckPos, ":", nexValChk);
+
+        if (valChk === nexValChk || 
+            valChk === SPECIAL_TYPE || 
+            nexValChk === SPECIAL_TYPE){
+                if ( tmp.length > 0 &&
+                    ((valChk === nexValChk) || 
+                    (valChk === SPECIAL_TYPE && 
+                    tmp[0].val === nexValChk) || 
+                    tmp[0].val === valChk)){                        
+                    tmp.push({
+                        pos: nextCheckPos,
+                        val: nexValChk
+                    });
+                } else if (tmp.length === 0 || 
+                    (valChk === SPECIAL_TYPE &&
+                    tmp[0].val !== nexValChk && 
+                    tmp.length < 3) || 
+                    valChk !== SPECIAL_TYPE && 
+                    tmp[0].val !== valChk){
+                    tmp = [{
+                        pos: curCheckPos, 
+                        val: valChk
+                    },{
+                        pos: nextCheckPos,
+                        val: nexValChk
+                    }];
+                } else {
+                    break;
+                }            
+        }
+    }
+
+    if (tmp.length >= 3){                    
+        return tmp;
+    }
+    return [];
+}
+
+var checkSlopUp = (data) => {
+    console.log("Slop UP;")
     var dataResp = [];
-    if (data[0] === data[1] 
-        && data[0] === data[7]
-        && data[0] === data[13]
-        && data[0] === data[14]){
-            return [
-                { pos:0, val: data[0] }, 
-                { pos:1, val: data[0] }, 
-                { pos:7, val: data[0] }, 
-                { pos:13, val: data[0] }, 
-                { pos:14, val: data[0] }
-            ];
+    var tmp = [];
 
+    for (var i = 0; i < MAX_COL - 1; i++){
+
+        var curCheckPos = i;
+        if (curCheckPos === 2) {
+            curCheckPos += 5;
+        } else if(curCheckPos > 2) {
+            curCheckPos += 10;
+        }
+        
+        var nextCheckPos = i + 1;
+        
+        if (i === 1) {
+            nextCheckPos += 5;            
+        } else if (i > 1) {
+            nextCheckPos += 10;
+        }
+        
+        var valChk = data[curCheckPos];
+        var nexValChk = data[nextCheckPos];
+
+        if (valChk === nexValChk || 
+            valChk === SPECIAL_TYPE || 
+            nexValChk === SPECIAL_TYPE){
+                if ( tmp.length > 0 &&
+                    ((valChk === nexValChk) || 
+                    (valChk === SPECIAL_TYPE && 
+                    tmp[0].val === nexValChk) || 
+                    tmp[0].val === valChk)){                        
+                    tmp.push({
+                        pos: nextCheckPos,
+                        val: nexValChk
+                    });
+                } else if (tmp.length === 0 || 
+                    (valChk === SPECIAL_TYPE &&
+                    tmp[0].val !== nexValChk && 
+                    tmp.length < 3) || 
+                    valChk !== SPECIAL_TYPE && 
+                    tmp[0].val !== valChk){
+                    tmp = [{
+                        pos: curCheckPos, 
+                        val: valChk
+                    },{
+                        pos: nextCheckPos,
+                        val: nexValChk
+                    }];
+                } else {
+                    break;
+                }            
+        }
     }
 
-    if (data[10] === data[11] 
-        && data[10] === data[7]
-        && data[10] === data[3]
-        && data[10] === data[4]){
-            return [
-                { pos:10, val: data[0] }, 
-                { pos:11, val: data[0] }, 
-                { pos:7, val: data[0] }, 
-                { pos:3, val: data[0] }, 
-                { pos:4, val: data[0] }
-            ];
-
+    if (tmp.length >= 3){                    
+        return tmp;
     }
+    return [];
+}
+var checkSlopeFive = (data) => {
+    
+    var respDown = checkSlopDown(data);
+    if (respDown.length > 0){
+        return respDown;
+    }
+    // var respUp = checkSlopUp(data);
+    // if (respUp.length > 0){
+    //     return respUp;
+    // }
     return [];
 }
 
