@@ -28,7 +28,7 @@ var checkDirectLine = (dataSlot) => {
                             pos: i+1,
                             val: dNextChk
                         }];
-                        console.log("add 2");
+                        // console.log("add 2");
                     }else{  
                         // console.log(tmp.length, tmp, dChk, dNextChk);
                         var tmpNum = tmp.filter((dt)=>{return dt.val !== SPECIAL_TYPE});                       
@@ -215,7 +215,7 @@ var checkSlopDown = (data) => {
                         pos: nextCheckPos,
                         val: dNextChk
                     }];
-                    console.log("add 2");
+                    // console.log("add 2");
                 }else{  
                     // console.log(tmp.length, tmp, dChk, dNextChk);
                     var tmpNum = tmp.filter((dt)=>{return dt.val !== SPECIAL_TYPE});                       
@@ -288,7 +288,7 @@ var checkSlopDown = (data) => {
 }
 
 var checkSlopUp = (data) => {
-    console.log("Slop UP")
+    // console.log("Slop UP")
     var tmp = [];
 
     for (var i = 0; i < MAX_COL - 1; i++){
@@ -323,7 +323,7 @@ var checkSlopUp = (data) => {
                         pos: nextCheckPos,
                         val: dNextChk
                     }];
-                    console.log("add 2");
+                    // console.log("add 2");
                 }else{  
                     // console.log(tmp.length, tmp, dChk, dNextChk);
                     var tmpNum = tmp.filter((dt)=>{return dt.val !== SPECIAL_TYPE});                       
@@ -398,14 +398,13 @@ var checkSlopUp = (data) => {
 var checkSlopeFive = (data) => {
     
     var respDown = checkSlopDown(data);
-    if (respDown.length > 0){
-        return respDown;
-    }
     var respUp = checkSlopUp(data);
-    if (respUp.length > 0){
+    if (respDown.length > 0 && respDown.length > respUp.length){
+        return respDown;
+    }else{
         return respUp;
     }
-    return [];
+
 }
 
 var Logic = {
