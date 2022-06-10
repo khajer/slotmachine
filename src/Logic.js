@@ -289,7 +289,6 @@ var checkSlopDown = (data) => {
 
 var checkSlopUp = (data) => {
     console.log("Slop UP")
-    console.log(data[10], data[11], data[7], data[3], data[4]);
     var tmp = [];
 
     for (var i = 0; i < MAX_COL - 1; i++){
