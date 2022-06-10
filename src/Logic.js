@@ -185,33 +185,18 @@ var checkSlop = (data, direction) => {
     for (var i = 0; i < MAX_COL - 1; i++){
         var curCheckPos = i;
         var nextCheckPos = i + 1;
-        if (direction ==="up"){
-            if (curCheckPos === 2) {
-                curCheckPos += 5;
-            } else if(curCheckPos < 2) {
-                curCheckPos += 10;
-            }
-            
-            if (i === 1) {
-                nextCheckPos += 5;            
-            } else if (i < 1) {
-                nextCheckPos += 10;
-            }
-        }else{
-            if (curCheckPos === 2) {
-                curCheckPos += 5;
-            } else if(curCheckPos > 2) {
-                curCheckPos += 10;
-            }
-            
-            // var nextCheckPos = i + 1;            
-            if (i === 1) {
-                nextCheckPos += 5;            
-            } else if (i > 1) {
-                nextCheckPos += 10;
-            }
+
+        if (curCheckPos === 2){
+            curCheckPos += 5;
+        }else if ((direction ==="up" && curCheckPos < 2) || (direction !=="up" && curCheckPos > 2)){
+            curCheckPos += 10;
         }
-        
+
+        if(i === 1){
+            nextCheckPos += 5;
+        }else if ((direction ==="up" && i < 1) || (direction !=="up" && i > 1)){
+            nextCheckPos += 10;
+        }
         
         var dChk = data[curCheckPos];
         var dNextChk = data[nextCheckPos];
@@ -304,7 +289,7 @@ var checkSlopeFive = (data) => {
     
     var respDown = checkSlop(data, "down");
     var respUp = checkSlop(data, "up");
-    if (respDown.length > 0 && respDown.length > respUp.length){
+    if (respDown.length > respUp.length){
         return respDown;
     }else{
         return respUp;
@@ -320,8 +305,13 @@ var Logic = {
     genData,
     splitDataToSlot,    
     checkDataRule(data){
-        var dataCheck = checkDirectLine(data);
-        return dataCheck;
+        var dataChkDirect = checkDirectLine(data);
+        var dataChkSlop = checkSlopeFive(data);
+        if ( dataChkSlop.length > dataChkDirect.length){
+            return dataChkSlop;
+        }
+        
+        return dataChkDirect;
     }     
 }
 export {Logic}
