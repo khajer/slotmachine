@@ -40,9 +40,29 @@ describe('Logic.checkDirectLine() 5', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    assert.equal(dataRule, dataExpectSlot);
+    var dataRule = Logic.checkDirectLine(data);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);    
+});
+
+describe('Logic.checkDirectLine() 5,3 2line', ()=>{
+    var data = [1, 1, 1, 1, 1, 
+                4, 4, 4, 2, 0,
+                2, 0, 1, 4, 0]
     
+    var dataExpectSlot = [];
+    dataExpectSlot = [0, 1, 2, 3, 4, 5, 6, 7];
+    
+    var dataRule = Logic.checkDirectLine(data);
+    var dataMergePos = []
+    var dataAcceptRule = Logic.checkDirectLine(data);    
+
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);
+    assert.equal(dataAcceptRule.length, 2);    
 });
 
 describe('Logic.checkDirectLine() 5 check special x 1 1 1 1', ()=>{
@@ -53,8 +73,10 @@ describe('Logic.checkDirectLine() 5 check special x 1 1 1 1', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -66,8 +88,10 @@ describe('Logic.checkDirectLine() 5 check special 1 x 1 1 1', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    assert.equal(dataRule, dataExpectSlot);    
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);   
 });
 
 describe('Logic.checkDirectLine() 5 check special 1 1  x 1 1', ()=>{
@@ -78,8 +102,10 @@ describe('Logic.checkDirectLine() 5 check special 1 1  x 1 1', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -92,8 +118,10 @@ describe('Logic.checkDirectLine() 5 check special 1 1 1 x 1', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -106,8 +134,10 @@ describe('Logic.checkDirectLine() 5 check special 1 1 1 1 x', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -119,8 +149,10 @@ describe('Logic.checkDirectLine() 5 check special 1 1 x 1 x', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -132,8 +164,10 @@ describe('Logic.checkDirectLine() 5 check special 1 x x 1 x', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -145,8 +179,10 @@ describe('Logic.checkDirectLine() 5 check special 1 x x x x', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -159,9 +195,10 @@ describe('Logic.checkDirectLine() 4', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -174,9 +211,10 @@ describe('Logic.checkDirectLine() 4 , 0 x 1 1 1', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -188,9 +226,10 @@ describe('Logic.checkDirectLine() 3 , 1 1 x 2 2', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 describe('Logic.checkDirectLine() 3 , 1 3 x 2 2', ()=>{
@@ -201,9 +240,10 @@ describe('Logic.checkDirectLine() 3 , 1 3 x 2 2', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 describe('Logic.checkDirectLine() 3 , 1 3 2 x 2', ()=>{
@@ -214,9 +254,10 @@ describe('Logic.checkDirectLine() 3 , 1 3 2 x 2', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 describe('Logic.checkDirectLine() 4 , 1 x 2 2 2', ()=>{
@@ -227,9 +268,10 @@ describe('Logic.checkDirectLine() 4 , 1 x 2 2 2', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -242,9 +284,10 @@ describe('Logic.checkDirectLine() 3.0', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [1, 2, 3];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 describe('Logic.checkDirectLine() 3.1', ()=>{
@@ -255,9 +298,10 @@ describe('Logic.checkDirectLine() 3.1', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 describe('Logic.checkDirectLine() 3.2 - 011110', ()=>{
@@ -268,9 +312,10 @@ describe('Logic.checkDirectLine() 3.2 - 011110', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [1, 2, 3];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 describe('Logic.checkDirectLine() 3.2xcx - 011110', ()=>{
@@ -281,9 +326,10 @@ describe('Logic.checkDirectLine() 3.2xcx - 011110', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [2, 3, 4, 12, 13, 14];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 describe('Logic.checkDirectLine() 4.2', ()=>{
@@ -294,9 +340,10 @@ describe('Logic.checkDirectLine() 4.2', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [1, 2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -307,9 +354,10 @@ describe('Logic.checkDirectLine() 3.1.1', ()=>{
     
     var dataExpectSlot = [];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -320,9 +368,10 @@ describe('Logic.checkDirectLine()  3 <L special x11x', ()=>{
     
     var dataExpectSlot = [0, 1, 2];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 describe('Logic.checkDirectLine()  3 <L special x1x2', ()=>{
@@ -332,9 +381,10 @@ describe('Logic.checkDirectLine()  3 <L special x1x2', ()=>{
     
     var dataExpectSlot = [0, 1, 2];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -347,9 +397,10 @@ describe('Logic.checkDirectLine() random', ()=>{
     
     var dataExpectSlot = [];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -360,9 +411,10 @@ describe('Logic.checkDirectLine() line1 normal', ()=>{
     
     var dataExpectSlot = [5, 6, 7, 8, 9];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -373,9 +425,10 @@ describe('Logic.checkDirectLine() line1, line2 ', ()=>{
     
     var dataExpectSlot = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 describe('Logic.checkDirectLine() line1, line2, line3  ', ()=>{
@@ -390,9 +443,10 @@ describe('Logic.checkDirectLine() line1, line2, line3  ', ()=>{
         5, 6, 7, 8, 9, 
         11, 12, 13];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -438,9 +492,10 @@ describe('Logic.checkDirectLine() line1,  line3  and another type', ()=>{
     var dataExpectSlot = [
         0, 1, 2, 12, 13, 14];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 describe('Logic.checkDirectLine()  test 33222 line', ()=>{
@@ -451,9 +506,10 @@ describe('Logic.checkDirectLine()  test 33222 line', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [2, 3, 4];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -467,9 +523,10 @@ describe('Logic.checkDirectLine() 11222 >> -line1,  line3  and another type', ()
     var dataExpectSlot = [
         2, 3, 4, 12, 13, 14];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 describe('Logic.checkDirectLine() line2,  line3 and another type', ()=>{
@@ -482,9 +539,10 @@ describe('Logic.checkDirectLine() line2,  line3 and another type', ()=>{
     var dataExpectSlot = [
         2, 3, 4, 11, 12, 13, 14];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 describe('Logic.checkDirectLine() line2-4,  line3 and another type', ()=>{
@@ -498,9 +556,10 @@ describe('Logic.checkDirectLine() line2-4,  line3 and another type', ()=>{
         6, 7, 8, 9, 12, 13, 14
     ];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -516,9 +575,10 @@ describe('Logic.checkDirectLine() line2-4,  line3 and another type', ()=>{
         0, 1, 2, 12, 13, 14
     ];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 describe('checkDirectLine() L shape', ()=>{
@@ -532,9 +592,10 @@ describe('checkDirectLine() L shape', ()=>{
         10, 11, 12
     ];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -545,9 +606,10 @@ describe('Logic.checkDirectLine()  3 <L special x1x2', ()=>{
     
     var dataExpectSlot = [0, 1, 2];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
@@ -559,9 +621,10 @@ describe('Logic.checkDirectLine() 3 , 1 1 x 2 2', ()=>{
     var dataExpectSlot = [];
     dataExpectSlot = [0, 1, 2];
     
-    var dataRule = Logic.checkDirectLine(data).map((data)=>{return data.pos});
-    
-    assert.equal(dataRule, dataExpectSlot);
+    var dataMergePos = []
+    Logic.checkDirectLine(data).forEach( e => {dataMergePos = dataMergePos.concat(e)});
+    var dataRule = (dataMergePos.map((data)=>{return data.pos}));
+    assert.equal(dataRule, dataExpectSlot);  
     
 });
 
