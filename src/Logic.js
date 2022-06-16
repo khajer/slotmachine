@@ -94,14 +94,12 @@ var checkDirectLine = (dataSlot) => {
 
             } else {
                 if (tmp.length >= 3){                    
-                    // stackPos = stackPos.concat(tmp);
                     stackPos.push(tmp);
                 }
                 tmp = [];
             }
         }
         if (tmp.length >= 3){     
-            // stackPos = stackPos.concat(tmp);
             stackPos.push(tmp);
         }  
     }
