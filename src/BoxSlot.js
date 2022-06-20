@@ -169,10 +169,10 @@ export class BoxSlot {
         });
         scene.tweens.add({
             targets: slots, 
-            duration: 1000/repeat,
+            duration: 1000,
             ease: 'Cubic.easeOut',
             alpha: 1,
-            repeat: -1,
+            repeat: repeat,
         });
         
     }

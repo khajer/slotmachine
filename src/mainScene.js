@@ -85,7 +85,7 @@ export class MainScene extends Phaser.Scene {
         var dataRuleSlot = Logic.dataAcceptToSlotMachines(posBlinks);
         
         var blinkTime = 1000;
-        var repeat = 1;
+        var repeat = 5;
         dataRuleSlot.forEach((e, idx)=>{
             this.boxSlots[idx].setRuleBoxAnimate(e, blinkTime, repeat);
         });
