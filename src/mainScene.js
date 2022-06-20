@@ -75,11 +75,17 @@ export class MainScene extends Phaser.Scene {
         });        
     }
 
-    animateAcceptRule(dataRule){
-        var dataRuleSlot = Logic.dataAcceptToSlotMachines(dataRule);
+    animateAcceptRule(data){
+
+        var dataMergePos = []
+        data.forEach( e => {dataMergePos = dataMergePos.concat(e)});
+        var posBlinks = (dataMergePos.map((data)=>{return data.pos}));
+        console.log(posBlinks);
+
+        var dataRuleSlot = Logic.dataAcceptToSlotMachines(posBlinks);
+        
         var blinkTime = 1000;
         var repeat = 1;
-        
         dataRuleSlot.forEach((e, idx)=>{
             this.boxSlots[idx].setRuleBoxAnimate(e, blinkTime, repeat);
         });
@@ -87,7 +93,7 @@ export class MainScene extends Phaser.Scene {
             setTimeout(()=>{
                 resolve();   
             },
-            blinkTime)
+            blinkTime);
         });
     }
 }

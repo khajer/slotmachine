@@ -347,11 +347,9 @@ var checkSlopeFive = (data) => {
 }
 
 var checkDataRule = (data) => {
-    var dataChkDirect = checkDirectLine(data);
-    var dataChkSlop = checkSlopeFive(data);
-    if ( dataChkSlop.length > dataChkDirect.length){
-        return dataChkSlop;
-    }
+    var dataChkDirect = checkDirectLine(data)
+        .concat(checkVertical(data))
+        .concat(checkSlopeFive(data));
     
     return dataChkDirect;
 }  
@@ -360,10 +358,10 @@ var Logic = {
     checkDirectLine,
     checkVertical,
     checkSlopeFive,
+    checkDataRule,
     dataAcceptToSlotMachines, 
     genData,
     splitDataToSlot,
-    checkDataRule,
     calcPoint   
 }
 export {Logic}
