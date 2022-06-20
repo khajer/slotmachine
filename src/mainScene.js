@@ -3,7 +3,6 @@ const BLOCK_HEIGHT = 80;
 
 const VELOCITY = 1;
 const MAX_COL = 5;
-const MAX_TYPE = 4;
 
 import {BoxSlot} from './BoxSlot.js';
 import {Logic} from './Logic.js';

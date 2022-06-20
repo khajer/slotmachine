@@ -1,5 +1,5 @@
 const MAX_COL = 5;
-const MAX_TYPE = 4;
+const MAX_TYPE = 11;
 const MAX_ROW = 3;
 
 const SPECIAL_TYPE = -10;
