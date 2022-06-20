@@ -78,4 +78,17 @@ describe('test Calculate Point 1 special xxx', ()=>{
     assert.equal(3*3, point);
 });
 
+describe('test Calculate Point 1 special xxx bid 2', ()=>{    
+    var arInput = [
+        {pos:1, val:-10},
+        {pos:2, val:-10},
+        {pos:3, val:-10},
+    ];
+    var bid = 2;
+    var point = Logic.calcPoint(arInput, bid);
+
+    assert.equal((3*3)*bid, point);
+});
+
+
 

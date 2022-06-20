@@ -48,7 +48,7 @@ var calcPoint = (arData, bid) => {
         }else if (curr.cnt > 6) {
             fac = 2;
         }
-        return total += curr.cnt * fac * typeValue;
+        return total += curr.cnt * fac * typeValue * bid;
     }, 0);
 
     return point;
