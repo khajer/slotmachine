@@ -5,19 +5,30 @@ const MAX_ROW = 3;
 const SPECIAL_TYPE = -10;
 
 var getTypeValue = (val) => {
+    if (val === SPECIAL_TYPE){
+        return 3;
+    }
     return 1;
 }
 var calcPoint = (arData, bid) => {    
     
     var spPoint = 0;
-    const cntData = arData.reduce(( result, curr) => {        
+    const cntData = arData.reduce(( result, curr, currIdx, ar) => {        
         var dataFound = result.find(e => e.num === curr.val || curr.val === SPECIAL_TYPE);
         if (dataFound){         
             dataFound.cnt += 1 + spPoint;
             spPoint = 0;
         } else {
             if(curr.val === SPECIAL_TYPE){
-                spPoint += 1;
+                if (currIdx !== ar.length - 1){
+                    spPoint += 1;
+                }else{
+                    result.push({
+                        num: curr.val,
+                        cnt: 1+ spPoint
+                    })
+                    spPoint = 0;
+                }                
             }else{                
                 result.push({
                     num: curr.val,
@@ -28,12 +39,11 @@ var calcPoint = (arData, bid) => {
         }
         return result;
     }, []);
-    console.log(cntData);
     
     var point = cntData.reduce( (total, curr) =>{        
         var fac = 1;   
-        var typeValue = getTypeValue(curr.val);     
-        if (curr.cnt > 3 && curr < 6){
+        var typeValue = getTypeValue(curr.num);     
+        if (curr.cnt > 3 && curr.cnt < 6){
             fac = 1.5;
         }else if (curr.cnt > 6) {
             fac = 2;
