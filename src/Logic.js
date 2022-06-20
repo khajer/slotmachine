@@ -4,6 +4,35 @@ const MAX_ROW = 3;
 
 const SPECIAL_TYPE = -10;
 
+var calcPoint = (arData, bid) => {    
+
+    const cntData = arData.reduce(( result, curr) => {
+        var dataFound = result.find(e => e.num === curr.val || curr.val === SPECIAL_TYPE);
+        if (dataFound){            
+            dataFound.cnt += 1;
+        } else {
+            result.push({
+                num: curr.val,
+                cnt: 1
+            })
+        }
+        return result;
+    }, []);
+    console.log(cntData);
+    
+    var point = cntData.reduce( (total, curr) =>{        
+        var fac = 1;   
+        var typeValue = 1;     
+        if (curr.cnt > 3 && curr < 6){
+            fac = 1.5;
+        }else if (curr.cnt > 6) {
+            fac = 2;
+        }
+        return total += curr.cnt * fac * typeValue;
+    }, 0);
+
+    return point;
+}
 var checkDirectLine = (dataSlot) => {
     var tmp = [];
     var seq = 0;
@@ -297,21 +326,24 @@ var checkSlopeFive = (data) => {
 
 }
 
+var checkDataRule = (data) => {
+    var dataChkDirect = checkDirectLine(data);
+    var dataChkSlop = checkSlopeFive(data);
+    if ( dataChkSlop.length > dataChkDirect.length){
+        return dataChkSlop;
+    }
+    
+    return dataChkDirect;
+}  
+
 var Logic = {
     checkDirectLine,
     checkVertical,
     checkSlopeFive,
     dataAcceptToSlotMachines, 
     genData,
-    splitDataToSlot,    
-    checkDataRule(data){
-        var dataChkDirect = checkDirectLine(data);
-        var dataChkSlop = checkSlopeFive(data);
-        if ( dataChkSlop.length > dataChkDirect.length){
-            return dataChkSlop;
-        }
-        
-        return dataChkDirect;
-    }     
+    splitDataToSlot,
+    checkDataRule,
+    calcPoint   
 }
 export {Logic}
