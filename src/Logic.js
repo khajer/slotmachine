@@ -5,16 +5,23 @@ const MAX_ROW = 3;
 const SPECIAL_TYPE = -10;
 
 var calcPoint = (arData, bid) => {    
-
-    const cntData = arData.reduce(( result, curr) => {
+    
+    var spPoint = 0;
+    const cntData = arData.reduce(( result, curr) => {        
         var dataFound = result.find(e => e.num === curr.val || curr.val === SPECIAL_TYPE);
-        if (dataFound){            
-            dataFound.cnt += 1;
+        if (dataFound){         
+            dataFound.cnt += 1 + spPoint;
+            spPoint = 0;
         } else {
-            result.push({
-                num: curr.val,
-                cnt: 1
-            })
+            if(curr.val === SPECIAL_TYPE){
+                spPoint += 1;
+            }else{                
+                result.push({
+                    num: curr.val,
+                    cnt: 1+ spPoint
+                })
+                spPoint = 0;
+            }                        
         }
         return result;
     }, []);
