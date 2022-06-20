@@ -4,6 +4,9 @@ const MAX_ROW = 3;
 
 const SPECIAL_TYPE = -10;
 
+var getTypeValue = (val) => {
+    return 1;
+}
 var calcPoint = (arData, bid) => {    
     
     var spPoint = 0;
@@ -29,7 +32,7 @@ var calcPoint = (arData, bid) => {
     
     var point = cntData.reduce( (total, curr) =>{        
         var fac = 1;   
-        var typeValue = 1;     
+        var typeValue = getTypeValue(curr.val);     
         if (curr.cnt > 3 && curr < 6){
             fac = 1.5;
         }else if (curr.cnt > 6) {
