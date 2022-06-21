@@ -13,6 +13,10 @@ export class MainScene extends Phaser.Scene {
 
     dataSlot = [];
     groupBlock = [];
+
+    point = 0;
+    bid = 1;
+
     constructor (){
         super(); 
                
@@ -58,6 +62,10 @@ export class MainScene extends Phaser.Scene {
                         if(idx===this.boxSlots.length -1 ){
                             console.log("spin all completed");    
                             var dataRule = Logic.checkDataRule(dataGen);
+                            var addPoint = Logic.calcPoint(dataRule, this.bid);
+                            console.log(addPoint);
+                            this.point += addPoint;
+                            console.log("POINT : " + this.point);
                             if(dataRule.length > 0){
                                 this.animateAcceptRule(dataRule).then(()=>{
                                     console.log("animateAcceptRule Already done");                                    
@@ -79,7 +87,6 @@ export class MainScene extends Phaser.Scene {
         var dataMergePos = []
         data.forEach( e => {dataMergePos = dataMergePos.concat(e)});
         var posBlinks = (dataMergePos.map((data)=>{return data.pos}));
-        console.log(posBlinks);
 
         var dataRuleSlot = Logic.dataAcceptToSlotMachines(posBlinks);
         

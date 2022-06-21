@@ -1,7 +1,7 @@
 const MAX_COL = 5;
-const MAX_TYPE = 11;
+const MAX_TYPE = 10;
 const MAX_ROW = 3;
-
+const NUMRAND_PERCENT = 0.9;
 const SPECIAL_TYPE = -10;
 
 var getTypeValue = (val) => {
@@ -194,7 +194,7 @@ var dataAcceptToSlotMachines = (data) => {
     });
     return dataRuleSlot
 }  
-var genData = ()=>{
+var genData = () => {
     // var data = [
     //     1, 1, 3, 1, 1,
     //     1, 4, 4, 2, 2,
@@ -203,8 +203,8 @@ var genData = ()=>{
     var data = [];
     var cntSp = 0;
     for (var i = 0; i < (MAX_COL * MAX_ROW); i++) {
-        var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
-        if (Math.floor(Math.random() * 10)%10 === 1 && cntSp < 3) {
+        var typeId = (Math.floor(Math.random() * 100) % MAX_TYPE) + 1;        
+        if (cntSp < 2 && Math.random() > NUMRAND_PERCENT) {            
             data.push(SPECIAL_TYPE);  
             cntSp++;
         } else {

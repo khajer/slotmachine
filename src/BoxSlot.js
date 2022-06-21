@@ -1,7 +1,7 @@
 const BLOCK_WIDTH = 100;
 const BLOCK_HEIGHT = 80;
 const SHOW_MAX_BOX = 3;
-const MAX_TYPE = 11;
+const MAX_TYPE = 10;
 
 let gVelocity = 0;
 let scene = null;
@@ -30,7 +30,6 @@ export class BoxSlot {
         scene.load.image('type8', 'assets/symbol_8.png');
         scene.load.image('type9', 'assets/symbol_9.png');
         scene.load.image('type10', 'assets/symbol_10.png');
-        scene.load.image('type11', 'assets/symbol_11.png');
         scene.load.image('typeSp1', 'assets/symbol_sp1.png');
     }
     create (data){         
@@ -50,7 +49,7 @@ export class BoxSlot {
     }
     setStart(data){
         this.groupBlock = [];                
-        var typeId = (Math.floor(Math.random() * 10) % MAX_TYPE) + 1;
+        var typeId = (Math.floor(Math.random() * 100) % MAX_TYPE) + 1;
         this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 0), "type" + typeId));
         
 

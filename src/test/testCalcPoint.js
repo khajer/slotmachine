@@ -78,7 +78,7 @@ describe('test Calculate Point 1 special xxx', ()=>{
     assert.equal(3*3, point);
 });
 
-describe('test Calculate Point 1 special xxx bid 2', ()=>{    
+describe('test Calculate Point 1 special xxx bid 2', () => {    
     var arInput = [
         {pos:1, val:-10},
         {pos:2, val:-10},
@@ -88,6 +88,21 @@ describe('test Calculate Point 1 special xxx bid 2', ()=>{
     var point = Logic.calcPoint(arInput, bid);
 
     assert.equal((3*3)*bid, point);
+});
+
+
+describe('prop test', () => {    
+    var cnt = 0;
+    for(var i = 0; i < 10000; i++){
+        var data = Logic.genData();
+        if (Logic.checkDataRule(data).length > 0){
+            cnt++;
+        }
+    }
+    console.log("percent success: " +  cnt/100 + "%");
+
+    
+    
 });
 
 
