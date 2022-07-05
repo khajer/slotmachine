@@ -22,6 +22,7 @@ export class MainScene extends Phaser.Scene {
                
     }
     init(){
+        
         this.boxSlots = [
             new BoxSlot(this, 4, VELOCITY, BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2),
             new BoxSlot(this, 8, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 1), BLOCK_HEIGHT / 2),
@@ -39,8 +40,12 @@ export class MainScene extends Phaser.Scene {
 
         this.load.image("btnSpin01", 'assets/spin_0.png');
         this.load.image("btnSpin02", 'assets/spin_1.png');
+
+        this.load.image("bg", 'assets/draft_bg.png');
     }
     create(){   
+        var btnSpin = this.physics.add.sprite(980/2, 1200/2, "bg")
+
         var dataSlot = Logic.splitDataToSlot(Logic.genData());
         this.boxSlots.forEach( (boxSlot, idx) => {
             boxSlot.create(dataSlot[idx]);            

@@ -1,10 +1,11 @@
 import {MainScene} from './src/MainScene.js';
 
-
-const WIDTH = 800;
-const HEIGHT = 600;
+const WIDTH = 980; 
+const HEIGHT = 1200;
 
 var config = {
+    mode: Phaser.Scale.FIT,
+    // autoCenter: Phaser.Scale.CENTER_BOTH,
     type: Phaser.AUTO,
     width: WIDTH,
     height: HEIGHT,
@@ -12,7 +13,7 @@ var config = {
         default: 'arcade',
         arcade: {}
     },        
-    scene:[MainScene],
+    scene:[ MainScene ],
     parent: 'content',
 };
 var game = new Phaser.Game(config);    
