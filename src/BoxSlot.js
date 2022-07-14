@@ -1,23 +1,28 @@
-const BLOCK_WIDTH = 100;
-const BLOCK_HEIGHT = 80;
+const BLOCK_WIDTH = 170;
+const BLOCK_HEIGHT = 170;
 const SHOW_MAX_BOX = 3;
 const MAX_TYPE = 10;
 
-let gVelocity = 0;
+let gVelocity = 1;
 let scene = null;
 
 export class BoxSlot {
     layer = null;
     startX = 0;
     startY = 0;
+    paddingX = 0;
+    paddingY = 0;
     maxSpinCnt = 0;
     groupBlock = [];
-    constructor (s, maxSpinCnt, velocity, startX, startY){  
+    constructor (s, maxSpinCnt, velocity, startX, startY, paddingX, paddingY){  
         gVelocity = velocity;      
         scene = s;
         this.maxSpinCnt = maxSpinCnt
-        this.startX = startX;
-        this.startY = startY;
+        this.startX = startX + paddingX;
+        this.startY = startY + paddingY;
+
+        this.paddingX = paddingX;
+        this.paddingY = paddingY;
     }
     preload(){
         scene.load.image('type1', 'assets/symbol_1.png');
@@ -41,7 +46,7 @@ export class BoxSlot {
         this.layer = scene.add.layer();          
         const graphics = scene.make.graphics();
         graphics.fillStyle(0xffffff);
-        graphics.fillRect(this.startX - (BLOCK_WIDTH/2), BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT * SHOW_MAX_BOX);
+        graphics.fillRect(this.startX - (BLOCK_WIDTH/2), this.paddingY+BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT * SHOW_MAX_BOX);
         const mask = graphics.createGeometryMask();
         this.layer.setMask(mask);
 

@@ -1,5 +1,5 @@
-const BLOCK_WIDTH = 100;
-const BLOCK_HEIGHT = 80;
+const BLOCK_WIDTH = 170;
+const BLOCK_HEIGHT = 170;
 
 const VELOCITY = 1;
 const MAX_COL = 5;
@@ -22,13 +22,15 @@ export class MainScene extends Phaser.Scene {
                
     }
     init(){
+        var startX = 65; // (980 - 850) /2 
+        var startY = 190;
         
         this.boxSlots = [
-            new BoxSlot(this, 4, VELOCITY, BLOCK_WIDTH / 2, BLOCK_HEIGHT / 2),
-            new BoxSlot(this, 8, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 1), BLOCK_HEIGHT / 2),
-            new BoxSlot(this, 12, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 2), BLOCK_HEIGHT / 2),
-            new BoxSlot(this, 16, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 3), BLOCK_HEIGHT / 2),
-            new BoxSlot(this, 20, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 4), BLOCK_HEIGHT / 2)
+            new BoxSlot(this, 4, VELOCITY, (BLOCK_WIDTH / 2), (BLOCK_HEIGHT / 2), startX, startY),
+            new BoxSlot(this, 8, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 1), (BLOCK_HEIGHT / 2), startX, startY),
+            new BoxSlot(this, 12, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 2), (BLOCK_HEIGHT / 2), startX, startY),
+            new BoxSlot(this, 16, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 3), (BLOCK_HEIGHT / 2), startX, startY),
+            new BoxSlot(this, 20, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 4), (BLOCK_HEIGHT / 2), startX, startY)
         ]
     }
         
@@ -38,21 +40,34 @@ export class MainScene extends Phaser.Scene {
             boxSlot.preload();
         });
 
-        this.load.image("btnSpin01", 'assets/spin_0.png');
-        this.load.image("btnSpin02", 'assets/spin_1.png');
+        this.load.image("btnSpin01", 'assets/btn_spin.png');
 
-        this.load.image("bg", 'assets/draft_bg.png');
+        this.load.image("shelfBg", 'assets/shelf_bg.png');
+        this.load.image("shelfBottom", 'assets/shelf_bottom.png');
+        this.load.image("shelfTop", 'assets/shelf_top.png');
+        
     }
     create(){   
-        var btnSpin = this.physics.add.sprite(980/2, 1200/2, "bg")
 
+        this.createShelf();        
+        this.createButton();   
+    }
+
+    createShelf(){
+        this.physics.add.sprite(this.cameras.main.centerX, 720, "shelfBg");
+        this.createBoxSlot();
+        this.physics.add.sprite(this.cameras.main.centerX, 980, "shelfBottom");
+        this.physics.add.sprite(this.cameras.main.centerX, 290, "shelfTop");
+    }
+    createBoxSlot(){
         var dataSlot = Logic.splitDataToSlot(Logic.genData());
         this.boxSlots.forEach( (boxSlot, idx) => {
             boxSlot.create(dataSlot[idx]);            
         });
-        
+    }
+    createButton(){
         var pressed = false;
-        var btnSpin = this.physics.add.sprite(400, 400, "btnSpin01")
+        this.physics.add.sprite(820, 980, "btnSpin01")
             .setInteractive()
             .on('pointerdown', ()=>{       
                 if(pressed){
@@ -84,7 +99,8 @@ export class MainScene extends Phaser.Scene {
                         }                        
                     });
                 });
-        });        
+        });     
+
     }
 
     animateAcceptRule(data){
