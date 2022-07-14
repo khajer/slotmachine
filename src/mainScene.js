@@ -45,6 +45,14 @@ export class MainScene extends Phaser.Scene {
         this.load.image("shelfBg", 'assets/shelf_bg.png');
         this.load.image("shelfBottom", 'assets/shelf_bottom.png');
         this.load.image("shelfTop", 'assets/shelf_top.png');
+
+        this.load.image("btnMax", 'assets/btn_max.png');
+        this.load.image("btnMinus", 'assets/btn_minus.png');
+        this.load.image("btnPlus", 'assets/btn_plus.png');
+
+        this.load.image("panelBet", 'assets/panel_bet.png');
+        this.load.image("panelWin", 'assets/panel_win.png');
+        this.load.image("panelTotalCoin", 'assets/panel_total_coin.png');
         
     }
     create(){   
@@ -58,6 +66,12 @@ export class MainScene extends Phaser.Scene {
         this.createBoxSlot();
         this.physics.add.sprite(this.cameras.main.centerX, 980, "shelfBottom");
         this.physics.add.sprite(this.cameras.main.centerX, 290, "shelfTop");
+        this.createPanel();
+    }
+    createPanel(){
+        this.physics.add.sprite(240, 925, "panelBet");
+        this.physics.add.sprite(520, 956, "panelWin");
+        this.physics.add.sprite(this.cameras.main.centerX, 180, "panelTotalCoin");
     }
     createBoxSlot(){
         var dataSlot = Logic.splitDataToSlot(Logic.genData());
@@ -99,8 +113,11 @@ export class MainScene extends Phaser.Scene {
                         }                        
                     });
                 });
-        });     
-
+        });
+        
+        this.physics.add.sprite(120, 1025, "btnMinus");
+        this.physics.add.sprite(220, 1025, "btnPlus");
+        this.physics.add.sprite(340, 1025, "btnMax");
     }
 
     animateAcceptRule(data){
