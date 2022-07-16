@@ -69,8 +69,8 @@ export class MainScene extends Phaser.Scene {
         this.createPanel();
     }
     createPanel(){
-        this.physics.add.sprite(240, 925, "panelBet");
-        this.physics.add.sprite(520, 956, "panelWin");
+        this.physics.add.sprite(85, 380, "panelBet");
+        this.physics.add.sprite(200, 390, "panelWin");
         this.physics.add.sprite(this.cameras.main.centerX, 60, "panelTotalCoin");
     }
     createBoxSlot(){
@@ -115,9 +115,9 @@ export class MainScene extends Phaser.Scene {
                 });
         });
         
-        this.physics.add.sprite(120, 1025, "btnMinus");
-        this.physics.add.sprite(220, 1025, "btnPlus");
-        this.physics.add.sprite(340, 1025, "btnMax");
+        this.physics.add.sprite(30, 420, "btnMinus");
+        this.physics.add.sprite(70, 420, "btnPlus");
+        this.physics.add.sprite(130, 420, "btnMax");
     }
 
     animateAcceptRule(data){

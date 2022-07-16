@@ -1,6 +1,6 @@
 import {MainScene} from './src/MainScene.js';
 
-const WIDTH = 375; //980 
+const WIDTH = screen.width; //980 
 const HEIGHT = 540; //1200
 
 var config = {
