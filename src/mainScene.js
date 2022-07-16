@@ -1,5 +1,5 @@
-const BLOCK_WIDTH = 170;
-const BLOCK_HEIGHT = 170;
+const BLOCK_WIDTH = 72;
+const BLOCK_HEIGHT = 72;
 
 const VELOCITY = 1;
 const MAX_COL = 5;
@@ -22,8 +22,8 @@ export class MainScene extends Phaser.Scene {
                
     }
     init(){
-        var startX = 65; // (980 - 850) /2 
-        var startY = 190;
+        var startX = 0; // (980 - 850) /2 
+        var startY = 72;
         
         this.boxSlots = [
             new BoxSlot(this, 4, VELOCITY, (BLOCK_WIDTH / 2), (BLOCK_HEIGHT / 2), startX, startY),
@@ -62,16 +62,16 @@ export class MainScene extends Phaser.Scene {
     }
 
     createShelf(){
-        this.physics.add.sprite(this.cameras.main.centerX, 720, "shelfBg");
+        this.physics.add.sprite(this.cameras.main.centerX, 250, "shelfBg");
         this.createBoxSlot();
-        this.physics.add.sprite(this.cameras.main.centerX, 980, "shelfBottom");
-        this.physics.add.sprite(this.cameras.main.centerX, 290, "shelfTop");
+        this.physics.add.sprite(this.cameras.main.centerX, 400, "shelfBottom");
+        this.physics.add.sprite(this.cameras.main.centerX, 100, "shelfTop");
         this.createPanel();
     }
     createPanel(){
         this.physics.add.sprite(240, 925, "panelBet");
         this.physics.add.sprite(520, 956, "panelWin");
-        this.physics.add.sprite(this.cameras.main.centerX, 180, "panelTotalCoin");
+        this.physics.add.sprite(this.cameras.main.centerX, 60, "panelTotalCoin");
     }
     createBoxSlot(){
         var dataSlot = Logic.splitDataToSlot(Logic.genData());
@@ -81,7 +81,7 @@ export class MainScene extends Phaser.Scene {
     }
     createButton(){
         var pressed = false;
-        this.physics.add.sprite(820, 980, "btnSpin01")
+        this.physics.add.sprite(320, 400, "btnSpin01")
             .setInteractive()
             .on('pointerdown', ()=>{       
                 if(pressed){
