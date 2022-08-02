@@ -18,7 +18,9 @@ export class MainScene extends Phaser.Scene {
     bid = 1;
 
     constructor (){
-        super(); 
+        super({
+            key: "MainScene"
+        }); 
                
     }
     init(){
@@ -34,29 +36,11 @@ export class MainScene extends Phaser.Scene {
         ]
     }
         
-    preload(){  
-        this.init();          
-        this.boxSlots.forEach(boxSlot => {
-            boxSlot.preload();
-        });
-
-        this.load.image("btnSpin01", 'assets/btn_spin.png');
-
-        this.load.image("shelfBg", 'assets/shelf_bg.png');
-        this.load.image("shelfBottom", 'assets/shelf_bottom.png');
-        this.load.image("shelfTop", 'assets/shelf_top.png');
-
-        this.load.image("btnMax", 'assets/btn_max.png');
-        this.load.image("btnMinus", 'assets/btn_minus.png');
-        this.load.image("btnPlus", 'assets/btn_plus.png');
-
-        this.load.image("panelBet", 'assets/panel_bet.png');
-        this.load.image("panelWin", 'assets/panel_win.png');
-        this.load.image("panelTotalCoin", 'assets/panel_total_coin.png');
+    preload(){
         
     }
     create(){   
-
+        this.init();
         this.createShelf();        
         this.createButton();   
     }

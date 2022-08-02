@@ -25,17 +25,6 @@ export class BoxSlot {
         this.paddingY = paddingY;
     }
     preload(){
-        scene.load.image('type1', 'assets/symbol_1.png');
-        scene.load.image('type2', 'assets/symbol_2.png');
-        scene.load.image('type3', 'assets/symbol_3.png');
-        scene.load.image('type4', 'assets/symbol_4.png');
-        scene.load.image('type5', 'assets/symbol_5.png');
-        scene.load.image('type6', 'assets/symbol_6.png');
-        scene.load.image('type7', 'assets/symbol_7.png');
-        scene.load.image('type8', 'assets/symbol_8.png');
-        scene.load.image('type9', 'assets/symbol_9.png');
-        scene.load.image('type10', 'assets/symbol_10.png');
-        scene.load.image('typeSp1', 'assets/symbol_sp1.png');
     }
     create (data){         
         this.setStart(data);

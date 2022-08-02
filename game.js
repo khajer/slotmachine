@@ -1,4 +1,5 @@
 import {MainScene} from './src/MainScene.js';
+import {PreloadingScene} from './src/PreloadingScene.js';
 
 const WIDTH = screen.width; //980 
 const HEIGHT = 540; //1200
@@ -13,7 +14,7 @@ var config = {
         default: 'arcade',
         arcade: {}
     },        
-    scene:[ MainScene ],
+    scene:[ PreloadingScene, MainScene ],
     parent: 'content',
 };
 var game = new Phaser.Game(config);    
