@@ -6,8 +6,8 @@ export class PreloadingScene extends Phaser.Scene {
             key: "PreloadingScene",
             pack: {
 				files: [
-					{ type: 'image', key: 'loadingbar_bg', url: 'assets/loading/loadingbar_bg.png' },
-					{ type: 'image', key: 'loadingbar_fill', url: 'assets/loading/loadingbar_fill.png' }
+					{ type: 'image', key: 'loadingbar_bg', url: 'assets/img/loading/loadingbar_bg.png' },
+					{ type: 'image', key: 'loadingbar_fill', url: 'assets/img/loading/loadingbar_fill.png' }
 				]
 			}
         }); 
@@ -25,31 +25,31 @@ export class PreloadingScene extends Phaser.Scene {
 		this.loadingbar_fill = this.add.sprite(this.canvas.width/2, this.canvas.height/2, "loadingbar_fill");
 		this.setPreloadSprite(this.loadingbar_fill);
 
-        this.load.image('type1', 'assets/symbols/1.png');
-        this.load.image('type2', 'assets/symbols/2.png');
-        this.load.image('type3', 'assets/symbols/3.png');
-        this.load.image('type4', 'assets/symbols/4.png');
-        this.load.image('type5', 'assets/symbols/5.png');
-        this.load.image('type6', 'assets/symbols/6.png');
-        this.load.image('type7', 'assets/symbols/7.png');
-        this.load.image('type8', 'assets/symbols/8.png');
-        this.load.image('type9', 'assets/symbols/9.png');
-        this.load.image('type10', 'assets/symbols/10.png');
-        this.load.image('typeSp1', 'assets/symbols/sp1.png');
+        this.load.image('type1', 'assets/img/symbols/1.png');
+        this.load.image('type2', 'assets/img/symbols/2.png');
+        this.load.image('type3', 'assets/img/symbols/3.png');
+        this.load.image('type4', 'assets/img/symbols/4.png');
+        this.load.image('type5', 'assets/img/symbols/5.png');
+        this.load.image('type6', 'assets/img/symbols/6.png');
+        this.load.image('type7', 'assets/img/symbols/7.png');
+        this.load.image('type8', 'assets/img/symbols/8.png');
+        this.load.image('type9', 'assets/img/symbols/9.png');
+        this.load.image('type10', 'assets/img/symbols/10.png');
+        this.load.image('typeSp1', 'assets/img/symbols/sp1.png');
         
         
-        this.load.image("shelfBg", 'assets/shelfs/bg.png');
-        this.load.image("shelfBottom", 'assets/shelfs/bottom.png');
-        this.load.image("shelfTop", 'assets/shelfs/top.png');
+        this.load.image("shelfBg", 'assets/img/shelfs/bg.png');
+        this.load.image("shelfBottom", 'assets/img/shelfs/bottom.png');
+        this.load.image("shelfTop", 'assets/img/shelfs/top.png');
 
-        this.load.image("btnSpin01", 'assets/buttons/spin.png');
-        this.load.image("btnMax", 'assets/buttons/max.png');
-        this.load.image("btnMinus", 'assets/buttons/minus.png');
-        this.load.image("btnPlus", 'assets/buttons/plus.png');
+        this.load.image("btnSpin01", 'assets/img/buttons/spin.png');
+        this.load.image("btnMax", 'assets/img/buttons/max.png');
+        this.load.image("btnMinus", 'assets/img/buttons/minus.png');
+        this.load.image("btnPlus", 'assets/img/buttons/plus.png');
 
-        this.load.image("panelBet", 'assets/panels/bet.png');
-        this.load.image("panelWin", 'assets/panels/win.png');
-        this.load.image("panelTotalCoin", 'assets/panels/total_coin.png');
+        this.load.image("panelBet", 'assets/img/panels/bet.png');
+        this.load.image("panelWin", 'assets/img/panels/win.png');
+        this.load.image("panelTotalCoin", 'assets/img/panels/total_coin.png');
         
     }
     setPreloadSprite(sprite){
