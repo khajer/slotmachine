@@ -21,6 +21,7 @@ export class MainScene extends Phaser.Scene {
     sfxCoin = null;
     sfxBtn = null;
     sfxError = null;
+    sfxSpin = null;
 
     constructor (){
         super({
@@ -63,6 +64,7 @@ export class MainScene extends Phaser.Scene {
         this.sfxCoin = this.sound.add('coin');
         this.sfxBtn = this.sound.add('btn');
         this.sfxError = this.sound.add('error');
+        this.sfxSpin = this.sound.add('spin', {volume:0.4});
 
     }
 
@@ -94,12 +96,14 @@ export class MainScene extends Phaser.Scene {
                 }
                 pressed = true;
                 this.sfxBtn.play();
+                this.sfxSpin.play();
 
                 var dataGen = Logic.genData();
                 var data = Logic.splitDataToSlot(dataGen);
                 this.boxSlots.forEach((boxSlot, idx) => {
                     boxSlot.spin(data[idx]).then(e=>{
                         if(idx===this.boxSlots.length -1 ){
+                            this.sfxSpin.stop();
                             console.log("all spin completed");    
                             var dataRule = Logic.checkDataRule(dataGen);
                             var addPoint = Logic.calcPoint(dataRule, this.bid);
@@ -114,8 +118,7 @@ export class MainScene extends Phaser.Scene {
                                 this.sfxError.play();
                                 console.log("No animateAcceptRule Already done");                                    
                                 pressed = false;
-                            }
-                            
+                            }                            
                         }                        
                     });
                 });

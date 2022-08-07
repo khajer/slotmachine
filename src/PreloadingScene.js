@@ -43,6 +43,7 @@ export class PreloadingScene extends Phaser.Scene {
         this.load.audio('coin', ['assets/snd/coin.mp3', 'snd/coin.ogg']);
         this.load.audio('btn', ['assets/snd/btn.mp3', 'snd/btn.ogg']);
         this.load.audio('error', ['assets/snd/error.mp3', 'snd/error.ogg']);
+        this.load.audio('spin', ['assets/snd/spin.mp3', 'snd/spin.ogg']);
 
         this.load.bitmapFont('fontwhite', 'assets/img/font/fontwhite.png', 'assets/img/font/fontwhite.xml');
 
