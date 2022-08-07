@@ -16,6 +16,7 @@ export class MainScene extends Phaser.Scene {
 
     point = 0;
     bid = 1;
+    txtPoint = null;
 
     constructor (){
         super({
@@ -37,12 +38,19 @@ export class MainScene extends Phaser.Scene {
     }
         
     preload(){
-        
+
     }
     create(){   
         this.init();
         this.createShelf();        
         this.createButton();   
+        this.createTextPoint();
+    }
+    
+    createTextPoint(){
+        this.txtPoint = this.add.bitmapText(220, 400, 'fontwhite', this.point+'');
+        this.txtPoint.fontSize = 14;
+		this.txtPoint.setOrigin(0.5).setCenterAlign();
     }
 
     createShelf(){
@@ -123,5 +131,9 @@ export class MainScene extends Phaser.Scene {
             },
             blinkTime);
         });
+    }
+
+    update(){
+        this.txtPoint.text = this.point + '';
     }
 }

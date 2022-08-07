@@ -36,7 +36,7 @@ export class PreloadingScene extends Phaser.Scene {
         this.load.image('type9', 'assets/img/symbols/9.png');
         this.load.image('type10', 'assets/img/symbols/10.png');
         this.load.image('typeSp1', 'assets/img/symbols/sp1.png');
-        
+
         
         this.load.image("shelfBg", 'assets/img/shelfs/bg.png');
         this.load.image("shelfBottom", 'assets/img/shelfs/bottom.png');
@@ -50,6 +50,10 @@ export class PreloadingScene extends Phaser.Scene {
         this.load.image("panelBet", 'assets/img/panels/bet.png');
         this.load.image("panelWin", 'assets/img/panels/win.png');
         this.load.image("panelTotalCoin", 'assets/img/panels/total_coin.png');
+        
+        this.load.audio('coin', ['assets/snd/coin.mp3', 'snd/coin.ogg']);
+        this.load.bitmapFont('fontwhite', 'assets/img/font/fontwhite.png', 'assets/img/font/fontwhite.xml');
+
         
     }
     setPreloadSprite(sprite){
