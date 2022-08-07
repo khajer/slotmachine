@@ -44,7 +44,7 @@ export class BoxSlot {
     setStart(data){
         this.groupBlock = [];                
         var typeId = (Math.floor(Math.random() * 100) % MAX_TYPE) + 1;
-        this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 0), "type" + typeId));
+        this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 0), "symbols", "type" + typeId));
         
 
         data.forEach((v, idx)=>{
@@ -52,7 +52,7 @@ export class BoxSlot {
             if(v === -10){
                 typeId = "typeSp1"
             }
-            this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * (idx+1)), typeId));
+            this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * (idx+1)), "symbols", typeId));
         });               
     }
     spin(data){
@@ -95,6 +95,7 @@ export class BoxSlot {
         var box = scene.physics.add.sprite(
             this.startX, 
             this.startY + (BLOCK_HEIGHT * -1), 
+            "symbols", 
             typeName);
             
         this.layer.add(box);
@@ -132,7 +133,8 @@ export class BoxSlot {
                 }
                 var box = scene.physics.add.sprite( 
                     this.startX, 
-                    startY,                    
+                    startY,
+                    "symbols",                    
                     typeName);
                 box.name = "box_" + i;
                 this.layer.add(box);

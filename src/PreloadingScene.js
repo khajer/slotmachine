@@ -25,18 +25,7 @@ export class PreloadingScene extends Phaser.Scene {
 		this.loadingbar_fill = this.add.sprite(this.canvas.width/2, this.canvas.height/2, "loadingbar_fill");
 		this.setPreloadSprite(this.loadingbar_fill);
 
-        this.load.image('type1', 'assets/img/symbols/1.png');
-        this.load.image('type2', 'assets/img/symbols/2.png');
-        this.load.image('type3', 'assets/img/symbols/3.png');
-        this.load.image('type4', 'assets/img/symbols/4.png');
-        this.load.image('type5', 'assets/img/symbols/5.png');
-        this.load.image('type6', 'assets/img/symbols/6.png');
-        this.load.image('type7', 'assets/img/symbols/7.png');
-        this.load.image('type8', 'assets/img/symbols/8.png');
-        this.load.image('type9', 'assets/img/symbols/9.png');
-        this.load.image('type10', 'assets/img/symbols/10.png');
-        this.load.image('typeSp1', 'assets/img/symbols/sp1.png');
-
+        this.load.atlas('symbols', 'assets/img/symbols/spritesheet.png', 'assets/img/symbols/sprites.json');
         
         this.load.image("shelfBg", 'assets/img/shelfs/bg.png');
         this.load.image("shelfBottom", 'assets/img/shelfs/bottom.png');
@@ -52,6 +41,8 @@ export class PreloadingScene extends Phaser.Scene {
         this.load.image("panelTotalCoin", 'assets/img/panels/total_coin.png');
         
         this.load.audio('coin', ['assets/snd/coin.mp3', 'snd/coin.ogg']);
+        this.load.audio('btn', ['assets/snd/btn.mp3', 'snd/btn.ogg']);
+
         this.load.bitmapFont('fontwhite', 'assets/img/font/fontwhite.png', 'assets/img/font/fontwhite.xml');
 
         

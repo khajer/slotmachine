@@ -18,6 +18,9 @@ export class MainScene extends Phaser.Scene {
     bid = 1;
     txtPoint = null;
 
+    sfxCoin = null;
+    sfxBtn = null;
+
     constructor (){
         super({
             key: "MainScene"
@@ -45,12 +48,20 @@ export class MainScene extends Phaser.Scene {
         this.createShelf();        
         this.createButton();   
         this.createTextPoint();
+
+        this.createSfx();
     }
     
     createTextPoint(){
         this.txtPoint = this.add.bitmapText(220, 400, 'fontwhite', this.point+'');
         this.txtPoint.fontSize = 14;
 		this.txtPoint.setOrigin(0.5).setCenterAlign();
+    }
+
+    createSfx(){
+        this.sfxCoin = this.sound.add('coin');
+        this.sfxBtn = this.sound.add('btn');
+
     }
 
     createShelf(){
@@ -80,19 +91,19 @@ export class MainScene extends Phaser.Scene {
                     return;
                 }
                 pressed = true;
+                this.sfxBtn.play();
 
                 var dataGen = Logic.genData();
                 var data = Logic.splitDataToSlot(dataGen);
                 this.boxSlots.forEach((boxSlot, idx) => {
                     boxSlot.spin(data[idx]).then(e=>{
                         if(idx===this.boxSlots.length -1 ){
-                            console.log("spin all completed");    
+                            console.log("all spin completed");    
                             var dataRule = Logic.checkDataRule(dataGen);
                             var addPoint = Logic.calcPoint(dataRule, this.bid);
-                            console.log(addPoint);
-                            this.point += addPoint;
-                            console.log("POINT : " + this.point);
+                            
                             if(dataRule.length > 0){
+                                this.acceptRuleAction(addPoint);
                                 this.animateAcceptRule(dataRule).then(()=>{
                                     console.log("animateAcceptRule Already done");                                    
                                     pressed = false;
@@ -110,6 +121,12 @@ export class MainScene extends Phaser.Scene {
         this.physics.add.sprite(30, 420, "btnMinus");
         this.physics.add.sprite(70, 420, "btnPlus");
         this.physics.add.sprite(130, 420, "btnMax");
+    }
+
+    acceptRuleAction(addPoint){
+        this.sfxCoin.play();
+        this.point += addPoint;
+
     }
 
     animateAcceptRule(data){

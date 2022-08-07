@@ -1,0 +1,15 @@
+{
+    "frames":[
+        {"filename":"type1", "frame": {"x":0,"y":0,"w":72,"h":72}},
+        {"filename":"type2", "frame": {"x":0,"y":73,"w":72,"h":72}},
+        {"filename":"type3", "frame": {"x":73,"y":0,"w":72,"h":72}},
+        {"filename":"type4", "frame": {"x":73,"y":73,"w":72,"h":72}},
+        {"filename":"type5", "frame": {"x":0,"y":146,"w":72,"h":72}},
+        {"filename":"type6", "frame": {"x":73,"y":146,"w":72,"h":72}},
+        {"filename":"type7", "frame": {"x":146,"y":0,"w":72,"h":72}},
+        {"filename":"type8", "frame": {"x":146,"y":73,"w":72,"h":72}},
+        {"filename":"type9", "frame": {"x":146,"y":146,"w":72,"h":72}},
+        {"filename":"type10", "frame": {"x":0,"y":219,"w":72,"h":72}},
+        {"filename":"typeSp1", "frame": {"x":73,"y":219,"w":72,"h":72}}
+    ]
+}
