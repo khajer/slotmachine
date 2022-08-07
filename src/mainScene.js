@@ -20,6 +20,7 @@ export class MainScene extends Phaser.Scene {
 
     sfxCoin = null;
     sfxBtn = null;
+    sfxError = null;
 
     constructor (){
         super({
@@ -61,6 +62,7 @@ export class MainScene extends Phaser.Scene {
     createSfx(){
         this.sfxCoin = this.sound.add('coin');
         this.sfxBtn = this.sound.add('btn');
+        this.sfxError = this.sound.add('error');
 
     }
 
@@ -109,6 +111,7 @@ export class MainScene extends Phaser.Scene {
                                     pressed = false;
                                 });
                             }else{
+                                this.sfxError.play();
                                 console.log("No animateAcceptRule Already done");                                    
                                 pressed = false;
                             }
