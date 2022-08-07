@@ -64,7 +64,7 @@ export class MainScene extends Phaser.Scene {
         this.sfxCoin = this.sound.add('coin');
         this.sfxBtn = this.sound.add('btn');
         this.sfxError = this.sound.add('error');
-        this.sfxSpin = this.sound.add('spin', {volume:0.4});
+        this.sfxSpin = this.sound.add('spin', {volume:0.2});
 
     }
 
