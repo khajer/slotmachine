@@ -31,7 +31,7 @@ export class MainScene extends Phaser.Scene {
     }
     init(){
         var startX = 0; // (980 - 850) /2 
-        var startY = 72;
+        var startY = 92;
         
         this.boxSlots = [
             new BoxSlot(this, 4, VELOCITY, (BLOCK_WIDTH / 2), (BLOCK_HEIGHT / 2), startX, startY),
@@ -55,7 +55,7 @@ export class MainScene extends Phaser.Scene {
     }
     
     createTextPoint(){
-        this.txtPoint = this.add.bitmapText(220, 400, 'fontwhite', this.point+'');
+        this.txtPoint = this.add.bitmapText(220, 420, 'fontwhite', this.point+'');
         this.txtPoint.fontSize = 14;
 		this.txtPoint.setOrigin(0.5).setCenterAlign();
     }
@@ -69,16 +69,16 @@ export class MainScene extends Phaser.Scene {
     }
 
     createShelf(){
-        this.physics.add.sprite(this.cameras.main.centerX, 250, "shelfBg");
+        this.physics.add.sprite(this.cameras.main.centerX, 332, "shelfBg");
         this.createBoxSlot();
-        this.physics.add.sprite(this.cameras.main.centerX, 400, "shelfBottom");
-        this.physics.add.sprite(this.cameras.main.centerX, 100, "shelfTop");
+        this.physics.add.sprite(this.cameras.main.centerX, 420, "shelfBottom");
+        this.physics.add.sprite(this.cameras.main.centerX, 98, "shelfTop");
         this.createPanel();
     }
     createPanel(){
-        this.physics.add.sprite(85, 380, "panelBet");
-        this.physics.add.sprite(200, 390, "panelWin");
-        this.physics.add.sprite(this.cameras.main.centerX, 60, "panelTotalCoin");
+        this.physics.add.sprite(85, 400, "panelBet");
+        this.physics.add.sprite(200, 410, "panelWin");
+        // this.physics.add.sprite(this.cameras.main.centerX, 60, "panelTotalCoin");
     }
     createBoxSlot(){
         var dataSlot = Logic.splitDataToSlot(Logic.genData());
@@ -88,7 +88,7 @@ export class MainScene extends Phaser.Scene {
     }
     createButton(){
         var pressed = false;
-        this.physics.add.sprite(320, 400, "btnSpin01")
+        this.physics.add.sprite(320, 420, "btnSpin01")
             .setInteractive()
             .on('pointerdown', ()=>{       
                 if(pressed){
@@ -124,9 +124,9 @@ export class MainScene extends Phaser.Scene {
                 });
         });
         
-        this.physics.add.sprite(30, 420, "btnMinus");
-        this.physics.add.sprite(70, 420, "btnPlus");
-        this.physics.add.sprite(130, 420, "btnMax");
+        this.physics.add.sprite(30, 440, "btnMinus");
+        this.physics.add.sprite(70, 440, "btnPlus");
+        this.physics.add.sprite(130, 440, "btnMax");
     }
 
     acceptRuleAction(addPoint){
