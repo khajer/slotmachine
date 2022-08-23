@@ -1,15 +1,15 @@
 {
     "frames":[
-        {"filename":"type1", "frame": {"x":0,"y":0,"w":72,"h":72}},
-        {"filename":"type2", "frame": {"x":0,"y":73,"w":72,"h":72}},
-        {"filename":"type3", "frame": {"x":73,"y":0,"w":72,"h":72}},
-        {"filename":"type4", "frame": {"x":73,"y":73,"w":72,"h":72}},
-        {"filename":"type5", "frame": {"x":0,"y":146,"w":72,"h":72}},
-        {"filename":"type6", "frame": {"x":73,"y":146,"w":72,"h":72}},
-        {"filename":"type7", "frame": {"x":146,"y":0,"w":72,"h":72}},
-        {"filename":"type8", "frame": {"x":146,"y":73,"w":72,"h":72}},
-        {"filename":"type9", "frame": {"x":146,"y":146,"w":72,"h":72}},
-        {"filename":"type10", "frame": {"x":0,"y":219,"w":72,"h":72}},
-        {"filename":"typeSp1", "frame": {"x":73,"y":219,"w":72,"h":72}}
+        {"filename":"type1", "frame": {"x":0,"y":130,"w":65,"h":56}},
+        {"filename":"type2", "frame": {"x":0,"y":83,"w":50,"h":46}},
+        {"filename":"type3", "frame": {"x":135,"y":42,"w":53,"h":39}},
+        {"filename":"type4", "frame": {"x":135,"y":82,"w":48,"h":54}},
+        {"filename":"type5", "frame": {"x":66,"y":130,"w":67,"h":55}},
+        {"filename":"type6", "frame": {"x":83,"y":0,"w":51,"h":38}},
+        {"filename":"type7", "frame": {"x":135,"y":0,"w":55,"h":41}},
+        {"filename":"type8", "frame": {"x":83,"y":39,"w":39,"h":47}},
+        {"filename":"type9", "frame": {"x":135,"y":137,"w":49,"h":48}},
+        {"filename":"type10", "frame": {"x":83,"y":87,"w":47,"h":40}},
+        {"filename":"typeSp1", "frame": {"x":0,"y":0,"w":82,"h":82}}
     ]
 }

@@ -1,5 +1,5 @@
-const BLOCK_WIDTH = 72;
-const BLOCK_HEIGHT = 72;
+const BLOCK_WIDTH = 60;
+const BLOCK_HEIGHT = 60;
 
 const VELOCITY = 1;
 const MAX_COL = 5;
@@ -29,16 +29,18 @@ export class MainScene extends Phaser.Scene {
         }); 
                
     }
-    init(){
-        var startX = 0; // (980 - 850) /2 
-        var startY = 92;
+    init(){        
+        var canvas = this.sys.game.canvas;
         
+        const boxStartX = (canvas.width - (BLOCK_WIDTH*5))/2;
+        const boxStartY = 80;
+
         this.boxSlots = [
-            new BoxSlot(this, 4, VELOCITY, (BLOCK_WIDTH / 2), (BLOCK_HEIGHT / 2), startX, startY),
-            new BoxSlot(this, 8, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 1), (BLOCK_HEIGHT / 2), startX, startY),
-            new BoxSlot(this, 12, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 2), (BLOCK_HEIGHT / 2), startX, startY),
-            new BoxSlot(this, 16, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 3), (BLOCK_HEIGHT / 2), startX, startY),
-            new BoxSlot(this, 20, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 4), (BLOCK_HEIGHT / 2), startX, startY)
+            new BoxSlot(this, 4, VELOCITY, (BLOCK_WIDTH / 2), (BLOCK_HEIGHT / 2), boxStartX, boxStartY),
+            new BoxSlot(this, 8, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 1), (BLOCK_HEIGHT / 2), boxStartX, boxStartY),
+            new BoxSlot(this, 12, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 2), (BLOCK_HEIGHT / 2), boxStartX, boxStartY),
+            new BoxSlot(this, 16, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 3), (BLOCK_HEIGHT / 2), boxStartX, boxStartY),
+            new BoxSlot(this, 20, VELOCITY, (BLOCK_WIDTH / 2) + (BLOCK_WIDTH * 4), (BLOCK_HEIGHT / 2), boxStartX, boxStartY)
         ]
     }
         
@@ -69,10 +71,10 @@ export class MainScene extends Phaser.Scene {
     }
 
     createShelf(){
-        this.physics.add.sprite(this.cameras.main.centerX, 332, "shelfBg");
+        this.physics.add.sprite(this.cameras.main.centerX, 280, "shelfBg");
         this.createBoxSlot();
-        this.physics.add.sprite(this.cameras.main.centerX, 420, "shelfBottom");
-        this.physics.add.sprite(this.cameras.main.centerX, 98, "shelfTop");
+        this.physics.add.sprite(this.cameras.main.centerX, 372, "shelfBottom");
+        this.physics.add.sprite(this.cameras.main.centerX, 102, "shelfTop");
         this.createPanel();
     }
     createPanel(){

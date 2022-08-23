@@ -1,5 +1,5 @@
-const BLOCK_WIDTH = 72;
-const BLOCK_HEIGHT = 72;
+const BLOCK_WIDTH = 60;
+const BLOCK_HEIGHT = 60;
 const SHOW_MAX_BOX = 3;
 const MAX_TYPE = 10;
 
