@@ -90,46 +90,59 @@ export class MainScene extends Phaser.Scene {
     }
     createButton(){
         var pressed = false;
-        this.physics.add.sprite(320, 420, "btnSpin01")
+        var btnSpin = this.physics.add.sprite(320, 380, "btnSpin01")
             .setInteractive()
-            .on('pointerdown', ()=>{       
+            .on('pointerdown', ()=>{
+                if(pressed){
+                    return;
+                }
+                btnSpin.setTexture("btnSpin01Pressed")
+            })
+            .on('pointerup', ()=>{       
                 if(pressed){
                     return;
                 }
                 pressed = true;
-                this.sfxBtn.play();
-                this.sfxSpin.play();
-
-                var dataGen = Logic.genData();
-                var data = Logic.splitDataToSlot(dataGen);
-                this.boxSlots.forEach((boxSlot, idx) => {
-                    boxSlot.spin(data[idx]).then(e=>{
-                        if(idx===this.boxSlots.length -1 ){
-                            this.sfxSpin.stop();
-                            console.log("all spin completed");    
-                            var dataRule = Logic.checkDataRule(dataGen);
-                            var addPoint = Logic.calcPoint(dataRule, this.bid);
-                            
-                            if(dataRule.length > 0){
-                                this.acceptRuleAction(addPoint);
-                                this.animateAcceptRule(dataRule).then(()=>{
-                                    console.log("animateAcceptRule Already done");                                    
-                                    pressed = false;
-                                });
-                            }else{
-                                this.sfxError.play();
-                                console.log("No animateAcceptRule Already done");                                    
-                                pressed = false;
-                            }                            
-                        }                        
-                    });
-                });
+                this.spinFunc(btnSpin, (result)=>{
+                    pressed = false;
+                });                
         });
         
         this.physics.add.sprite(30, 440, "btnMinus");
         this.physics.add.sprite(70, 440, "btnPlus");
         this.physics.add.sprite(130, 440, "btnMax");
     }
+    spinFunc(btnSpin, cb){
+        btnSpin.setTexture("btnSpin01")
+        this.sfxBtn.play();
+        this.sfxSpin.play();
+
+        var dataGen = Logic.genData();
+        var data = Logic.splitDataToSlot(dataGen);
+        this.boxSlots.forEach((boxSlot, idx) => {
+            boxSlot.spin(data[idx]).then(e=>{
+                if(idx===this.boxSlots.length -1 ){
+                    this.sfxSpin.stop();
+                    console.log("all spin completed");    
+                    var dataRule = Logic.checkDataRule(dataGen);
+                    var addPoint = Logic.calcPoint(dataRule, this.bid);
+                    
+                    if(dataRule.length > 0){
+                        this.acceptRuleAction(addPoint);
+                        this.animateAcceptRule(dataRule).then(()=>{
+                            console.log("animateAcceptRule Already done");                                    
+                            cb(false);
+                        });
+                    }else{
+                        this.sfxError.play();
+                        console.log("No animateAcceptRule Already done");         
+                        cb(false);                           
+                    }                            
+                }                        
+            });
+        });
+    }
+    
 
     acceptRuleAction(addPoint){
         this.sfxCoin.play();

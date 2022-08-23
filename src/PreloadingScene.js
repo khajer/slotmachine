@@ -32,13 +32,14 @@ export class PreloadingScene extends Phaser.Scene {
         this.load.image("shelfTop", 'assets/img/shelfs/top.png');
 
         this.load.image("btnSpin01", 'assets/img/buttons/spin.png');
+        this.load.image("btnSpin01Pressed", 'assets/img/buttons/spinPressed.png');
         this.load.image("btnMax", 'assets/img/buttons/max.png');
         this.load.image("btnMinus", 'assets/img/buttons/minus.png');
         this.load.image("btnPlus", 'assets/img/buttons/plus.png');
 
         this.load.image("panelBet", 'assets/img/panels/bet.png');
         this.load.image("panelWin", 'assets/img/panels/win.png');
-        this.load.image("panelTotalCoin", 'assets/img/panels/total_coin.png');
+        this.load.image("panelTotalCoin", 'assets/img/panels/totalPanel.png');
         
         this.load.audio('coin', ['assets/snd/coin.mp3', 'snd/coin.ogg']);
         this.load.audio('btn', ['assets/snd/btn.mp3', 'snd/btn.ogg']);
