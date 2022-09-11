@@ -10,8 +10,7 @@ export class PreloadingScene extends Phaser.Scene {
 					{ type: 'image', key: 'loadingbar_fill', url: 'assets/img/loading/loadingbar_fill.png' }
 				]
 			}
-        }); 
-               
+        });                
     }
 
     init(){
@@ -39,7 +38,7 @@ export class PreloadingScene extends Phaser.Scene {
 
         this.load.image("panelBet", 'assets/img/panels/bet.png');
         this.load.image("panelWin", 'assets/img/panels/win.png');
-        this.load.image("panelTotalCoin", 'assets/img/panels/totalPanel.png');
+        this.load.image("panelTotalPoint", 'assets/img/panels/totalPoint.png');
         
         this.load.audio('coin', ['assets/snd/coin.mp3', 'snd/coin.ogg']);
         this.load.audio('btn', ['assets/snd/btn.mp3', 'snd/btn.ogg']);
@@ -47,6 +46,7 @@ export class PreloadingScene extends Phaser.Scene {
         this.load.audio('spin', ['assets/snd/spin.mp3', 'snd/spin.ogg']);
 
         this.load.bitmapFont('fontwhite', 'assets/img/font/fontwhite.png', 'assets/img/font/fontwhite.xml');
+        this.load.bitmapFont('fontblack', 'assets/img/font/fontblack.png', 'assets/img/font/fontblack.xml');
 
         
     }

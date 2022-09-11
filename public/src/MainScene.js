@@ -15,8 +15,12 @@ export class MainScene extends Phaser.Scene {
     groupBlock = [];
 
     point = 0;
-    bid = 1;
+    bid = 0;
+    totalPoint = 1000;
+    
     txtPoint = null;
+    txtBid = null;
+    txtTotalPoint = null;
 
     sfxCoin = null;
     sfxBtn = null;
@@ -33,7 +37,7 @@ export class MainScene extends Phaser.Scene {
         var canvas = this.sys.game.canvas;
         
         const boxStartX = (canvas.width - (BLOCK_WIDTH*5))/2;
-        const boxStartY = 80;
+        const boxStartY = 80 +40;
 
         this.boxSlots = [
             new BoxSlot(this, 4, VELOCITY, (BLOCK_WIDTH / 2), (BLOCK_HEIGHT / 2), boxStartX, boxStartY),
@@ -51,16 +55,10 @@ export class MainScene extends Phaser.Scene {
         this.init();
         this.createShelf();        
         this.createButton();   
-        this.createTextPoint();
-
         this.createSfx();
     }
     
-    createTextPoint(){
-        this.txtPoint = this.add.bitmapText(220, 420, 'fontwhite', this.point+'');
-        this.txtPoint.fontSize = 14;
-		this.txtPoint.setOrigin(0.5).setCenterAlign();
-    }
+    
 
     createSfx(){
         this.sfxCoin = this.sound.add('coin');
@@ -71,16 +69,32 @@ export class MainScene extends Phaser.Scene {
     }
 
     createShelf(){
-        this.physics.add.sprite(this.cameras.main.centerX, 280, "shelfBg");
+        this.physics.add.sprite(this.cameras.main.centerX, 60, "panelTotalPoint");
+        this.txtTotalPoint = this.add.bitmapText(this.cameras.main.centerX, 70, 'fontblack', this.point+'');
+        this.txtTotalPoint.fontSize = 24;
+		this.txtTotalPoint.setOrigin(0.5).setRightAlign();
+        this.txtTotalPoint.setText(this.totalPoint + '');
+        
+        
+        this.physics.add.sprite(this.cameras.main.centerX, 280+40, "shelfBg");
         this.createBoxSlot();
-        this.physics.add.sprite(this.cameras.main.centerX, 372, "shelfBottom");
-        this.physics.add.sprite(this.cameras.main.centerX, 102, "shelfTop");
+        this.physics.add.sprite(this.cameras.main.centerX, 372+40, "shelfBottom");
+        this.physics.add.sprite(this.cameras.main.centerX, 102+40, "shelfTop");
+
         this.createPanel();
     }
     createPanel(){
-        this.physics.add.sprite(85, 400, "panelBet");
-        this.physics.add.sprite(200, 410, "panelWin");
-        // this.physics.add.sprite(this.cameras.main.centerX, 60, "panelTotalCoin");
+        this.physics.add.sprite(this.cameras.main.centerX-110, 362+40, "panelBet");
+        this.txtBid = this.add.bitmapText(this.cameras.main.centerX-85, 360+40, 'fontblack', this.point+'');
+        this.txtBid.fontSize = 14;
+		this.txtBid.setOrigin(0.5).setRightAlign();
+        this.txtBid.setText(this.bid + '');
+
+        this.physics.add.sprite(this.cameras.main.centerX+30, 380+40, "panelWin");
+        this.txtPoint = this.add.bitmapText(this.cameras.main.centerX+40, 386+40, 'fontblack', this.point+'');
+        this.txtPoint.fontSize = 20;
+		this.txtPoint.setOrigin(0.5).setRightAlign();
+        
     }
     createBoxSlot(){
         var dataSlot = Logic.splitDataToSlot(Logic.genData());
@@ -90,7 +104,7 @@ export class MainScene extends Phaser.Scene {
     }
     createButton(){
         var pressed = false;
-        var btnSpin = this.physics.add.sprite(320, 380, "btnSpin01")
+        var btnSpin = this.physics.add.sprite(this.cameras.main.centerX + 140, 380+40, "btnSpin01")
             .setInteractive()
             .on('pointerdown', ()=>{
                 if(pressed){
@@ -106,13 +120,52 @@ export class MainScene extends Phaser.Scene {
                 this.spinFunc(btnSpin, (result)=>{
                     pressed = false;
                 });                
-        });
+            });
         
-        this.physics.add.sprite(30, 440, "btnMinus");
-        this.physics.add.sprite(70, 440, "btnPlus");
-        this.physics.add.sprite(130, 440, "btnMax");
+        var btnMinus = this.physics.add.sprite(this.cameras.main.centerX-155, 400+40, "btnMinus")
+            .setInteractive()
+            .on('pointerdown', ()=>{          
+                btnMinus.setAlpha(0.5);
+                
+            })
+            .on('pointerup', ()=>{
+                btnMinus.setAlpha(1);
+                if(this.bid >= 10){
+                    this.bid -= 10;
+                    this.txtBid.text = this.bid + '';
+                }                
+            });
+        
+        var btnPlus = this.physics.add.sprite(this.cameras.main.centerX-125, 400+40, "btnPlus")
+            .setInteractive()
+            .on('pointerdown', ()=>{         
+                btnPlus.setAlpha(0.5);                       
+            })
+            .on('pointerup', ()=>{
+                btnPlus.setAlpha(1);
+                if(this.bid < 100){
+                    this.bid += 10;
+                    this.txtBid.text = this.bid + '';
+                    
+                    // this.txtTotalPoint.setText((this.totalPoint - this.bid)+ '');
+                }                
+            });
+        var btnMax = this.physics.add.sprite(this.cameras.main.centerX-70, 400+40, "btnMax")
+            .setInteractive()
+            .on('pointerdown', ()=>{     
+                btnMax.setAlpha(0.5);            
+            })
+            .on('pointerup', ()=>{
+                btnMax.setAlpha(1);         
+                this.bid = 100;
+                this.txtBid.text = this.bid + '';   
+                this.txtTotalPoint.setText((this.totalPoint - this.bid)+ '');
+            });
     }
     spinFunc(btnSpin, cb){
+
+        // this.totalPoint -= this.bid;
+
         btnSpin.setTexture("btnSpin01")
         this.sfxBtn.play();
         this.sfxSpin.play();
