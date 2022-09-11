@@ -24,6 +24,7 @@ export class MainScene extends Phaser.Scene {
 
     sfxCoin = null;
     sfxBtn = null;
+    sfxBtn1 = null;
     sfxError = null;
     sfxSpin = null;
 
@@ -63,6 +64,7 @@ export class MainScene extends Phaser.Scene {
     createSfx(){
         this.sfxCoin = this.sound.add('coin');
         this.sfxBtn = this.sound.add('btn');
+        this.sfxBtn1 = this.sound.add('btn1');
         this.sfxError = this.sound.add('error');
         this.sfxSpin = this.sound.add('spin', {volume:0.2});
 
@@ -129,6 +131,7 @@ export class MainScene extends Phaser.Scene {
                 
             })
             .on('pointerup', ()=>{
+                this.sfxBtn1.play();
                 btnMinus.setAlpha(1);
                 if(this.bid >= 10){
                     this.bid -= 10;
@@ -136,18 +139,17 @@ export class MainScene extends Phaser.Scene {
                 }                
             });
         
-        var btnPlus = this.physics.add.sprite(this.cameras.main.centerX-125, 400+40, "btnPlus")
+        var btnPlus = this.physics.add.sprite(this.cameras.main.centerX-115, 400+40, "btnPlus")
             .setInteractive()
             .on('pointerdown', ()=>{         
                 btnPlus.setAlpha(0.5);                       
             })
             .on('pointerup', ()=>{
+                this.sfxBtn1.play();
                 btnPlus.setAlpha(1);
                 if(this.bid < 100){
                     this.bid += 10;
                     this.txtBid.text = this.bid + '';
-                    
-                    // this.txtTotalPoint.setText((this.totalPoint - this.bid)+ '');
                 }                
             });
         var btnMax = this.physics.add.sprite(this.cameras.main.centerX-70, 400+40, "btnMax")
@@ -156,6 +158,7 @@ export class MainScene extends Phaser.Scene {
                 btnMax.setAlpha(0.5);            
             })
             .on('pointerup', ()=>{
+                this.sfxBtn1.play();
                 btnMax.setAlpha(1);         
                 this.bid = 100;
                 this.txtBid.text = this.bid + '';   
