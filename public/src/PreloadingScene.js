@@ -14,11 +14,11 @@ export class PreloadingScene extends Phaser.Scene {
     }
 
     init(){
-        console.log("init");
+        // console.log("init");
     }
     preload(){  
         
-        console.log("preloading");
+        // console.log("preloading");
         this.canvas = this.sys.game.canvas;
         this.loadingbar_bg   = this.add.sprite(this.canvas.width/2, this.canvas.height/2, "loadingbar_bg");
 		this.loadingbar_fill = this.add.sprite(this.canvas.width/2, this.canvas.height/2, "loadingbar_fill");
@@ -39,6 +39,7 @@ export class PreloadingScene extends Phaser.Scene {
 
         this.load.image("panelBet", 'assets/img/panels/bet.png');
         this.load.image("panelWin", 'assets/img/panels/win.png');
+        this.load.image("panelGameover", 'assets/img/panels/gameover.png');
 
         this.load.atlas('panelHeads', 'assets/img/panels/panelHeadSprite.png', 'assets/img/panels/panelHeadSprite.json');
         this.load.image("panelTotalPointMain", 'assets/img/panels/totalPointMain.png');
@@ -49,7 +50,7 @@ export class PreloadingScene extends Phaser.Scene {
         this.load.audio('error', ['assets/snd/error.mp3', 'snd/error.ogg']);
         this.load.audio('spin', ['assets/snd/spin.mp3', 'snd/spin.ogg']);
 
-        this.load.bitmapFont('fontwhite', 'assets/img/font/fontwhite.png', 'assets/img/font/fontwhite.xml');
+        // this.load.bitmapFont('fontwhite', 'assets/img/font/fontwhite.png', 'assets/img/font/fontwhite.xml');
         this.load.bitmapFont('fontblack', 'assets/img/font/fontblack.png', 'assets/img/font/fontblack.xml');
 
         
@@ -67,7 +68,7 @@ export class PreloadingScene extends Phaser.Scene {
 		{
 			// calculate width based on value=0.0 .. 1.0
 			var w = Math.floor(this.preloadSprite.width * value);
-			console.log('onProgress: value=' + value + " w=" + w);
+			// console.log('onProgress: value=' + value + " w=" + w);
 			
 			// sprite.frame.width cannot be zero
 			//w = (w <= 0 ? 1 : w);
@@ -82,11 +83,11 @@ export class PreloadingScene extends Phaser.Scene {
 	}
 	
 	onFileProgress(file) {
-		console.log('onFileProgress: file.key=' + file.key);
+		// console.log('onFileProgress: file.key=' + file.key);
 	}
 
     create(){
-        console.log("create");
+        
         this.loadingbar_bg.destroy();
 		this.loadingbar_fill.destroy();
 		this.preloadSprite = null;

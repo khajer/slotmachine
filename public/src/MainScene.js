@@ -11,13 +11,14 @@ export class MainScene extends Phaser.Scene {
     boxSlots = [];
 
     panelHead = null;
+    panelGameover = null;
 
     dataSlot = [];
     groupBlock = [];
 
     point = 0;
-    bid = 10;
-    totalPoint = 1000;
+    bid = 0;
+    totalPoint = 0;
     
     txtPoint = null;
     txtBid = null;
@@ -58,6 +59,30 @@ export class MainScene extends Phaser.Scene {
         this.createShelf();        
         this.createButton();   
         this.createSfx();
+        this.createGameOverPanel();
+        
+        this.resetStartGame();
+    }
+
+    resetStartGame(){
+        this.point = 0;
+        this.txtPoint.setText("");
+        
+        this.bid = 10;
+        this.txtBid.setText(this.bid + '');
+
+        this.totalPoint = 200; //500
+        this.txtTotalPoint.setText(this.totalPoint + '');
+        
+    }
+    createGameOverPanel(){
+        this.panelGameover = this.physics.add.sprite(this.cameras.main.centerX, this.cameras.main.centerY, "panelGameover")
+        .setInteractive()            
+        .on('pointerup', ()=>{
+            this.resetStartGame();
+            this.panelGameover.visible = false;
+        });
+        this.panelGameover.visible = false;
     }
     
     createSfx(){
@@ -148,7 +173,7 @@ export class MainScene extends Phaser.Scene {
             .on('pointerup', ()=>{
                 this.sfxBtn1.play();
                 btnPlus.setAlpha(1);
-                if(this.bid < 100){
+                if(this.bid < 100 && this.totalPoint > this.bid){
                     this.bid += 10;
                     this.txtBid.text = this.bid + '';
                 }                
@@ -162,6 +187,10 @@ export class MainScene extends Phaser.Scene {
                 this.sfxBtn1.play();
                 btnMax.setAlpha(1);         
                 this.bid = 100;
+                if(this.totalPoint < this.bid){
+                    this.bid = this.totalPoint;
+                }
+                
                 this.txtBid.text = this.bid + '';                   
             });
 
@@ -178,7 +207,7 @@ export class MainScene extends Phaser.Scene {
                     return;
                 }
                 pressed = true;
-                this.spinFunc(btnSpin, (result)=>{
+                this.spinFunc(btnSpin, ()=>{
                     pressed = false;
                 });                
             }); 
@@ -199,7 +228,6 @@ export class MainScene extends Phaser.Scene {
             boxSlot.spin(data[idx]).then(e=>{
                 if(idx===this.boxSlots.length -1 ){
                     this.sfxSpin.stop();
-
                     this.checkEveryThinkWhenSpinStop(dataGen, cb);                                           
                 }                        
             });
@@ -212,16 +240,23 @@ export class MainScene extends Phaser.Scene {
         
         if(dataRule.length > 0){
             this.acceptRuleAction(addPoint);
-            this.animateAcceptRule(dataRule).then(()=>{
-                // console.log("animateAcceptRule Already done");                                    
-                cb(false);
+            this.animateAcceptRule(dataRule).then(()=>{                
+                cb();
             });
         }else{
-            this.panelHead.play("lose");
+            
+            this.panelHead.play("lose");            
             this.txtPoint.setText("0");
-            this.sfxError.play();
-            // console.log("No animateAcceptRule Already done");         
-            cb(false);                           
+            this.sfxError.play();   
+            if(this.totalPoint < this.bid){
+                this.bid = this.totalPoint;
+                this.txtBid.text = this.bid+"";
+            }         
+    
+            if(this.totalPoint <= 0){
+                this.panelGameover.visible = true;
+            }
+            cb();                           
         } 
     }
     
