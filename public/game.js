@@ -14,6 +14,8 @@ var config = {
         default: 'arcade',
         arcade: {}
     },        
+    // backgroundColor: '#ffffff',
+    transparent: true,
     scene:[ PreloadingScene, MainScene ],
     parent: 'content',
 };

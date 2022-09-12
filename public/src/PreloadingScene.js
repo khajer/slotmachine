@@ -17,7 +17,7 @@ export class PreloadingScene extends Phaser.Scene {
         console.log("init");
     }
     preload(){  
-
+        
         console.log("preloading");
         this.canvas = this.sys.game.canvas;
         this.loadingbar_bg   = this.add.sprite(this.canvas.width/2, this.canvas.height/2, "loadingbar_bg");

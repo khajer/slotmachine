@@ -199,12 +199,12 @@ export class MainScene extends Phaser.Scene {
                 if(idx===this.boxSlots.length -1 ){
                     this.sfxSpin.stop();
 
-                    this.checkEveryThinkWhenSpinTop(dataGen, cb);                                           
+                    this.checkEveryThinkWhenSpinStop(dataGen, cb);                                           
                 }                        
             });
         });
     }
-    checkEveryThinkWhenSpinTop(dataGen, cb){
+    checkEveryThinkWhenSpinStop(dataGen, cb){
         console.log("all spin completed");    
         var dataRule = Logic.checkDataRule(dataGen);
         var addPoint = Logic.calcPoint(dataRule, this.bid);
