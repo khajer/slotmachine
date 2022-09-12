@@ -2,6 +2,7 @@ const BLOCK_WIDTH = 60;
 const BLOCK_HEIGHT = 60;
 const SHOW_MAX_BOX = 3;
 const MAX_TYPE = 10;
+const MAX_COL = 5;
 
 let gVelocity = 1;
 let scene = null;
@@ -46,7 +47,6 @@ export class BoxSlot {
         var typeId = (Math.floor(Math.random() * 100) % MAX_TYPE) + 1;
         this.groupBlock.push(scene.physics.add.sprite(this.startX, this.startY + (BLOCK_HEIGHT * 0), "symbols", "type" + typeId));
         
-
         data.forEach((v, idx)=>{
             var typeId = "type" + v;
             if(v === -10){
@@ -99,7 +99,7 @@ export class BoxSlot {
             typeName);
             
         this.layer.add(box);
-        var dy = BLOCK_HEIGHT * 5;
+        var dy = BLOCK_HEIGHT * MAX_COL;
         
         scene.tweens.add({
             targets: [box],

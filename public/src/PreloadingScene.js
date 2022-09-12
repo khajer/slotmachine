@@ -26,6 +26,7 @@ export class PreloadingScene extends Phaser.Scene {
 
         this.load.atlas('symbols', 'assets/img/symbols/spritesheet.png', 'assets/img/symbols/sprites.json');
         
+        
         this.load.image("shelfBg", 'assets/img/shelfs/bg.png');
         this.load.image("shelfBottom", 'assets/img/shelfs/bottom.png');
         this.load.image("shelfTop", 'assets/img/shelfs/top.png');
@@ -38,7 +39,9 @@ export class PreloadingScene extends Phaser.Scene {
 
         this.load.image("panelBet", 'assets/img/panels/bet.png');
         this.load.image("panelWin", 'assets/img/panels/win.png');
-        this.load.image("panelTotalPoint", 'assets/img/panels/totalPoint.png');
+
+        this.load.atlas('panelHeads', 'assets/img/panels/panelHeadSprite.png', 'assets/img/panels/panelHeadSprite.json');
+        this.load.image("panelTotalPointMain", 'assets/img/panels/totalPointMain.png');
         
         this.load.audio('coin', ['assets/snd/coin.mp3', 'snd/coin.ogg']);
         this.load.audio('btn', ['assets/snd/btn.mp3', 'snd/btn.ogg']);

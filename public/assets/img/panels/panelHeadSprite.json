@@ -1,0 +1,7 @@
+{
+    "frames":[
+        {"filename":"head1", "frame": {"x":0,"y":0,"w":200,"h":43}},
+        {"filename":"head2", "frame": {"x":0,"y":44,"w":200,"h":43}},
+        {"filename":"head3", "frame": {"x":0,"y":88,"w":200,"h":43}}        
+    ]
+}
