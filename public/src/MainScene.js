@@ -81,13 +81,10 @@ export class MainScene extends Phaser.Scene {
         this.anims.create({
             key: 'normal',
             frames: [
-                { key: 'panelHeads', frame: 'head1' },
-                { key: 'panelHeads', frame: 'head2',},
-                { key: 'panelHeads', frame: 'head1' },
-                { key: 'panelHeads', frame: 'head1' },
-                { key: 'panelHeads', frame: 'head1' },
+                { key: 'panelHeads', frame: 'head1' , duration: 4000},
+                { key: 'panelHeads', frame: 'head2'}                
             ],
-            frameRate: 1,
+            frameRate: 8,
             repeat: -1
         });
         this.anims.create({
