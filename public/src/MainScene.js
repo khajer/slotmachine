@@ -69,14 +69,7 @@ export class MainScene extends Phaser.Scene {
     }
 
     createShelf(){
-        this.panelHead = this.physics.add.sprite(this.cameras.main.centerX, 24, "panelHeads", "head1");
-        // Animation set
-        // this.anims.create({
-        //     key: 'normal',
-        //     frames: this.anims.generateFrameNumbers('panelHeads', { frames: ["head1", "head2"] }),
-        //     frameRate: 1,
-        //     repeat: -1
-        // });
+        this.panelHead = this.physics.add.sprite(this.cameras.main.centerX, 24, "panelHeads", "head1");        
                 
         this.anims.create({
             key: 'normal',

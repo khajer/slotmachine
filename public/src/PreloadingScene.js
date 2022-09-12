@@ -87,6 +87,9 @@ export class PreloadingScene extends Phaser.Scene {
 
     create(){
         console.log("create");
+        this.loadingbar_bg.destroy();
+		this.loadingbar_fill.destroy();
+		this.preloadSprite = null;
         this.scene.start('MainScene');
     }
 
