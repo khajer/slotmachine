@@ -161,13 +161,14 @@ export class MainScene extends Phaser.Scene {
                 this.sfxBtn1.play();
                 btnMax.setAlpha(1);         
                 this.bid = 100;
-                this.txtBid.text = this.bid + '';   
-                this.txtTotalPoint.setText((this.totalPoint - this.bid)+ '');
+                this.txtBid.text = this.bid + '';                   
             });
     }
     spinFunc(btnSpin, cb){
 
-        // this.totalPoint -= this.bid;
+        this.totalPoint -= this.bid;
+        this.txtTotalPoint.setText(this.totalPoint+ '');
+        this.txtPoint.setText("");
 
         btnSpin.setTexture("btnSpin01")
         this.sfxBtn.play();
@@ -190,6 +191,7 @@ export class MainScene extends Phaser.Scene {
                             cb(false);
                         });
                     }else{
+                        this.txtPoint.setText("0");
                         this.sfxError.play();
                         console.log("No animateAcceptRule Already done");         
                         cb(false);                           
@@ -202,7 +204,11 @@ export class MainScene extends Phaser.Scene {
 
     acceptRuleAction(addPoint){
         this.sfxCoin.play();
-        this.point += addPoint;
+        this.totalPoint += addPoint;
+        
+        this.txtTotalPoint.setText(this.totalPoint+ '');
+        
+        this.txtPoint.setText(addPoint+"");
 
     }
 
@@ -228,6 +234,5 @@ export class MainScene extends Phaser.Scene {
     }
 
     update(){
-        this.txtPoint.text = this.point + '';
     }
 }
