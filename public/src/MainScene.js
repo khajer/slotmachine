@@ -16,7 +16,7 @@ export class MainScene extends Phaser.Scene {
     groupBlock = [];
 
     point = 0;
-    bid = 0;
+    bid = 10;
     totalPoint = 1000;
     
     txtPoint = null;
@@ -125,33 +125,16 @@ export class MainScene extends Phaser.Scene {
     }
     createButton(){
         var pressed = false;
-        var btnSpin = this.physics.add.sprite(this.cameras.main.centerX + 140, 420, "btnSpin01")
-            .setInteractive()
-            .on('pointerdown', ()=>{
-                if(pressed){
-                    return;
-                }
-                btnSpin.setTexture("btnSpin01Pressed")
-            })
-            .on('pointerup', ()=>{       
-                if(pressed){
-                    return;
-                }
-                pressed = true;
-                this.spinFunc(btnSpin, (result)=>{
-                    pressed = false;
-                });                
-            });        
+              
         var btnMinus = this.physics.add.sprite(this.cameras.main.centerX-155, 440, "btnMinus")
             .setInteractive()
             .on('pointerdown', ()=>{          
-                btnMinus.setAlpha(0.5);
-                
+                btnMinus.setAlpha(0.5);                
             })
             .on('pointerup', ()=>{
                 this.sfxBtn1.play();
                 btnMinus.setAlpha(1);
-                if(this.bid >= 10){
+                if(this.bid > 10){
                     this.bid -= 10;
                     this.txtBid.text = this.bid + '';
                 }                
@@ -181,6 +164,24 @@ export class MainScene extends Phaser.Scene {
                 this.bid = 100;
                 this.txtBid.text = this.bid + '';                   
             });
+
+        var btnSpin = this.physics.add.sprite(this.cameras.main.centerX + 140, 420, "btnSpin01")
+            .setInteractive()
+            .on('pointerdown', ()=>{
+                if(pressed || this.bid === 0){
+                    return;
+                }
+                btnSpin.setTexture("btnSpin01Pressed")
+            })
+            .on('pointerup', ()=>{       
+                if(pressed || this.bid === 0){
+                    return;
+                }
+                pressed = true;
+                this.spinFunc(btnSpin, (result)=>{
+                    pressed = false;
+                });                
+            }); 
     }
     spinFunc(btnSpin, cb){
         this.panelHead.play("normal");
@@ -205,21 +206,21 @@ export class MainScene extends Phaser.Scene {
         });
     }
     checkEveryThinkWhenSpinStop(dataGen, cb){
-        console.log("all spin completed");    
+        // console.log("all spin completed");    
         var dataRule = Logic.checkDataRule(dataGen);
         var addPoint = Logic.calcPoint(dataRule, this.bid);
         
         if(dataRule.length > 0){
             this.acceptRuleAction(addPoint);
             this.animateAcceptRule(dataRule).then(()=>{
-                console.log("animateAcceptRule Already done");                                    
+                // console.log("animateAcceptRule Already done");                                    
                 cb(false);
             });
         }else{
             this.panelHead.play("lose");
             this.txtPoint.setText("0");
             this.sfxError.play();
-            console.log("No animateAcceptRule Already done");         
+            // console.log("No animateAcceptRule Already done");         
             cb(false);                           
         } 
     }

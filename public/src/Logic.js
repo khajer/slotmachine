@@ -329,7 +329,7 @@ var checkSlop = (data, direction) => {
     
     }
 
-    if (tmp.length >= 3){                    
+    if (tmp.length >= 5){                    
         return tmp;
     }
     return [];
